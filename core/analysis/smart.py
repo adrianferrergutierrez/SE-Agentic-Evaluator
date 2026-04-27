@@ -56,6 +56,10 @@ _SMART_SIGNALS: Dict[str, List[str]] = {
         r"\b(measure|measurable|quantify|percentage|rate|metric|indicator|kpi)\b",
         r"\d+\s*%",
         r"\b\d+\s*(veces|usuarios|documentos|horas?)\b",
+        # Medidas de tiempo específicas
+        r"\b\d+\s*(segundos?|minutos?|horas?|días?|ms|milisegundos?)\b",
+        # Expresiones de límite con números
+        r"\b(en\s+menos\s+de|menos\s+de|máximo|como\s+máximo)\s+\d+\b",
     ],
     "achievable": [
         r"\b(viable|factible|alcanzable|realista|posible)\b",
@@ -69,6 +73,12 @@ _SMART_SIGNALS: Dict[str, List[str]] = {
         r"\b(plazo|fecha|semana|mes|año|trimestre|semestre|calendario)\b",
         r"\b(deadline|by|within|week|month|year|quarter|semester|schedule)\b",
         r"\b(al\s+final(izar)?|antes\s+de|para\s+el)\b",
+        # Patrones de tiempo relativos con cantidades
+        r"\b(en\s+menos\s+de|en\s+más\s+de|hasta\s+)\s*\d+\s*(minutos?|segundos?|horas?|días?|semanas?|meses?)\b",
+        # Tiempo real y automático
+        r"\b(tiempo\s+real|tiempo\s+real|inmediato|instantáneo|automático|automática)\b",
+        # Frecuencias temporales
+        r"\b(frecuencia|periódic|diari|semanal|mensual|anual|trimestral)\b",
     ],
 }
 

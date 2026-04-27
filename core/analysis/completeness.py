@@ -44,7 +44,7 @@ def build_prompt(requirements_md: str, prompt_path: Optional[Path] = None) -> st
 
 def analyze_completeness(
     requirements_md: str,
-    model: str = "qwen3",
+    model: str = "qwen2.5-coder:1.5b",
     ollama_url: str = "http://localhost:11434/api/chat",
     prompt_path: Optional[Path] = None,
 ) -> str:

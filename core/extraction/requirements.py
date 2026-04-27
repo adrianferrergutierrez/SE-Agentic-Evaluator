@@ -33,7 +33,7 @@ def build_prompt(document: str, prompt_path: Optional[Path] = None) -> str:
 
 def extract_requirements(
     document: str,
-    model: str = "qwen3",
+    model: str = "qwen2.5-coder:1.5b",
     ollama_url: str = "http://localhost:11434/api/chat",
     prompt_path: Optional[Path] = None,
 ) -> str:
