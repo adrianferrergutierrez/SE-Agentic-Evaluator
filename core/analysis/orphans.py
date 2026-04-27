@@ -183,10 +183,15 @@ def detect_orphans(
 
     Notes
     -----
-    Emits ``logging.WARNING`` messages (via this module's logger) for each
-    undeclared objective that is encountered.  These are surfaced in
-    ``OrphanReport.undeclared_objectives`` and rendered in a dedicated
-    section of :meth:`OrphanReport.as_markdown`.
+    Side effects
+        Emits ``logging.WARNING`` messages (via this module's logger) for
+        each requirement that references an objective not declared in
+        *objectives_md*.  These undeclared IDs are also captured in
+        ``OrphanReport.undeclared_objectives`` and rendered in a dedicated
+        ``⚠️ Undeclared Objectives`` section by
+        :meth:`OrphanReport.as_markdown`.  Callers can suppress these
+        warnings by adjusting the log level of the ``core.analysis.orphans``
+        logger.
     """
     # Collect all objective IDs declared in the objectives block
     obj_ids: Set[str] = _extract_ids(_OBJ_ID, objectives_md)

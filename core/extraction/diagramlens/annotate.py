@@ -28,12 +28,15 @@ import argparse
 import base64
 import io
 import json
+import logging
 import os
 import re
 import sys
 import unicodedata
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
+
+logger = logging.getLogger(__name__)
 
 # ---------------------------------------------------------------------------
 # Optional heavy dependencies – gracefully degrade when not available so that
@@ -119,10 +122,13 @@ def call_ollama(
             raise ImportError("The 'Pillow' package is required for image handling.")
         # Read the file once; validate from an in-memory buffer to avoid a
         # second disk access, then reuse the same bytes for encoding.
+        # OSError covers PIL.UnidentifiedImageError (a subclass) and I/O
+        # failures; SyntaxError is raised by some format decoders for
+        # structurally corrupt images (e.g. truncated JPEG segments).
         raw = Path(image_path).read_bytes()
         try:
             _Image.open(io.BytesIO(raw)).verify()
-        except Exception as exc:
+        except (OSError, SyntaxError) as exc:
             raise ValueError(f"Invalid or corrupt image file '{image_path}': {exc}") from exc
         message["images"] = [base64.b64encode(raw).decode("utf-8")]
 
@@ -323,7 +329,10 @@ def describe_diagram(
             predicted_category = pre_categorize_with_context(
                 context_info, categories, model, temperature=0.1
             )
-        except Exception:
+        except Exception as exc:
+            # Pre-categorisation is non-fatal: the main describe prompt will
+            # still run without the category hint.
+            logger.debug("Pre-categorisation failed (non-fatal): %s", exc)
             predicted_category = None
 
     # Build categorisation prompt

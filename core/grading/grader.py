@@ -108,7 +108,7 @@ class ScoreExtractor:
     # Characters from the end of the text to examine in the fallback heuristic.
     # Decimal numbers near the end of an evaluation are more likely to be the
     # final score than inline counts or step numbers.
-    _FALLBACK_TAIL_SIZE: int = 200
+    FALLBACK_TAIL_SIZE: int = 200
 
     # Ordered list of patterns – most specific first
     _PATTERNS: List[str] = [
@@ -167,7 +167,7 @@ class ScoreExtractor:
         2. Any number in [0, 10] from the full text (least specific).
         """
         # Prefer decimal numbers near the end of the evaluation text.
-        tail = text[-self._FALLBACK_TAIL_SIZE:] if len(text) > self._FALLBACK_TAIL_SIZE else text
+        tail = text[-self.FALLBACK_TAIL_SIZE:] if len(text) > self.FALLBACK_TAIL_SIZE else text
         decimal_in_range = [
             n for n in re.findall(r"\b(\d+\.\d+)\b", tail)
             if 0.0 <= float(n) <= 10.0
