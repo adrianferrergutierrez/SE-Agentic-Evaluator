@@ -22,6 +22,26 @@ from typing import Dict, List, Optional
 
 
 # ---------------------------------------------------------------------------
+# Localised improvement notes (Spanish)
+# To add another language, create a dict with the same keys.
+# ---------------------------------------------------------------------------
+_NOTES: Dict[str, str] = {
+    "not_measurable": (
+        "No se detectaron métricas medibles. "
+        "Añade KPIs, porcentajes u otras magnitudes cuantificables."
+    ),
+    "not_time_bound": (
+        "Sin indicadores temporales. "
+        "Añade un plazo concreto o un hito de referencia."
+    ),
+    "not_specific": (
+        "El objetivo puede ser demasiado vago. "
+        "Añade alcance y restricciones específicas."
+    ),
+}
+
+
+# ---------------------------------------------------------------------------
 # Heuristic SMART signals
 # ---------------------------------------------------------------------------
 
@@ -140,11 +160,11 @@ def evaluate_smart_heuristic(
     result.time_bound = _check_signals(objective_text, "time_bound")
 
     if not result.measurable:
-        result.notes.append("No se detectaron métricas medibles. Añade KPIs, porcentajes u otras magnitudes cuantificables.")
+        result.notes.append(_NOTES["not_measurable"])
     if not result.time_bound:
-        result.notes.append("Sin indicadores temporales. Añade un plazo concreto o un hito de referencia.")
+        result.notes.append(_NOTES["not_time_bound"])
     if not result.specific:
-        result.notes.append("El objetivo puede ser demasiado vago. Añade alcance y restricciones específicas.")
+        result.notes.append(_NOTES["not_specific"])
 
     return result
 

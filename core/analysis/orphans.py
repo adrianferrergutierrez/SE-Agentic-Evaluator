@@ -177,6 +177,16 @@ def detect_orphans(
     -------
     OrphanReport
         Dataclass with lists of orphan IDs plus full coverage mappings.
+        ``OrphanReport.undeclared_objectives`` contains every OBJ ID that
+        a requirement references but that was not declared in
+        *objectives_md*.
+
+    Notes
+    -----
+    Emits ``logging.WARNING`` messages (via this module's logger) for each
+    undeclared objective that is encountered.  These are surfaced in
+    ``OrphanReport.undeclared_objectives`` and rendered in a dedicated
+    section of :meth:`OrphanReport.as_markdown`.
     """
     # Collect all objective IDs declared in the objectives block
     obj_ids: Set[str] = _extract_ids(_OBJ_ID, objectives_md)

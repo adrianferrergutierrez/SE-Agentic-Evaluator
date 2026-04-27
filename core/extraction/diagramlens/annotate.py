@@ -26,6 +26,7 @@ from __future__ import annotations
 
 import argparse
 import base64
+import io
 import json
 import os
 import re
@@ -118,10 +119,9 @@ def call_ollama(
             raise ImportError("The 'Pillow' package is required for image handling.")
         # Read the file once; validate from an in-memory buffer to avoid a
         # second disk access, then reuse the same bytes for encoding.
-        import io as _io
         raw = Path(image_path).read_bytes()
         try:
-            _Image.open(_io.BytesIO(raw)).verify()
+            _Image.open(io.BytesIO(raw)).verify()
         except Exception as exc:
             raise ValueError(f"Invalid or corrupt image file '{image_path}': {exc}") from exc
         message["images"] = [base64.b64encode(raw).decode("utf-8")]
@@ -455,7 +455,7 @@ def process_markdown_document(
     last_idx = 0
 
     for idx, img_info in enumerate(iterator, 1):
-        new_md_parts.append(md_text[last_idx: img_info["start"]])
+        new_md_parts.append(md_text[last_idx:img_info["start"]])
         new_md_parts.append(img_info["full_match"])
 
         img_path_str = unicodedata.normalize("NFC", img_info["path"]).strip()
