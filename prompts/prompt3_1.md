@@ -1,10 +1,10 @@
-# prompt3_1 — Evaluación por criterios (plantilla)
+# prompt3_1 — Redirección
 
-Objetivo: puntuar según rúbrica, validando:
-- Objetivos bajo SMART
-- NFRs bajo ISO/IEC 25010
-- Claridad, verificabilidad, completitud y consistencia
-
-Salida:
-- Puntuación por criterio con justificación trazable
-- Observaciones y recomendaciones
+> **Nota:** Este archivo fue el placeholder inicial.
+> Los prompts reales importados de `Lamb-Project/SE-rubric-evaluAItor` se encuentran en:
+> - `3_1_evaluacion_objetivos.md`
+> - `3_1_evaluacion_requisitos_info.md`
+> - `3_2_evaluacion_requisitos_info.md`
+> - `3_3_evaluacion_requisitos_nf.md`
+> - `3_4_evaluacion_caso_uso.md`
+> - `3_5_evaluacion_matrices.md`

@@ -1,16 +1,23 @@
-# OCR
-pytesseract>=0.3.10
+# HTTP client (required for all Ollama calls)
+requests>=2.31.0,<3.0.0
+
+# Image processing (required by core/extraction/diagramlens/)
 Pillow>=10.0.0
 
-# PDF processing
+# Rich terminal output (optional, for progress bars in DiagramLens CLI)
+rich>=13.0.0
+
+# PDF processing (for converting PDFs to Markdown before evaluation)
 pymupdf>=1.23.0
+
+# OCR fallback (optional, for scanned PDFs)
+pytesseract>=0.3.10
 
 # Markdown processing
 markdown-it-py>=3.0.0
 
-# Computer vision
-opencv-python>=4.8.0
-
-# Data handling
+# Data validation (optional, for structured outputs)
 pydantic>=2.0.0
+
+# Numeric utilities (optional, for extended grading statistics)
 numpy>=1.26.0

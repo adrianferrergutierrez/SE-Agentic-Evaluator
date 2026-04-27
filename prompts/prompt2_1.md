@@ -1,9 +1,6 @@
-# prompt2_1 — Coherencia, completitud y trazabilidad (plantilla)
+# prompt2_1 — Redirección
 
-Objetivo: comprobar consistencia entre objetivos ↔ requisitos ↔ diseño ↔ evidencias.
-
-Chequeos mínimos:
-- Matriz de trazabilidad (objetivos → requisitos)
-- Detección de requisitos huérfanos (sin objetivo)
-- Detección de objetivos sin requisitos que los soporten
-- Ambigüedades y contradicciones (con evidencias)
+> **Nota:** Este archivo fue el placeholder inicial.
+> Los prompts reales importados de `Lamb-Project/SE-rubric-evaluAItor` se encuentran en:
+> - `2_1_analisis_trazabilidad.md`
+> - `2_2_analisis_completitud.md`

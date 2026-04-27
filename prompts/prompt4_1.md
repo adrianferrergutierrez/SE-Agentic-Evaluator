@@ -1,8 +1,5 @@
-# prompt4_1 — Síntesis (plantilla)
+# prompt4_1 — Redirección
 
-Objetivo: generar informe final para docencia:
-- Resumen ejecutivo
-- Fortalezas / debilidades
-- Tabla de puntuaciones
-- Recomendaciones priorizadas
-- Nota: “Asistente complementario, no sustitutivo”
+> **Nota:** Este archivo fue el placeholder inicial.
+> El prompt real importado de `Lamb-Project/SE-rubric-evaluAItor` se encuentra en:
+> - `4_1_generacion_informe.md`

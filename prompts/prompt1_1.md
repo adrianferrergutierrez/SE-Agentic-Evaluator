@@ -1,8 +1,7 @@
-# prompt1_1 — Extracción (plantilla)
+# prompt1_1 — Redirección
 
-Objetivo: extraer objetivos, requisitos (funcionales y no funcionales), supuestos, restricciones, criterios de aceptación y referencias a diagramas.
-
-Salida recomendada:
-- Lista de objetivos (IDs)
-- Lista de requisitos (IDs), tipo (FR/NFR), fuente (página/sección), evidencia (cita)
-- Inventario de figuras/diagramas con breve descripción
+> **Nota:** Este archivo fue el placeholder inicial.
+> Los prompts reales importados de `Lamb-Project/SE-rubric-evaluAItor` se encuentran en:
+> - `1_1_extraccion_objetivos.md`
+> - `1_2_extraccion_requisitos.md`
+> - `1_3_extraccion_casos_de_uso.md`
