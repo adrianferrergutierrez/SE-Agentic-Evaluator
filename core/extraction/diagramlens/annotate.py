@@ -116,8 +116,15 @@ def call_ollama(
     if image_path is not None:
         if _Image is None:
             raise ImportError("The 'Pillow' package is required for image handling.")
-        _Image.open(image_path).verify()
-        message["images"] = [_load_image_as_base64(image_path)]
+        # Read the file once; validate from an in-memory buffer to avoid a
+        # second disk access, then reuse the same bytes for encoding.
+        import io as _io
+        raw = Path(image_path).read_bytes()
+        try:
+            _Image.open(_io.BytesIO(raw)).verify()
+        except Exception as exc:
+            raise ValueError(f"Invalid or corrupt image file '{image_path}': {exc}") from exc
+        message["images"] = [base64.b64encode(raw).decode("utf-8")]
 
     payload: Dict[str, Any] = {
         "model": model,
@@ -181,7 +188,7 @@ def find_image_refs_with_context(
         context_end = min(len(md_text), end_idx + context_size)
         text_after = md_text[end_idx:context_end]
         para_breaks_after = [text_after.find("\n\n"), text_after.find("\n#")]
-        para_end = min([p for p in para_breaks_after if p > 0], default=len(text_after))
+        para_end = min((p for p in para_breaks_after if p > 0), default=len(text_after))
         text_after = text_after[:para_end].strip()
 
         # Nearest heading

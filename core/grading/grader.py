@@ -154,12 +154,38 @@ class ScoreExtractor:
         return self._fallback(text, criterion)
 
     def _fallback(self, text: str, criterion: str) -> Optional[str]:
-        """Last-resort: find any number in [0, 10] range."""
+        """Last-resort: find any number in [0, 10] range.
+
+        Preference order:
+        1. Decimal numbers (e.g. ``8.5``) in the last 200 characters of
+           *text* – most likely to be a final score rather than a count.
+        2. Any number in [0, 10] from the full text (least specific).
+        """
+        # Prefer decimal numbers near the end of the evaluation text.
+        tail = text[-200:] if len(text) > 200 else text
+        decimal_in_range = [
+            n for n in re.findall(r"\b(\d+\.\d+)\b", tail)
+            if 0.0 <= float(n) <= 10.0
+        ]
+        if decimal_in_range:
+            result = decimal_in_range[-1]
+            logger.warning(
+                "Fallback score extraction for %s (decimal near end of text): %s "
+                "– verify this is the intended score",
+                criterion, result,
+            )
+            return result
+
+        # Fall back to any number in valid range.
         numbers = re.findall(r"\b(\d+\.?\d*)\b", text)
-        candidates = [n for n in numbers if 0 <= float(n) <= 10]
+        candidates = [n for n in numbers if 0.0 <= float(n) <= 10.0]
         if candidates:
             result = candidates[-1]
-            logger.warning("Fallback score extraction for %s: %s", criterion, result)
+            logger.warning(
+                "Fallback score extraction for %s (any number in [0,10]): %s "
+                "– verify this is the intended score and not a count or step number",
+                criterion, result,
+            )
             return result
         logger.warning("Could not extract score for %s", criterion)
         return None

@@ -140,11 +140,11 @@ def evaluate_smart_heuristic(
     result.time_bound = _check_signals(objective_text, "time_bound")
 
     if not result.measurable:
-        result.notes.append("No measurable metrics detected. Add KPIs or percentages.")
+        result.notes.append("No se detectaron métricas medibles. Añade KPIs, porcentajes u otras magnitudes cuantificables.")
     if not result.time_bound:
-        result.notes.append("No time-bound signals. Add a deadline or milestone.")
+        result.notes.append("Sin indicadores temporales. Añade un plazo concreto o un hito de referencia.")
     if not result.specific:
-        result.notes.append("Objective may be too vague. Add specific scope/constraints.")
+        result.notes.append("El objetivo puede ser demasiado vago. Añade alcance y restricciones específicas.")
 
     return result
 

@@ -14,9 +14,12 @@ computes the orphan sets.
 
 from __future__ import annotations
 
+import logging
 import re
 from dataclasses import dataclass, field
-from typing import Dict, List, Set, Tuple
+from typing import Dict, List, Set
+
+logger = logging.getLogger(__name__)
 
 
 # ---------------------------------------------------------------------------
@@ -84,6 +87,10 @@ class OrphanReport:
         IDs of IRQ/NFR items that have no associated objective.
     orphan_objectives:
         IDs of OBJ items that have no requirements associated with them.
+    undeclared_objectives:
+        IDs of OBJ items referenced by requirements but **not declared**
+        in the objectives document.  These indicate a data-quality issue:
+        a requirement points to an objective that doesn't exist.
     objective_ids:
         All objective IDs found in *objectives_md*.
     requirement_ids:
@@ -95,6 +102,7 @@ class OrphanReport:
     """
     orphan_requirements: List[str] = field(default_factory=list)
     orphan_objectives: List[str] = field(default_factory=list)
+    undeclared_objectives: List[str] = field(default_factory=list)
     objective_ids: List[str] = field(default_factory=list)
     requirement_ids: List[str] = field(default_factory=list)
     req_to_objs: Dict[str, List[str]] = field(default_factory=dict)
@@ -105,10 +113,11 @@ class OrphanReport:
         lines = ["# Orphan Detection Report\n"]
 
         lines.append(f"\n## Summary\n")
-        lines.append(f"- **Total objectives:** {len(self.objective_ids)}\n")
+        lines.append(f"- **Total objectives declared:** {len(self.objective_ids)}\n")
         lines.append(f"- **Total requirements:** {len(self.requirement_ids)}\n")
         lines.append(f"- **Orphan requirements (no objective):** {len(self.orphan_requirements)}\n")
         lines.append(f"- **Orphan objectives (no requirements):** {len(self.orphan_objectives)}\n")
+        lines.append(f"- **Undeclared objectives (referenced but not defined):** {len(self.undeclared_objectives)}\n")
 
         if self.orphan_requirements:
             lines.append("\n## Orphan Requirements (not linked to any objective)\n")
@@ -123,6 +132,19 @@ class OrphanReport:
                 lines.append(f"- **{oid}**: no IRQ or NFR is associated with this objective\n")
         else:
             lines.append("\n## Orphan Objectives\n\n✅ None found – all objectives are covered by at least one requirement.\n")
+
+        if self.undeclared_objectives:
+            lines.append("\n## ⚠️ Undeclared Objectives (referenced in requirements but not defined)\n")
+            lines.append(
+                "\nThe following objective IDs appear in the requirements' "
+                "`Objetivos asociados` field but were **not found** in the "
+                "objectives document.  This is a data-quality issue that "
+                "should be resolved before grading.\n\n"
+            )
+            for oid in sorted(self.undeclared_objectives):
+                reqs = self.obj_to_reqs.get(oid, [])
+                refs = ", ".join(sorted(reqs))
+                lines.append(f"- **{oid}**: referenced by {refs} — not declared in objectives\n")
 
         lines.append("\n## Objective Coverage\n")
         for oid in sorted(self.objective_ids):
@@ -173,24 +195,44 @@ def detect_orphans(
     # Orphan requirements: those with empty (or absent) objective list
     orphan_reqs = sorted(rid for rid, objs in req_to_objs.items() if not objs)
 
-    # Build reverse mapping: objective → requirements that reference it
+    # Build reverse mapping: objective → requirements that reference it.
+    # Track objectives that are referenced but were never declared.
+    declared_obj_ids: Set[str] = set(obj_ids)  # snapshot before any mutation
     obj_to_reqs: Dict[str, List[str]] = {oid: [] for oid in obj_ids}
+    undeclared_objs: List[str] = []
+
     for rid, objs in req_to_objs.items():
         for oid in objs:
             if oid in obj_to_reqs:
                 obj_to_reqs[oid].append(rid)
             else:
-                # Objective referenced by a requirement but not declared
+                # Requirement references an objective that was not declared.
+                # Log a warning and track it separately so the caller can
+                # surface it as a data-quality issue rather than silently
+                # treating it as a normal objective.
+                logger.warning(
+                    "Requirement %s references objective %s which is not "
+                    "declared in the objectives document.",
+                    rid, oid,
+                )
+                if oid not in undeclared_objs:
+                    undeclared_objs.append(oid)
                 obj_to_reqs[oid] = [rid]
                 obj_ids.add(oid)
 
-    # Orphan objectives: those with no requirements referencing them
-    orphan_objs = sorted(oid for oid, reqs in obj_to_reqs.items() if not reqs)
+    # Orphan objectives: declared objectives with no requirements referencing
+    # them.  Undeclared objectives are excluded from this list because they
+    # are already reported in a dedicated section.
+    orphan_objs = sorted(
+        oid for oid in declared_obj_ids
+        if not obj_to_reqs.get(oid)
+    )
 
     return OrphanReport(
         orphan_requirements=orphan_reqs,
         orphan_objectives=orphan_objs,
-        objective_ids=sorted(obj_ids),
+        undeclared_objectives=sorted(undeclared_objs),
+        objective_ids=sorted(declared_obj_ids),
         requirement_ids=sorted(all_req_ids),
         req_to_objs=req_to_objs,
         obj_to_reqs=obj_to_reqs,
