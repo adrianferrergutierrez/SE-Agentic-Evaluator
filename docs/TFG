@@ -1,0 +1,1038 @@
+# 
+
+# 
+
+# 
+
+# 
+
+**SE-AGENTIC-EVALUATOR: SISTEMA D'EVALUACIÓ ASSISTIDA PER IA AGÈNTICA PER A ENGINYERIA DEL SOFTWARE**
+
+##  
+
+## Entrega final
+
+## 
+
+**ADRIÁN FERRER GUTIÉRREZ** 
+
+**Director/a**   
+MARC ALIER FORMENT (Departament d'Enginyeria de Serveis i Sistemes d'Informació) 
+
+**Titulació**   
+Grau en Enginyeria Informàtica (Enginyeria del Software) 
+
+**Memòria del treball de fi de grau** 
+
+**Facultat d'Informàtica de Barcelona (FIB)** 
+
+**Universitat Politècnica de Catalunya (UPC) \- BarcelonaTech**
+
+18/03/2026  
+**ÍNDEX**
+
+[**Llista de Figures	3**](#llista-de-figures)
+
+[**Llista de taules	3**](#llista-de-taules)
+
+[**1\. Introducció i context	4**](#introducció-i-context)
+
+[1.1 Definicions importants	4](#1.1-definicions-importants)
+
+[1.1.1 Agent d'IA	4](#1.1.1-agent-d'ia)
+
+[1.1.2 LMS (Learning Management System)	4](#1.1.2-lms-\(learning-management-system\))
+
+[1.1.3 Skill (opencode.ai)	4](#1.1.3-skill-\(opencode.ai\))
+
+[1.1.4 LLM (Large Language Model)	5](#1.1.4-llm-\(large-language-model\))
+
+[1.1.5 Ollama	5](#1.1.5-ollama)
+
+[1.1.6 Rúbrica d'Avaluació amb IA	5](#1.1.6-rúbrica-d'avaluació-amb-ia)
+
+[1.1.7 Visió Multimodal	5](#1.1.7-visió-multimodal)
+
+[1.1.8 RGPD (Reglament General de Protecció de Dades)	5](#1.1.8-rgpd-\(reglament-general-de-protecció-de-dades\))
+
+[1.2 Identificació del problema	6](#1.2-identificació-del-problema)
+
+[1.3 Stakeholders	6](#1.3-stakeholders)
+
+[1.3.1 Professors i Docents	6](#1.3.1-professors-i-docents)
+
+[1.3.2 Equip LAMB (ICE-UPC)	7](#1.3.2-equip-lamb-\(ice-upc\))
+
+[1.3.3 Estudiants (Indirectes)	7](#1.3.3-estudiants-\(indirectes\))
+
+[1.3.4 Futurs Desenvolupadors de Skills	7](#1.3.4-futurs-desenvolupadors-de-skills)
+
+[1.4 Evolució del projecte	7](#1.4-evolució-del-projecte)
+
+[**2\. Justificació	8**](#justificació)
+
+[**3\. Abast	9**](#abast)
+
+[3.1 Objectius genèrics i sub-objectius del projecte	9](#3.1-objectius-genèrics-i-sub-objectius-del-projecte)
+
+[3.2 Requeriments funcionals i no-funcionals	10](#3.2-requeriments-funcionals-i-no-funcionals)
+
+[3.2.1 Requeriments Funcionals (Històries d'usuari) :	10](#3.2.1-requeriments-funcionals-\(històries-d'usuari\)-:)
+
+[3.2.2 Requeriments No-funcionals:	10](#3.2.2-requeriments-no-funcionals:)
+
+[3\. 3 Riscos	11](#3.-3-riscos)
+
+[**4\. Metodologia i rigor	12**](#metodologia-i-rigor)
+
+[4.1 Metodologia emprada	12](#4.1-metodologia-emprada)
+
+[4.2 Mètode de validació	13](#4.2-mètode-de-validació)
+
+[**5\. Planificació temporal	14**](#5.-planificació-temporal)
+
+[5.1 Dades globals i calendari	14](#5.1-dades-globals-i-calendari)
+
+[5.2 Recursos del projecte	14](#5.2-recursos-del-projecte)
+
+[5.2.1 Recursos humans (rols de l'autor)	14](#5.2.1-recursos-humans-\(rols-de-l'autor\))
+
+[5.2.2 Recursos físics	15](#5.2.2-recursos-físics)
+
+[5.2.3 Recursos de software	15](#5.2.3-recursos-de-software)
+
+[5.3 Descripció de les tasques	15](#5.3-descripció-de-les-tasques)
+
+[5.3.1 Gestió de Projectes (GEP) (18/02 – 18/03/2026)	15](#5.3.1-gestió-de-projectes-\(gep\)-\(18/02-–-18/03/2026\))
+
+[5.3.2 Tasques de Gestió del Projecte (transversal, setmanes 1-16)	16](#5.3.2-tasques-de-gestió-del-projecte-\(transversal,-setmanes-1-16\))
+
+[5.3.3 Tasques de Desenvolupament	17](#5.3.3-tasques-de-desenvolupament)
+
+[5.3.4 Tasques de documentació	19](#5.3.4-tasques-de-documentació)
+
+[**6\. Estimacions i Taula Resum	20**](#6.-estimacions-i-taula-resum)
+
+[6.1 Diagrama de Gantt	22](#6.1-diagrama-de-gantt)
+
+[**7\. Gestió del Risc: Plans alternatius i obstacles	23**](#7.-gestió-del-risc:-plans-alternatius-i-obstacles)
+
+[**8\. Pressupost	24**](#8.-pressupost)
+
+[8.1 Identificació i estimació dels costos	24](#8.1-identificació-i-estimació-dels-costos)
+
+[8.1.1 Costos de personal per activitat (CPA)	24](#8.1.1-costos-de-personal-per-activitat-\(cpa\))
+
+[8.1.2 Costos genèrics (CG)	25](#8.1.2-costos-genèrics-\(cg\))
+
+[8.1.2.1 Hardware	25](#8.1.2.1-hardware)
+
+[8.1.2.2 Software	26](#8.1.2.2-software)
+
+[8.1.2.3 Despeses generals	26](#8.1.2.3-despeses-generals)
+
+[8.1.2.4 Resum Costos Genèrics (CG)	27](#8.1.2.4-resum-costos-genèrics-\(cg\))
+
+[8.1.3 Total de costos directes	27](#8.1.3-total-de-costos-directes)
+
+[8.1.4 Contingència	27](#8.1.4-contingència)
+
+[8.1.5 Imprevistos	27](#8.1.5-imprevistos)
+
+[8.1.6 Resum del pressupost total	28](#8.1.6-resum-del-pressupost-total)
+
+[8.2 Control de gestió	28](#8.2-control-de-gestió)
+
+[8.2.1 Mecanisme de control	29](#8.2.1-mecanisme-de-control)
+
+[**9\. Informe de Sostenibilitat (Fita Inicial)	30**](#9.-informe-de-sostenibilitat-\(fita-inicial\))
+
+[9.1 Autoavaluació de la competència de sostenibilitat	30](#9.1-autoavaluació-de-la-competència-de-sostenibilitat)
+
+[9.2 Dimensió Ambiental	30](#9.2-dimensió-ambiental)
+
+[9.3 Dimensió Econòmica	31](#9.3-dimensió-econòmica)
+
+[9.4 Dimensió Social	31](#9.4-dimensió-social)
+
+[**10\. Referències	33**](#10.-referències)
+
+# **Llista de Figures** {#llista-de-figures}
+
+[Figura 1: Arquitectura de SE-Agentic-Evaluator. Font: Elaboració pròpia.	5](#figura-1:-arquitectura-de-se-agentic-evaluator.-font:-elaboració-pròpia.)
+
+[Figura 2: Fases de la metodologia àgil (Agile). Font: \[8\].	12](#figura-2:-fases-de-la-metodologia-àgil-\(agile\).-font:-[8].)
+
+# **Llista de taules** {#llista-de-taules}
+
+[Taula 1: Recursos humans del projecte. Font: Elaboració pròpia	14](#taula-1:-recursos-humans-del-projecte.-font:-elaboració-pròpia)
+
+[Taula 2: Recursos de software del projecte. Font: Elaboració pròpia	15](#taula-2:-recursos-de-software-del-projecte.-font:-elaboració-pròpia)
+
+[Taula 3: Estimacions, dependències i recursos de cada tasca. Font: Elaboració pròpia	21](#taula-3:-estimacions,-dependències-i-recursos-de-cada-tasca.-font:-elaboració-pròpia)
+
+[Taula 4: Diagrama de Gantt. Font: Elaboració pròpia	22](#taula-4:-diagrama-de-gantt.-font:-elaboració-pròpia)
+
+[Taula 5: Costos de personal. Font: Elaboració pròpia	24](#taula-5:-costos-de-personal.-font:-elaboració-pròpia)
+
+[Taula 6: Costos de personal per activitat. Font: Elaboració pròpia	25](#taula-6:-costos-de-personal-per-activitat.-font:-elaboració-pròpia)
+
+[Taula 7: Costos de hardware. Font: Elaboració pròpia	26](#taula-7:-costos-de-hardware.-font:-elaboració-pròpia)
+
+[Taula 8: Despeses generals. Font: Elaboració pròpia	26](#taula-8:-despeses-generals.-font:-elaboració-pròpia)
+
+[Taula 9: Resum costos genèrics del projecte. Font: Elaboració pròpia	27](#taula-9:-resum-costos-genèrics-del-projecte.-font:-elaboració-pròpia)
+
+[Taula 10: Total de costos directes. Font: Elaboració pròpia	27](#taula-10:-total-de-costos-directes.-font:-elaboració-pròpia)
+
+[Taula 11: Costos dels imprevistos possibles del projecte. Font: Elaboració pròpia	28](#taula-11:-costos-dels-imprevistos-possibles-del-projecte.-font:-elaboració-pròpia)
+
+[Taula 12: Resum del pressupost total del projecte. Font: Elaboració pròpia	28](#taula-12:-resum-del-pressupost-total-del-projecte.-font:-elaboració-pròpia)
+
+[Taula 13: Indicadors de les desviacions de cada tasca. Font: Elaboració pròpia	29](#taula-13:-indicadors-de-les-desviacions-de-cada-tasca.-font:-elaboració-pròpia)
+
+1. # **Introducció i context** {#introducció-i-context}
+
+El projecte SE-Agentic-Evaluator correspon al treball de fi de grau en l'especialitat d'enginyeria del software dins el grau en Enginyeria Informàtica de la Facultat d'Informàtica de Barcelona (FIB), a la Universitat Politècnica de Catalunya (UPC).
+
+Aquest treball de fi de grau es desenvolupa en el marc d'una beca d'aprenentatge a l'ICE. El projecte s'integra dins de l'ecosistema LAMB, una plataforma educativa existent a la companyia que utilitza Intel·ligència Artificial per assistir en processos d'aprenentatge.
+
+Actualment, l'ecosistema LAMB compta amb diversos projectes relacionats amb l'avaluació assistida per IA, incloent-hi [SE-rubric-evaluAItor](https://github.com/Lamb-Project/SE-rubric-evaluAItor), un pipeline d'investigació per a l'avaluació de documents de requisits d'Enginyeria del Software, i [DiagramLens](https://github.com/Lamb-Project/DiagramLens), un mòdul de visió multimodal per a la descripció de diagramas tècnics.
+
+L'objectiu principal d'aquest TFG és el disseny i implementació de SE-Agentic-Evaluator, una **Skill agèntica** per a la plataforma **opencode.ai** que transforma el pipeline rígid de SE-rubric-evaluAItor en un assistent dinàmic, contextual i adaptatiu per a l'avaluació d'entregables acadèmics d'Enginyeria del Software. El sistema opera exclusivament amb models d'IA locals (Ollama), garantint la privacitat RGPD, i delega el càlcul de notes en scripts Python determinístics per evitar al·lucinacions numèriques dels LLMs.
+
+## **1.1 Definicions importants** {#1.1-definicions-importants}
+
+Per a la correcta comprensió de l'abast d'aquest projecte, es defineixen els següents conceptes clau del domini:
+
+### 1.1.1 Agent d'IA {#1.1.1-agent-d'ia}
+
+Un agent d'IA és un sistema de programari capaç de percebre el seu entorn, prendre decisions autònomes i executar accions per assolir un objectiu definit. A diferència d'un pipeline seqüencial predefinit, un agent pot seleccionar dinàmicament quines eines invocar i en quin ordre, adaptant-se al contingut específic de cada document. En aquest projecte, l'agent opera dins d'opencode.ai i disposa d'un conjunt de tools (extracció, anàlisi, visió, grading) que invoca segons les necessitats detectades.
+
+### 1.1.2 LMS (Learning Management System) {#1.1.2-lms-(learning-management-system)}
+
+Un LMS (Learning Management System) és una plataforma tecnològica o aplicació web dissenyada per crear, gestionar, distribuir i avaluar cursos en línia i programes de formació de forma centralitzada. Funciona com a aula virtual, facilitant el seguiment dels alumnes, la gestió de materials i la interacció entre usuaris. Per exemple Moodle.
+
+### 1.1.3 Skill (opencode.ai) {#1.1.3-skill-(opencode.ai)}
+
+Una Skill és un paquet de configuració per a la plataforma opencode.ai que defineix el rol d'un assistent especialitzat, les eines (tools) disponibles, les regles de procés i els prompts associats. Les Skills permeten estendre les capacitats d'un agent d'IA per a dominis específics sense modificar el nucli del sistema. En aquest projecte, `evaluator_skill` defineix el comportament de l'avaluador agèntic.
+
+### 1.1.4 LLM (Large Language Model) {#1.1.4-llm-(large-language-model)}
+
+Un Large Language Model (LLM) és un model d'intel·ligència artificial entrenat amb grans volums de text capaç de generar, comprendre i transformar llenguatge natural. En aquest projecte s'utilitzen LLMs de codi obert executats localment (qwen3) per a tasques d'extracció d'informació, anàlisi de qualitat i avaluació de documents.
+
+### 1.1.5 Ollama {#1.1.5-ollama}
+
+Ollama és una plataforma de codi obert que permet executar models de llenguatge grans (LLMs) i models de visió de manera local, sense necessitat de connectar-se a serveis externs al núvol. Això garanteix que les dades acadèmiques no surtin mai de l'ordinador de l'usuari, complint amb el RGPD. En aquest projecte s'utilitza per executar `qwen3` (text) i `qwen3-vl` (visió).
+
+### 1.1.6 Rúbrica d'Avaluació amb IA  {#1.1.6-rúbrica-d'avaluació-amb-ia}
+
+Estratègia mitjançant la qual s'instrueix un model de llenguatge (LLM) per avaluar un document acadèmic basant-se en criteris predefinits (objectius, requisits, casos d'ús, traçabilitat), amb pesos configurables per a cada criteri. La nota final es calcula de manera determinística amb Python, no pel LLM.
+
+### 1.1.7 Visió Multimodal {#1.1.7-visió-multimodal}
+
+Capacitat d'un model d'IA de processar i comprendre tant text com imatges. En aquest projecte, el model `qwen3-vl` s'utilitza per categoritzar i descriure tècnicament diagrames UML i figures tècniques embebudes en documents Markdown, proporcionant evidència visual per a l'avaluació de consistència arquitectònica.
+
+### 1.1.8 RGPD (Reglament General de Protecció de Dades) {#1.1.8-rgpd-(reglament-general-de-protecció-de-dades)}
+
+Reglament europeu que estableix el marc legal per a la protecció de dades personals. En el context d'aquest projecte, el compliment del RGPD es garanteix mitjançant l'execució local de tots els models d'IA, evitant l'exfiltració de documents acadèmics (que poden contenir dades d'estudiants) a serveis externs de tercers.
+
+## **1.2 Identificació del problema** {#1.2-identificació-del-problema}
+
+El problema principal que motiva aquest projecte és la rigidesa i manca d'adaptabilitat del sistema actual d'avaluació de l'ecosistema LAMB.
+
+Actualment, el projecte [SE-rubric-evaluAItor](https://github.com/Lamb-Project/SE-rubric-evaluAItor) implementa un pipeline seqüencial d'avaluació amb les següents limitacions:
+
+1. **Flux Rígid:** El pipeline executa les fases en un ordre fix predefinit (extracció → anàlisi → avaluació → grading), sense capacitat d'adaptar-se al contingut específic de cada document.  
+2. **Configuració Hardcodejada:** Els pesos de la rúbrica estan fixats al codi font (`grader.py`). Canviar la rúbrica per a un altre tipus d'entregable requereix modificar i redeplegar el codi.  
+3. **Sense Visió Multimodal:** El sistema no pot analitzar diagrames UML ni figures tècniques embebudes, elements clau en entregables d'Enginyeria del Software.  
+4. **Manca de Trazabilitat d'Evidència:** Els judicis evaluatius no estan sempre vinculats a evidència textual o visual explícita del document, dificultant l'auditoria i la transparència.  
+5. **Sense Processament per Lots:** El sistema avalua un document a la vegada, fent-lo poc pràctic per a professors amb desenes d'alumnes.
+
+La solució proposada, SE-Agentic-Evaluator, resol això transformant el pipeline en una **Skill agèntica** que selecciona dinàmicament les eines segons el contingut, integra visió multimodal local, garanteix evidència obligatòria per a cada judici evaluatiu i delega el càlcul numèric en scripts determinístics.
+
+## **1.3 Stakeholders** {#1.3-stakeholders}
+
+S'identifiquen els següents actors que interactuaran amb el sistema o se'n beneficiaran:
+
+### 1.3.1 Professors i Docents {#1.3.1-professors-i-docents}
+
+Són els usuaris principals de l'eina. Utilitzen SE-Agentic-Evaluator per avaluar de manera assistida els entregables dels estudiants d'Enginyeria del Software, obtenint informes estructurats amb rúbriques, evidències i recomanacions accionables.
+
+### 1.3.2 Equip LAMB (ICE-UPC) {#1.3.2-equip-lamb-(ice-upc)}
+
+Responsables de l'ecosistema LAMB que proporcionen el context, els recursos existents (SE-rubric-evaluAItor, DiagramLens) i el feedback tècnic durant el desenvolupament.
+
+### 1.3.3 Estudiants (Indirectes) {#1.3.3-estudiants-(indirectes)}
+
+Tot i que no interactuen directament amb el sistema, es beneficien de:
+
+1. **Feedback més ràpid i estructurat:** Reben avaluacions amb evidències concretes i recomanacions prioritzades.  
+2. **Transparència:** Cada puntuació està vinculada a cites textuals o IDs d'elements del seu document.
+
+### 1.3.4 Futurs Desenvolupadors de Skills {#1.3.4-futurs-desenvolupadors-de-skills}
+
+Desenvolupadors que podran utilitzar l'arquitectura de SE-Agentic-Evaluator com a referència per crear noves Skills d'avaluació per a altres assignatures o dominis, aprofitant la configuració externa de rúbriques i el sistema de tools modular.
+
+## **1.4 Evolució del projecte** {#1.4-evolució-del-projecte}
+
+El projecte actual, SE-Agentic-Evaluator, representa una evolució significativa respecte a la planificació inicial documentada al Lliurable 1 d'aquest TFG. Aquesta secció explica els motius i l'abast dels canvis.
+
+### Context inicial
+
+La proposta original del TFG, titulada "Evaluaitor LAMB", consistia en el disseny i implementació d'un **microservei dedicat** a l'avaluació automàtica de tasques educatives mitjançant IA. L'objectiu era desacoblar la lògica d'avaluació de la capa d'integració amb l'LMS (LAMBA), seguint una arquitectura de microserveis amb cues asíncrones, sistema de plugins i multi-tenança.
+
+### Motius del canvi
+
+Durant les primeres fases de desenvolupament, es va fer evident que l'ecosistema LAMB és un entorn **altament dinàmic i en constant evolució**. Els canvis freqüents en l'arquitectura, les dependències i les prioritats del projecte LAMB feien que la planificació original d'un microservei acoblat a l'ecosistema fos difícil de mantenir alineada amb la realitat del projecte.
+
+Concretament:
+
+- L'arquitectura de LAMB estava experimentant canvis significatius que afectaven directament la integració prevista amb LAMBA i lamb-kb-server.
+- La necessitat de desacoblar l'avaluació de la capa LTI seguia sent vàlida, però l'enfocament de microservei requeria una infraestructura i coordinació que depassaven l'abast d'un TFG individual.
+- Simultàniament, l'equip LAMB estava explorant noves aproximacions basades en **agents d'IA** i la plataforma **opencode.ai**, que oferien una via més flexible i menys acoblada per abordar el mateix problema de fons: millorar l'avaluació assistida per IA.
+
+### Decisió de reorientació
+
+Davant d'aquest context, es va prendre la decisió conjuntament amb el director del TFG de **reorientar el projecte** cap a una **Skill agèntica** per a opencode.ai. Aquesta nova direcció:
+
+- **Manté l'objectiu central:** avaluar documents acadèmics d'Enginyeria del Software amb IA.
+- **Redueix l'acoblament:** la Skill opera de manera independent de l'arquitectura específica de LAMB.
+- **Afegeix valor diferencial:** integra visió multimodal local, evidència obligatòria i càlcul determinístic de notes.
+- **És més resilient als canvis:** en no dependre d'una arquitectura de microserveis específica, el projecte és menys vulnerable als canvis constants de LAMB.
+
+### Impacte en la memòria
+
+Aquesta reorientació afecta principalment les seccions de **Justificació**, **Abast**, **Planificació temporal** i **Pressupost**, que han estat actualitzades per reflectir el nou enfocament. Les seccions de **Definicions**, **Metodologia**, **Gestió del Risc** i **Sostenibilitat** s'han adaptat però mantenen l'estructura original.
+
+2. # **Justificació** {#justificació}
+
+Per donar solució als problemes de rigidesa i manca d'adaptabilitat identificats en la secció anterior, s'han avaluat diferents alternatives tècniques abans de decidir el rumb d'aquest projecte. La decisió fonamental recau en com abordar la transformació del pipeline existent de SE-rubric-evaluAItor.
+
+A continuació, s'exposa l'anàlisi comparativa de les alternatives considerades:
+
+**Alternativa A: Mantenir i millorar el pipeline seqüencial existent**
+
+La primera opció consistiria a mantenir l'arquitectura actual de SE-rubric-evaluAItor com un script Python seqüencial, afegint-hi millores com configuració externa de rúbriques, processament per lots i integració del mòdul de visió de DiagramLens.
+
+* **Avantatges:** Baix cost de desenvolupament, aprofita tot el codi existent, fàcil de provar i validar.  
+* **Inconvenients:** No resol el problema de fons de la rigidesa. El flux d'execució segueix sent predefinit i no s'adapta al contingut de cada document. A més, la manca d'un sistema d'eines dinàmiques limita la capacitat de reutilització per a altres tipus d'entregables.
+
+**Alternativa B: Desenvolupar un microservei d'avaluació (Evaluaitor original)**
+
+La segona opció era la planificació original del TFG: crear un microservei amb API REST, cues asíncrones, sistema de plugins i multi-tenança, integrat amb l'ecosistema LAMB via Docker Compose.
+
+* **Avantatges:** Arquitectura robusta i escalable, separació neta de responsabilitats, processament asíncron fiable.  
+* **Inconvenients:** Alt cost de desenvolupament, acoblament a l'arquitectura específica de LAMB (que està en constant canvi), requereix infraestructura de desplegament i coordinació amb l'equip LAMB. La complexitat excedeix l'abast raonable d'un TFG individual en un entorn tan dinàmic.
+
+**Alternativa C: Transformar en una Skill agèntica per a opencode.ai \- *Solució Proposada***
+
+La tercera alternativa és convertir el pipeline rígid en una **Skill agèntica** per a la plataforma opencode.ai, que permeti a un agent d'IA seleccionar dinàmicament les eines d'extracció, anàlisi i avaluació segons el contingut del document, amb execució local de models via Ollama.
+
+* **Avantatges:** Màxima flexibilitat i adaptabilitat: l'agent decideix l'ordre d'execució segons el contingut. Desacoblament total de l'arquitectura de LAMB: la Skill opera de manera independent. Privacitat RGPD garantida per execució local. Integració de visió multimodal per a diagrames UML. Càlcul determinístic de notes que elimina al·lucinacions numèriques. Configuració externa de rúbriques per a reutilització.  
+* **Inconvenients:** Requereix aprendre i integrar amb una plataforma nova (opencode.ai). La qualitat de l'avaluació depèn de la capacitat del LLM local per comprendre i aplicar les regles de la Skill.
+
+**Conclusió de la decisió**
+
+Avaluades les alternatives, es justifica l'adopció de l'Alternativa C (Skill agèntica per a opencode.ai). Aquesta solució aborda directament els problemes de rigidesa del pipeline existent sense l'acoblament i complexitat del microservei original. La naturalesa agèntica permet una adaptabilitat que ni el pipeline seqüencial ni el microservei podrien oferir, i l'execució local amb Ollama garanteix la privacitat de les dades acadèmiques. A més, aquesta aproximació és més adequada per a un TFG individual en un entorn canviant, ja que la Skill és resilient als canvis d'arquitectura de LAMB.
+
+3. # **Abast** {#abast}
+
+Aquest apartat defineix els límits del projecte, establint de manera clara què s'inclou i què queda fora de l'MVP (*Minimum Viable Product*) de SE-Agentic-Evaluator.
+
+## **3.1 Objectius genèrics i sub-objectius del projecte** {#3.1-objectius-genèrics-i-sub-objectius-del-projecte}
+
+L'objectiu principal d'aquest projecte és transformar el pipeline rígid de SE-rubric-evaluAItor en una Skill agèntica per a opencode.ai que permeti l'avaluació assistida, dinàmica i adaptativa d'entregables acadèmics d'Enginyeria del Software, amb execució local de models d'IA i càlcul determinístic de calificaciones.
+
+**Sub-objectius:**
+
+* **Selecció dinàmica d'eines:** L'agent ha de poder decidir quines tools invocar i en quin ordre segons el contingut detectat al document, sense un flux predefinit rígid.  
+* **Privacitat per disseny (RGPD):** Tots els models d'IA s'han d'executar localment via Ollama, sense enviar dades a serveis externs.  
+* **Visió multimodal local:** Integrar la lògica de DiagramLens per categoritzar i descriure diagrames UML embebuts utilitzant un model de visió local (qwen3-vl).  
+* **Trazabilitat amb evidència:** Cada judici evaluatiu ha d'estar vinculat a una cita textual, descripció de diagrama o ID d'element del document analitzat.  
+* **Càlcul determinístic de notes:** La nota final s'ha de calcular exclusivament mitjançant scripts Python, evitant al·lucinacions numèriques dels LLMs.  
+* **Configuració externa de rúbriques:** Els pesos i criteris d'avaluació han de ser configurables sense modificar el codi font.
+
+## **3.2 Requeriments funcionals i no-funcionals** {#3.2-requeriments-funcionals-i-no-funcionals}
+
+### 3.2.1 Requeriments Funcionals (Històries d'usuari) : {#3.2.1-requeriments-funcionals-(històries-d'usuari)-:}
+
+* Com a professor, vull avaluar un document Markdown d'un entregable d'Enginyeria del Software, per a obtenir una avaluació assistida amb rúbrica estructurada.  
+* Com a agent d'avaluació, vull extreure automàticament els objectius (OBJ-X), requisits (IRQ/NFR) i casos d'ús (CU-XXX) del document, per a analitzar-los posteriorment.  
+* Com a agent d'avaluació, vull detectar i descriure diagrames UML embebuts al document, per a avaluar la consistència arquitectònica.  
+* Com a agent d'avaluació, vull generar matrius de traçabilitat entre objectius i requisits, per a identificar cobertures i buits.  
+* Com a agent d'avaluació, vull detectar requisits huérfans (sense objectiu associat) i objectius sense cobertura de requisits, per a informar el professor.  
+* Com a agent d'avaluació, vull avaluar els objectius contra els criteris SMART i els NFR segons ISO/IEC 25010, per a proporcionar anàlisi de qualitat addicional.  
+* Com a sistema, vull calcular la nota final de manera determinística a partir de les puntuacions parcials i els pesos de la rúbrica, per a evitar errors numèrics del LLM.  
+* Com a professor, vull rebre un informe Markdown amb taula de rúbrica, resum executiu, anàlisi per criteri amb evidències i recomanacions accionables, per a revisar i validar l'avaluació.  
+* Com a desenvolupador, vull poder configurar els pesos de la rúbrica mitjançant un fitxer YAML extern, per a adaptar l'avaluació a diferents tipus d'entregables.  
+* Com a professor, vull poder avaluar múltiples documents d'un sol cop (mode batch), per a processar els entregables de tot un curs de manera eficient.
+
+### 3.2.2 Requeriments No-funcionals: {#3.2.2-requeriments-no-funcionals:}
+
+* **Privacitat:** Cap dada acadèmica ha de sortir de l'ordinador local. Tots els models s'executen via Ollama.  
+* **Fiabilitat:** La nota final s'ha de calcular 100% de manera determinística (script Python), sense intervenció del LLM.  
+* **Evidència:** El 100% dels judicis evaluatius han d'incloure almenys una evidència (cita textual, descripció de diagrama o ID d'element).  
+* **Rendiment:** L'extracció d'informació d'un document típic (5-15 pàgines) ha de completar-se en menys de 30 segons amb un model qwen3:14b o superior.  
+* **Usabilitat:** L'informe final ha de ser llegible i estructurat en Markdown, compatible amb qualsevol editor o visualitzador.
+
+## **3\. 3 Riscos** {#3.-3-riscos}
+
+**Inexperiència amb plataformes agèntiques**
+
+* Impacte: L'autor del projecte no ha treballat prèviament amb opencode.ai o el concepte de Skills, cosa que pot alentir les fases inicials d'aprenentatge i integració.  
+* Mitigació: Realitzar reunions periòdiques amb el director i dedicar temps específic a l'estudi de la plataforma abans de començar el desenvolupament.
+
+**Qualitat insuficient del LLM local**
+
+* Impacte: Els models locals (qwen3) poden no tenir la capacitat necessària per a tasques complexes d'extracció estructurada o raonament evaluatiu, especialment amb mides inferiors a 14B paràmetres.  
+* Mitigació: Definir models mínims recomanats (qwen3:14b per a text, qwen3-vl:7b per a visió) i implementar validació de models a l'inici de l'execució.
+
+**Calendari apretat**
+
+* Impacte: A causa de la naturalesa del projecte, ja que és un treball de final de carrera, el temps de desenvolupament és relativament curt i això pot influir directament en la qualitat del producte final.  
+* Mitigació: Establir una planificació el més acurada possible des del principi de les tasques a realitzar en un abast raonable segons les hores planificades per al projecte.
+
+**Pèrdua d'estructura en l'extracció de PDFs**
+
+* Impacte: La conversió de PDF a Markdown pot perdre jerarquia d'encapçalaments, taules o llistes, afectant la qualitat de l'extracció posterior.  
+* Mitigació: Utilitzar PyMuPDF amb fallback a pytesseract per a OCR, i avaluar la integració de Docling com a motor principal en fases futures.
+
+4. # **Metodologia i rigor** {#metodologia-i-rigor}
+
+## **4.1 Metodologia emprada** {#4.1-metodologia-emprada}
+
+Per a la realització d'aquest Treball de Fi de Grau, i atesa la naturalesa canviant del desenvolupament de programari en un entorn empresarial, s'ha optat per aplicar una metodologia àgil (Agile) iterativa i incremental, fortament vinculada als coneixements adquirits durant l'especialitat d'Enginyeria del Software a la FIB.
+
+| ![][image2] |
+| :---: |
+| *Figura 2: Fases de la metodologia àgil (Agile). Font: \[8\].* |
+
+Com que el projecte és desenvolupat per un únic integrant dins del context de l'ecosistema LAMB, la metodologia àgil estàndard (tipus Scrum) s'adapta al projecte estructurant el treball en quatre fases iteratives (sprints llargs) de dues-tres setmanes de durada cadascuna:
+
+1. **Fase 1 (Fonaments):** Estudi de la plataforma opencode.ai, configuració de l'entorn Ollama amb models locals, i adaptació dels mòduls d'extracció existents de SE-rubric-evaluAItor.  
+2. **Fase 2 (Anàlisi i Visió):** Implementació dels mòduls d'anàlisi (traçabilitat, completitud, huérfanos, SMART, ISO 25010) i integració del mòdul de visió multimodal de DiagramLens.  
+3. **Fase 3 (Skill Agèntica i MVP):** Definició de la Skill `evaluator_skill` amb regles de procés, integració del grading determinístic, i validació del flux complet amb documents de prova.  
+4. **Fase 4 (Refinament i Documentació):** Implementació de millores identificades (configuració YAML, gestió de fitxers intermedios), proves amb múltiples documents, i redacció de la memòria final.
+
+Aquest enfocament permetrà tenir versions funcionals del sistema des de les primeres fases, facilitant l'adaptació a possibles canvis en els requisits de l'empresa. El control de versions del codi es gestionarà mitjançant Git, integrant els canvis progressivament per evitar trencaments en la branca principal, seguint el flux de treball de *GitFlow*.
+
+## **4.2 Mètode de validació** {#4.2-mètode-de-validació}
+
+Per validar que el projecte assoleix els objectius de manera rigorosa, s'implementaran mecanismes de seguiment del procés i mètodes de validació del producte de programari.
+
+**Eines de seguiment del projecte:**
+
+* **Reunions de sincronització:** Es realitzaran reunions periòdiques setmanals amb el director del TFG. Aquestes trobades serviran per reportar l'estat de les tasques, resoldre bloquejos i validar que l'abast es manté alineat amb les expectatives del negoci i de la universitat.  
+* **Gestor de tasques :** S'emprarà una eina tipus Kanban (com GitHub Projects) per visibilitzar el flux de treball (tasques pendents, en curs i finalitzades) associat a les històries d'usuari definides a l'apartat de requeriments.
+
+**Validació tècnica del programari:** 
+
+* **Proves Unitàries i d'Integració:** Es desenvoluparà una bateria de proves per verificar el funcionament aïllat dels mòduls determinístics (orphans, smart, iso25010, grader) i una prova d'integració que validi el flux complet de la Skill amb documents de prova coneguts.  
+* **Mètriques de Qualitat:** Es validarà que el 100% dels judicis evaluatius inclouen evidència, que la nota final es calcula de manera determinística, i que cap dada surt de l'ordinador local.
+
+Finalment, tota decisió tècnica presa durant el desenvolupament (avaluació d'alternatives de disseny, canvis en la base de dades, etc.) quedarà documentada degudament, aportant el rigor propi d'un projecte d'enginyeria informàtica.
+
+# **5\. Planificació temporal** {#5.-planificació-temporal}
+
+## **5.1 Dades globals i calendari** {#5.1-dades-globals-i-calendari}
+
+El projecte s'estructura seguint una metodologia àgil iterativa i incremental, tal com es va definir al Lliurable 1\. Les tasques s'organitzen en cinc sprints de durada variable (1-3 setmanes), més un grup inicial de gestió del projecte que s'activa al llarg de tot el cicle de vida. 
+
+**Dades globals de la planificació**
+
+* Data d'inici del projecte: 18/02/2026  
+* Data de finalització prevista: 12/06/2026  
+* Duració total (setmanes): \~16 setmanes  
+* Hores de treball per dia: 6 hores  
+* Dies de treball per setmana: 6 dies (dilluns–dissabte)  
+* Hores estimades de GEP: \~ 90 hores  
+* Hores estimades TFG: \~ 450 hores  
+* Total d'hores estimades del projecte: \~ 540 hores  
+* Data prevista per a la lectura del TFG: Juny 2026 (primera convocatòria)
+
+## **5.2 Recursos del projecte** {#5.2-recursos-del-projecte}
+
+A continuació s'esmenten els recursos necessaris per tal que el desenvolupament del projecte sigui reeixit. A la taula de tasques de la secció 3 cada tasca fa referència als codis de recursos corresponents.
+
+### 5.2.1 Recursos humans (rols de l'autor) {#5.2.1-recursos-humans-(rols-de-l'autor)}
+
+| Codi | Nom | Descripció |
+| :---: | ----- | ----- |
+| **\[CP\]** | **Cap de projecte** | Planificació, seguiment, gestió de riscos i presa de decisions sobre l'abast. Manté el tauler Kanban i coordina les reunions. |
+| **\[AS\]** | **Analista de software** | Anàlisi de requeriments, estudi de SE-rubric-evaluAItor i DiagramLens, i disseny de l'arquitectura de la Skill. |
+| **\[DS\]** | **Desenvolupador de software** | Implementació de tots els components: mòduls d'extracció, anàlisi, visió, grading, definició de la Skill i integració amb Ollama. |
+| **\[T\]** | **Tester de software** | Redacció i execució de proves unitàries i d'integració, i validació de mètriques de qualitat. |
+| **\[MA\]** | **Marc Alier (Director TFG)** | Director del TFG. Proporciona feedback setmanal, valida decisions de disseny i orienta en bloquejos tècnics. |
+| **\[TGEP\]** | **Tutor de GEP** | Corregeix les entregues de l'assignatura de Gestió de Projectes. |
+| **\[ELLI\]** | **Equip LAMB (ICE–UPC)** | Col·labora en les proves d'integració i proporciona accés als repositoris existents (SE-rubric-evaluAItor, DiagramLens). |
+
+##### *Taula 1: Recursos humans del projecte. Font: Elaboració pròpia* {#taula-1:-recursos-humans-del-projecte.-font:-elaboració-pròpia}
+
+### 5.2.2 Recursos físics {#5.2.2-recursos-físics}
+
+Per poder dur a terme el projecte i les reunions amb el director, es necessita:
+
+* Un espai de treball adequat a les instal·lacions de l'ICE–UPC (lloc on es realitzen les pràctiques), amb taula, cadira, teclat i ratolí.
+
+* L'ordinador portàtil personal de l'autor, que actua com a màquina de desenvolupament principal i sobre el qual s'executen els models d'IA locals via Ollama.
+
+### 5.2.3 Recursos de software {#5.2.3-recursos-de-software}
+
+| Codi | Nom | Descripció |
+| :---: | ----- | ----- |
+| **\[VSC\]** | **Visual Studio Code** | IDE principal per al desenvolupament (Python, prompts Markdown, YAML). |
+| **\[GIT\]** | **GitHub i Git** | Control de versions i gestió del repositori seguint GitFlow. GitHub Projects com a tauler Kanban. |
+| **\[OLL\]** | **Ollama** | Execució local dels models d'IA (qwen3 per a text, qwen3-vl per a visió). |
+| **\[GSUITE\]** | **Google Suite** | Gmail (comunicació), Google Drive (documentació) i Google Sheets (Gantt i taules). |
+| **\[EXCEL\]** | **Excel / Google Sheets** | Elaboració del diagrama de Gantt de la planificació temporal. |
+| **\[TG\]** | **Telegram** | Comunicació ràpida i informal amb el director i l'equip LAMB per resoldre dubtes entre reunions. |
+
+##### *Taula 2: Recursos de software del projecte. Font: Elaboració pròpia* {#taula-2:-recursos-de-software-del-projecte.-font:-elaboració-pròpia}
+
+## **5.3 Descripció de les tasques** {#5.3-descripció-de-les-tasques}
+
+El projecte s'organitza en dues parts principals: la Gestió de Projectes (GEP, 90h) i el desenvolupament de SE-Agentic-Evaluator estructurat en quatre sprints àgils (450h). A més, un grup de tasques transversals de gestió s'executa de manera concurrent al llarg de tot el cicle de vida.
+
+### 5.3.1 Gestió de Projectes (GEP) (18/02 – 18/03/2026) {#5.3.1-gestió-de-projectes-(gep)-(18/02-–-18/03/2026)}
+
+L'assignatura GEP consta de 3 crèdits (90h) i s'articula en quatre lliuraments que s'elaboren durant les primeres setmanes del projecte, en paral·lel a l'inici del desenvolupament. Els quatre lliuraments es produeixen de manera consecutiva i sense solapament entre ells.
+
+**G1 – Lliurable 1: Abast i contextualització  \[18/02 – 26/02/2026\]**
+
+Definició del context del projecte, identificació del problema, stakeholders, abast, objectius, requeriments funcionals i no funcionals, riscos i metodologia. Ja lliurat el 26/02/2026.
+
+* Estimació: 20 hores
+
+* Dependències: cap
+
+* Recursos: \[CP\] \+ \[AS\] \+ \[TGEP\] \+ \[GSUITE\]
+
+**G2 – Lliurable 2: Planificació temporal  \[27/02 – 04/03/2026\]**
+
+Definició detallada de les tasques, estimacions en hores, dependències, recursos i diagrama de Gantt. És el present document.
+
+* Estimació: 25 hores
+
+* Dependències: G1
+
+* Recursos: \[CP\] \+ \[AS\] \+ \[TGEP\] \+ \[GSUITE\] \+ \[EXCEL\]
+
+**G3 – Lliurable 3: Pressupost i sostenibilitat  \[05/03 – 11/03/2026\]**
+
+Estimació del cost total del projecte (recursos humans, materials i de software), anàlisi de sostenibilitat econòmica, social i ambiental.
+
+* Estimació: 25 hores
+
+* Dependències: G2
+
+* Recursos: \[CP\] \+ \[AS\] \+ \[TGEP\] \+ \[GSUITE\]
+
+**G4 – Lliurable 4: Document final  \[12/03 – 18/03/2026\]**
+
+Integració de totes les entregues interiors aplicant les millores suggerides pel tutor de GEP.
+
+* Estimació: 20 hores
+
+* Dependències: G3
+
+* Recursos: \[CP\] \+ \[MA\] \+ \[TGEP\] \+ \[GSUITE\]
+
+### 5.3.2 Tasques de Gestió del Projecte (transversal, setmanes 1-16) {#5.3.2-tasques-de-gestió-del-projecte-(transversal,-setmanes-1-16)}
+
+Aquestes tasques es realitzen de manera concurrent al llarg de tot el projecte i no s'associen a cap sprint en concret.
+
+**T0.1 – Reunions de seguiment setmanals:** Reunions periòdiques setmanals amb el director del TFG per reportar l'estat de les tasques, resoldre bloquejos i validar que l'abast es manté alineat. Cada reunió té una durada aproximada d'una hora.
+
+* Estimació: 15 reunions × 1h \= **15 hores**  
+* Dependències: cap (s'inicia des del principi)  
+* Recursos: \[CP\] \+ \[MA\] \+ \[TGEP\]
+
+**T0.2 – Documentació contínua:** Redacció i actualització progressiva de la memòria del TFG, incloent-hi l'arquitectura, decisions tècniques preses, justificació d'alternatives i descripció dels components implementats. La documentació s'anirà generant paral·lelament al desenvolupament per evitar acumular-la al final.
+
+* Estimació: **40 hores** (repartides al llarg de tot el projecte)  
+* Dependències: cap (concurrent amb totes les fases)  
+* Recursos: \[CP\] \+ \[AS\] \+ \[DS\] \+ \[GSUITE\]
+
+**T0.3 – Gestió de tasques i control de versions (Git/GitFlow):** Manteniment del tauler Kanban (GitHub Projects), gestió de branques i pull requests seguint GitFlow, i escriptura de missatges de commit descriptius.
+
+* Estimació: **15 hores**  
+* Dependències: cap (concurrent)  
+* Recursos: \[CP\] \+ \[GIT\]
+
+### 5.3.3 Tasques de Desenvolupament {#5.3.3-tasques-de-desenvolupament}
+
+Corresponen a la implementació tècnica de **SE-Agentic-Evaluator**, dividides en les 4 fases iteratives definides a la metodologia.
+
+**Sprint 1: Fonaments (Setmanes 2-5, \~26/02 - 19/03/2026)**
+
+**T1.1 – Estudi de SE-rubric-evaluAItor i opencode.ai:** Lectura i comprensió del codi de SE-rubric-evaluAItor (prompts, lògica de parsing, generació de reportes) i de DiagramLens. Configuració de l'entorn Ollama amb els models qwen3 i qwen3-vl. Estudi de la plataforma opencode.ai i el concepte de Skills.
+
+* Estimació: **30 hores**  
+* Dependències: cap  
+* Recursos: \[AS\] \+ \[VSC\] \+ \[OLL\]
+
+**T1.2 – Adaptació dels mòduls d'extracció:** Refactorització dels mòduls d'extracció existents (objectives.py, requirements.py, use_cases.py) per funcionar com a tools independents. Implementació del parsing de documents Markdown i gestió d'errors.
+
+* Estimació: **25 hores**  
+* Dependències: T1.1  
+* Recursos: \[DS\] \+ \[VSC\] \+ \[GIT\]
+
+**T1.3 – Implementació del grading determinístic:** Adaptació de grader.py per suportar configuració externa de pesos (YAML/JSON), validació d'entrada i sortida en JSON estructurat.
+
+* Estimació: **15 hores**  
+* Dependències: T1.2  
+* Recursos: \[DS\] \+ \[VSC\] \+ \[GIT\]
+
+**T1.4 – Estructura base del projecte i proves inicials:** Organització de l'estructura de directoris (core/extraction, core/analysis, core/grading), configuració de dependències, i proves end-to-end amb documents de mostra.
+
+* Estimació: **15 hores**  
+* Dependències: T1.3  
+* Recursos: \[DS\] \+ \[T\] \+ \[VSC\] \+ \[OLL\]
+
+**Sprint 2: Anàlisi i Visió (Setmanes 6-9, \~26/03 - 16/04/2026)**
+
+**T2.1 – Mòduls d'anàlisi determinístics:** Implementació de orphans.py (detecció de huérfanos), smart.py (avaluació SMART amb regex) i iso25010.py (classificació ISO/IEC 25010). Proves unitàries amb dades de prova.
+
+* Estimació: **30 hores**  
+* Dependències: T1.4  
+* Recursos: \[DS\] \+ \[T\] \+ \[VSC\] \+ \[GIT\]
+
+**T2.2 – Mòduls d'anàlisi amb LLM:** Implementació de traceability.py (matriu OBJ ↔ IRQ/NFR) i completeness.py (avaluació de completitud) amb prompts de SE-rubric-evaluAItor i crides a Ollama.
+
+* Estimació: **25 hores**  
+* Dependències: T2.1  
+* Recursos: \[DS\] \+ \[VSC\] \+ \[OLL\]
+
+**T2.3 – Integració de visió multimodal (DiagramLens):** Adaptació del mòdul de visió de DiagramLens per funcionar com a tool de la Skill. Implementació de la detecció de diagrames en documents Markdown i la crida al model qwen3-vl.
+
+* Estimació: **25 hores**  
+* Dependències: T2.2  
+* Recursos: \[DS\] \+ \[VSC\] \+ \[OLL\]
+
+**T2.4 – Proves d'anàlisi i visió:** Validació dels mòduls d'anàlisi amb documents de prova coneguts. Verificació de la qualitat de les descripcions de diagrames i de la detecció de huérfanos.
+
+* Estimació: **15 hores**  
+* Dependències: T2.3  
+* Recursos: \[T\] \+ \[VSC\] \+ \[OLL\]
+
+**Sprint 3: Skill Agèntica i MVP (Setmanes 10-12, \~23/04 - 07/05/2026)**
+
+**T3.1 – Definició de la Skill evaluator_skill:** Redacció de la definició completa de la Skill: rol, eines disponibles, regles de procés (R1-R7), i format de l'informe final. Implementació a `.opencode/skills/evaluator_skill.md`.
+
+* Estimació: **25 hores**  
+* Dependències: T2.4  
+* Recursos: \[AS\] \+ \[DS\] \+ \[VSC\]
+
+**T3.2 – Integració dels prompts d'avaluació:** Adaptació dels prompts de SE-rubric-evaluAItor (3_1 a 3_5) per funcionar amb el sistema de la Skill, amb èmfasi en l'obligatorietat d'evidència.
+
+* Estimació: **20 hores**  
+* Dependències: T3.1  
+* Recursos: \[DS\] \+ \[VSC\]
+
+**T3.3 – Implementació del flux agèntic complet:** Configuració del flux complet: extracció → anàlisi → detecció de huérfanos → SMART/ISO → evaluació per criteri → grading → informe. Validació que l'agent selecciona les eines correctament.
+
+* Estimació: **30 hores**  
+* Dependències: T3.2  
+* Recursos: \[DS\] \+ \[T\] \+ \[VSC\] \+ \[OLL\]
+
+**T3.4 – Proves d'integració amb documents reals:** Avaluació de documents de prova (test1.md, test2.md) amb la Skill completa. Validació de l'informe final, evidències, i nota determinística.
+
+* Estimació: **20 hores**  
+* Dependències: T3.3  
+* Recursos: \[T\] \+ \[VSC\] \+ \[OLL\]
+
+**Sprint 4: Refinament i Documentació Final (Setmanes 13-15, \~14/05 - 28/05/2026)**
+
+**T4.1 – Configuració externa de rúbriques (YAML):** Implementació del sistema de configuració externa amb fitxers YAML, validació d'esquema amb Pydantic, i paràmetre CLI `--config`.
+
+* Estimació: **20 hores**  
+* Dependències: T3.4  
+* Recursos: \[DS\] \+ \[VSC\] \+ \[GIT\]
+
+**T4.2 – Gestió de fitxers intermedios i auditoria:** Implementació del sistema de guardat automàtic de cada fase en una estructura de directoris organitzada per a auditoria i re-avaluació.
+
+* Estimació: **15 hores**  
+* Dependències: T4.1  
+* Recursos: \[DS\] \+ \[VSC\]
+
+**T4.3 – Bateria de proves unitàries i d'integració:** Escriptura de proves per als components crítics: extractors, orphans, smart, iso25010, grader. Proves d'integració amb múltiples documents.
+
+* Estimació: **25 hores**  
+* Dependències: T4.2  
+* Recursos: \[T\] \+ \[VSC\] \+ \[GIT\]
+
+### 5.3.4 Tasques de documentació {#5.3.4-tasques-de-documentació}
+
+**Sprint 5:  Documentació final (Setmanes 15-16,  \~28/05 \- 12/06/2026)**
+
+**T5.1 – Redacció de la memòria final del TFG** Consolidació i finalització de la memòria: revisió de tots els capítols, incorporació dels resultats de les proves, conclusions, treball futur i annexos (API reference, glossari). Es fa en paral·lel a les últimes setmanes de desenvolupament.
+
+* Estimació: **60 hores**  
+* Dependències: T4.3   
+* Recursos: \[CP\] \+ \[AS\] \+ \[GSUITE\]
+
+**T5.2 – Preparació de la presentació i defensa** Elaboració de les diapositives de la defensa, preparació del discurs i realització d'assajos.
+
+* Estimació: **15 hores**  
+* Dependències: T5.1  
+* Recursos: \[CP\] \+ \[GSUITE\]
+
+# **6\. Estimacions i Taula Resum** {#6.-estimacions-i-taula-resum}
+
+| Codi | Nom descriptiu | Hores | Dependències | Recursos |
+| :---: | ----- | :---: | :---: | ----- |
+| G1 | Lliurable 1: Abast i contextualització  \[18/02–26/02\] | **20** | — | \[CP\]+\[AS\]+\[TGEP\]+\[GSUITE\] |
+| G2 | Lliurable 2: Planificació temporal  \[27/02–04/03\] | **25** | G1 | \[CP\]+\[AS\]+\[TGEP\]+\[GSUITE\]+\[EXCEL\] |
+| G3 | Lliurable 3: Pressupost i sostenibilitat  \[05/03–11/03\] | **25** | G2 | \[CP\]+\[AS\]+\[TGEP\]+\[GSUITE\] |
+| G4 | Lliurable 4: Documentació final  \[12/03–18/03\] | **20** | G3 | \[CP\]+\[MA\]+\[TGEP\]+\[GSUITE\] |
+| T0.1 | Reunions de seguiment setmanals | **15** | cap | \[CP\] \+ \[MA\] \+ \[TGEP\] |
+| T0.2 | Documentació contínua | **40** | cap (concurrent) | \[CP\] \+ \[AS\] \+ \[DS\] |
+| T0.3 | Gestió de tasques i Git/GitFlow | **15** | cap (concurrent) | \[CP\] \+ \[GIT\] |
+| T1.1 | Estudi SE-rubric-evaluAItor + opencode.ai | **30** | cap | \[AS\] \+ \[VSC\] \+ \[OLL\] |
+| T1.2 | Adaptació mòduls d'extracció | **25** | T1.1 | \[DS\] \+ \[VSC\] \+ \[GIT\] |
+| T1.3 | Grading determinístic amb config YAML | **15** | T1.2 | \[DS\] \+ \[VSC\] \+ \[GIT\] |
+| T1.4 | Estructura base i proves inicials | **15** | T1.3 | \[DS\] \+ \[T\] \+ \[VSC\] \+ \[OLL\] |
+| T2.1 | Mòduls d'anàlisi determinístics | **30** | T1.4 | \[DS\] \+ \[T\] \+ \[VSC\] \+ \[GIT\] |
+| T2.2 | Mòduls d'anàlisi amb LLM | **25** | T2.1 | \[DS\] \+ \[VSC\] \+ \[OLL\] |
+| T2.3 | Visió multimodal (DiagramLens) | **25** | T2.2 | \[DS\] \+ \[VSC\] \+ \[OLL\] |
+| T2.4 | Proves d'anàlisi i visió | **15** | T2.3 | \[T\] \+ \[VSC\] \+ \[OLL\] |
+| T3.1 | Definició Skill evaluator_skill | **25** | T2.4 | \[AS\] \+ \[DS\] \+ \[VSC\] |
+| T3.2 | Integració prompts d'avaluació | **20** | T3.1 | \[DS\] \+ \[VSC\] |
+| T3.3 | Flux agèntic complet | **30** | T3.2 | \[DS\] \+ \[T\] \+ \[VSC\] \+ \[OLL\] |
+| T3.4 | Proves integració documents reals | **20** | T3.3 | \[T\] \+ \[VSC\] \+ \[OLL\] |
+| T4.1 | Configuració externa rúbriques YAML | **20** | T3.4 | \[DS\] \+ \[VSC\] \+ \[GIT\] |
+| T4.2 | Gestió fitxers intermedios i auditoria | **15** | T4.1 | \[DS\] \+ \[VSC\] |
+| T4.3 | Bateria proves unitàries i integració | **25** | T4.2 | \[T\] \+ \[VSC\] \+ \[GIT\] |
+| T5.1 | Redacció de la memòria final | **60** | T4.3 | \[CP\] \+ \[AS\] \+ \[GSUITE\] |
+| T5.2 | Preparació de la defensa | **15** | T5.1 | \[CP\] \+ \[GSUITE\] |
+|  | **TOTAL** | **540** |  |  |
+
+##### *Taula 3: Estimacions, dependències i recursos de cada tasca. Font: Elaboració pròpia* {#taula-3:-estimacions,-dependències-i-recursos-de-cada-tasca.-font:-elaboració-pròpia}
+
+## **6.1 Diagrama de Gantt** {#6.1-diagrama-de-gantt}
+
+| DIAGRAMA DE GANTT – SE-AGENTIC-EVALUATOR – TFG Adrián Ferrer Gutiérrez (FIB–UPC) 2026 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| ----- | ----- | :---: | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- |
+| **Codi** | **Nom de la tasca** | **Hores** |  | **Gestió** |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+|  |  |  |  | **Sprint 1** |  |  |  |  | **Sprint 2** |  |  | **Sprint 3** |  |  | **Sprint 4** |  |  | **Sprint 5** |
+|  |  |  | **S1 19/02** | **S2 26/02** | **S3 05/03** | **S4 12/03** | **S5 19/03** | **S6 26/03** | **S7 02/04** | **S8 09/04** | **S9 16/04** | **S10 23/04** | **S11 30/04** | **S12 07/05** | **S13 14/05** | **S14 21/05** | **S15 28/05** | **S16 04/06** |
+| **G1** | Lliurable 1: Abast i contextualització | **20** |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| **G2** | Lliurable 2: Planificació temporal | **25** |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| **G3** | Lliurable 3: Pressupost i sostenibilitat | **25** |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| **G4** | Lliurable 4: Presentació oral GEP | **20** |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| **T0.1** | Reunions de seguiment setmanals | **15** |  | █ | █ | █ | █ | █ | █ | █ | █ | █ | █ | █ | █ | █ | █ | █ |
+| **T0.2** | Documentació contínua | **40** |  | █ | █ | █ | █ | █ | █ | █ | █ | █ | █ | █ | █ | █ | █ | █ |
+| **T0.3** | Gestió de tasques i Git/GitFlow | **15** |  | █ | █ | █ | █ | █ | █ | █ | █ | █ | █ | █ | █ | █ | █ | █ |
+| **T1.1** | Estudi SE-rubric-evaluAItor + opencode | **30** |  | █ | █ | █ |  |  |  |  |  |  |  |  |  |  |  |  |
+| **T1.2** | Adaptació mòduls d'extracció | **25** |  |  |  | █ | █ |  |  |  |  |  |  |  |  |  |  |  |
+| **T1.3** | Grading determinístic | **15** |  |  |  |  | █ |  |  |  |  |  |  |  |  |  |  |  |
+| **T1.4** | Estructura base i proves inicials | **15** |  |  |  |  |  | █ |  |  |  |  |  |  |  |  |  |  |
+| **T2.1** | Mòduls d'anàlisi determinístics | **30** |  |  |  |  |  |  | █ | █ |  |  |  |  |  |  |  |  |
+| **T2.2** | Mòduls d'anàlisi amb LLM | **25** |  |  |  |  |  |  |  | █ | █ |  |  |  |  |  |  |  |
+| **T2.3** | Visió multimodal (DiagramLens) | **25** |  |  |  |  |  |  |  |  | █ | █ |  |  |  |  |  |  |
+| **T2.4** | Proves d'anàlisi i visió | **15** |  |  |  |  |  |  |  |  |  | █ |  |  |  |  |  |  |
+| **T3.1** | Definició Skill evaluator_skill | **25** |  |  |  |  |  |  |  |  |  | █ | █ |  |  |  |  |  |
+| **T3.2** | Integració prompts d'avaluació | **20** |  |  |  |  |  |  |  |  |  |  | █ |  |  |  |  |  |
+| **T3.3** | Flux agèntic complet | **30** |  |  |  |  |  |  |  |  |  |  |  | █ | █ |  |  |  |
+| **T3.4** | Proves integració documents reals | **20** |  |  |  |  |  |  |  |  |  |  |  |  | █ |  |  |  |
+| **T4.1** | Configuració externa rúbriques YAML | **20** |  |  |  |  |  |  |  |  |  |  |  |  | █ | █ |  |  |
+| **T4.2** | Gestió fitxers intermedios | **15** |  |  |  |  |  |  |  |  |  |  |  |  |  | █ |  |  |
+| **T4.3** | Bateria proves unitàries i integració | **25** |  |  |  |  |  |  |  |  |  |  |  |  |  | █ | █ |  |
+| **T5.1** | Redacció de la memòria final del TFG | **60** |  |  |  |  |  |  |  |  |  |  |  |  |  |  | █ | █ |
+| **T5.2** | Preparació de la defensa | **15** |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | █ |
+| **TOTAL HORES** |  | **540** |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+
+##### *Taula 4: Diagrama de Gantt. Font: Elaboració pròpia* {#taula-4:-diagrama-de-gantt.-font:-elaboració-pròpia}
+
+# **7\. Gestió del Risc: Plans alternatius i obstacles** {#7.-gestió-del-risc:-plans-alternatius-i-obstacles}
+
+**Risc 1 – Inexperiència amb plataformes agèntiques**
+
+**Impacte:** Pot alentir les tasques inicials d'estudi (T1.1) i de disseny de la Skill (T3.1). 
+
+**Mitigació estàndard:** Sobreestimar les hores a dedicar, realitzar reunions setmanals (T0.1) i 30h dedicades a l'estudi de la plataforma (T1.1). 
+
+**Pla B:** Si al final del Sprint 1 T1.2 no s'ha completat, es reduirà la dedicació a la documentació contínua (T0.2) de 4h/setmana a 2h/setmana durant les setmanes 4-5, alliberant 4 hores addicionals. Afectació sobre la durada total: nul·la, ja que la documentació es recupera al Sprint 5 (T5.1 té 60h reservades).
+
+**Risc 2 – Qualitat insuficient del LLM local**
+
+**Impacte:** Els models locals (qwen3) poden no tenir la capacitat necessària per a tasques complexes d'extracció estructurada, especialment amb mides inferiors a 14B paràmetres. 
+
+**Mitigació estàndard:** Definir models mínims recomanats (qwen3:14b per a text, qwen3-vl:7b per a visió) i implementar validació de models a l'inici. 
+
+**Pla B:** Si la qualitat és insuficient, es pot augmentar la mida del model (si el hardware ho permet) o simplificar els prompts per a tasques més específiques i menys ambigües. Afectació: possible augment del temps de resposta, però no de la qualitat.
+
+**Risc 3 – Calendari apretat (15 setmanes)**
+
+**Impacte:** Qualsevol imprevist tècnic important pot comprometre l'entrega de l'MVP. 
+
+**Mitigació estàndard:** Planificació detallada i metodologia àgil per re-prioritzar. 
+
+**Pla B:** Si al final del Sprint 3 hi ha un retard superior a una setmana, s'activarà una reducció d'abast controlada: s'eliminarà la configuració YAML externa (T4.1) i es posposarà la gestió de fitxers intermedios (T4.2) com a treball futur. Afectació: el projecte pot acabar a temps sense aquestes dues funcionalitats no crítiques per a l'MVP.
+
+**Risc 4 – Pèrdua d'estructura en l'extracció de PDFs**
+
+**Impacte:** La conversió de PDF a Markdown pot perdre jerarquia d'encapçalaments, taules o llistes, afectant la qualitat de l'extracció posterior. 
+
+**Mitigació estàndard:** Utilitzar PyMuPDF amb fallback a pytesseract per a OCR. 
+
+**Pla B:** Si durant les proves la qualitat d'extracció és insuficient, s'avaluarà la integració de Docling com a motor principal. Aquestes hores s'obtindran reduint en 4h T5.2 (que segueix essent suficient amb 11h) i en 4h la T0.2 de les últimes dues setmanes. El projecte pot acabar a temps.
+
+# **8\. Pressupost** {#8.-pressupost}
+
+## **8.1 Identificació i estimació dels costos** {#8.1-identificació-i-estimació-dels-costos}
+
+El pressupost s'estructura seguint l'esquema proposat al Mòdul 2.4 de GEP (font: \[13\]), que distingeix entre costos de personal per activitat (CPA), costos genèrics (CG), contingència i imprevistos.
+
+### 8.1.1 Costos de personal per activitat (CPA) {#8.1.1-costos-de-personal-per-activitat-(cpa)}
+
+Donat que el projecte és unipersonal, l'autor assumeix tots els rols definits al Lliurable 2\. Cada rol té assignat un preu per hora diferent, calculat a partir del sou brut anual de mercat per al perfil corresponent a Espanya (font: \[16\]), multiplicat per 1,3 per incloure el cost de la Seguretat Social a càrrec de l'empresa, i dividit per les hores laborals anuals.   
+S'ha considerat un any laboral de 1800 hores/any, calculat sobre la base de 40 hores setmanals durant 45 setmanes, descomptant les 4 setmanes de vacances i els festius establerts per la legislació laboral espanyola. Aquesta xifra coincideix amb els estàndards internacionals i àmpliament utilitzada en estudis tècnics i acadèmics.   
+	
+
+| Rol | Sou brut anual | × 1,3 SS | Preu/hora |
+| :---: | :---: | :---: | :---: |
+| Cap de Projecte \[CP\] | 45.000 € | 58.500 € | 32 €/h |
+| Analista de Software \[AS\] | 38.000 € | 49.400 € | 27 €/h |
+| Desenvolupador de Software \[DS\] | 35.000 € | 45.500 € | 25 €/h |
+| Tester de Software \[T\] | 32.000 € | 41.600 € | 23 €/h |
+| *Taula 5: Costos de personal. Font: Elaboració pròpia* |  |  |  |
+
+Les hores per rol s'han distribuït proporcionalment a partir de les tasques del Gantt, assignant les hores de cada tasca als rols participants en parts iguals:
+
+| Codi | Tasca | Hores | Rols | Cost (€) |
+| :---: | ----- | :---: | :---: | :---: |
+| G1 | Lliurable 1: Abast i contextualització | 20 | CP, AS | 590,00  |
+| G2 | Lliurable 2: Planificació temporal | 25 | CP, AS | 737,50  |
+| G3 | Lliurable 3: Pressupost i sostenibilitat | 25 | CP, AS | 737,50  |
+| G4 | Lliurable 4: Document final GEP | 20 | CP | 640,00  |
+| T0.1 | Reunions de seguiment setmanals | 15 | CP | 480,00  |
+| T0.2 | Documentació contínua | 40 | CP, AS, DS | 1.120,00  |
+| T0.3 | Gestió de tasques i Git/GitFlow | 15 | CP | 480,00  |
+| T1.1 | Estudi SE-rubric-evaluAItor + opencode.ai | 30 | AS | 810,00  |
+| T1.2 | Adaptació mòduls d'extracció | 25 | DS | 625,00  |
+| T1.3 | Grading determinístic amb config YAML | 15 | DS | 375,00  |
+| T1.4 | Estructura base i proves inicials | 15 | DS, T | 360,00  |
+| T2.1 | Mòduls d'anàlisi determinístics | 30 | DS, T | 720,00  |
+| T2.2 | Mòduls d'anàlisi amb LLM | 25 | DS | 625,00  |
+| T2.3 | Visió multimodal (DiagramLens) | 25 | DS | 625,00  |
+| T2.4 | Proves d'anàlisi i visió | 15 | T | 345,00  |
+| T3.1 | Definició Skill evaluator_skill | 25 | AS, DS | 650,00  |
+| T3.2 | Integració prompts d'avaluació | 20 | DS | 500,00  |
+| T3.3 | Flux agèntic complet | 30 | DS, T | 720,00  |
+| T3.4 | Proves integració documents reals | 20 | T | 460,00  |
+| T4.1 | Configuració externa rúbriques YAML | 20 | DS | 500,00  |
+| T4.2 | Gestió fitxers intermedios i auditoria | 15 | DS | 375,00  |
+| T4.3 | Bateria proves unitàries i integració | 25 | T | 575,00  |
+| T5.1 | Redacció de la memòria final del TFG | 60 | CP, AS | 1.770,00  |
+| T5.2 | Preparació de la presentació i defensa | 15 | CP | 480,00  |
+| **TOTAL CPA** |  | 540 |  | **14.568,00**  |
+| *Taula 6: Costos de personal per activitat. Font: Elaboració pròpia* |  |  |  |  |
+
+### 8.1.2 Costos genèrics (CG) {#8.1.2-costos-genèrics-(cg)}
+
+Els costos genèrics s'imputaran globalment, sense desgranar-los per activitat.
+
+#### 8.1.2.1 Hardware  {#8.1.2.1-hardware}
+
+Seguint les directrius de la Agència Tributària espanyola, el hardware s'amortitza en 4 anys. Dividint el cost de hardware per les hores d'ús possibles durant el període d'amortització, suposant 225 dies laborals de 8h per any (4 anys × 1.800h/any \= 7.200h), s'obté el cost per hora, que després multipliquem per les hores totals de projecte per aconseguir les amortitzacions.
+
+***Amortització \= Cost hardware (€) ÷ 7200 (hores) × 540 (hores totals del projecte**)*
+
+| Dispositiu | Preu | Amortització |
+| :---: | :---: | :---: |
+| Portàtil HP 15s-eq2172ns | 500 € | 37,50 € |
+| Ratolí Tempest X20W Vigilant RGB | 50 € | 3,75 € |
+| Teclat Mars Gaming MKXTKL | 27 € | 2,02 € |
+| **Total hardware** |  | **43,27 €** |
+| *Taula 7: Costos de hardware. Font: Elaboració pròpia* |  |  |
+
+#### 8.1.2.2 Software  {#8.1.2.2-software}
+
+Tot el software utilitzat (Visual Studio Code, Docker Desktop, GitHub, Google Suite, Telegram) és de llicència gratuïta o de codi obert, de manera que el cost de software és 0 €.
+
+#### 8.1.2.3 Despeses generals  {#8.1.2.3-despeses-generals}
+
+El treball es realitza de manera mixta entre l'ICE–UPC i el domicili de l'autor. Per a la part realitzada a casa, s'imputa una fracció proporcional de les despeses d'internet i electricitat:
+
+| Concepte | Cost mensual | Mesos projecte | Proporció d'ús | Cost imputable |
+| :---: | :---: | :---: | :---: | :---: |
+| Internet | 40 €/mes | 4 mesos | 30% | 48,00 € |
+| Electricitat | 60 €/mes | 4 mesos | 20% | 48,00 € |
+| **TOTAL despeses generals** |  |  |  | **96,00 €** |
+| *Taula 8: Despeses generals. Font: Elaboració pròpia* |  |  |  |  |
+
+#### 8.1.2.4 Resum Costos Genèrics (CG) {#8.1.2.4-resum-costos-genèrics-(cg)}
+
+| Concepte | Import |
+| :---: | :---: |
+| Amortització hardware  | 43,27 € |
+| Despeses generals (internet \+ llum) | 96,00 € |
+| Software | 0,00 € |
+| **TOTAL CG** | **139,27 €** |
+| *Taula 9: Resum costos genèrics del projecte. Font: Elaboració pròpia* |  |
+
+### 8.1.3 Total de costos directes {#8.1.3-total-de-costos-directes}
+
+| Partida | Import |
+| :---: | :---: |
+| Total CPA (costos de personal per activitat) | 14.568 € |
+| Total CG (costos genèrics) | 139,27 € |
+| **Total Costos (CPA \+ CG)** | **14.707,27 €** |
+| *Taula 10: Total de costos directes. Font: Elaboració pròpia* |  |
+
+### 8.1.4 Contingència {#8.1.4-contingència}
+
+La contingència és un marge de seguretat per cobrir imprevistos no anticipats. En el sector informàtic, la rúbrica recomana entre el 10% i el 20%. Donat que la planificació és detallada i s'han identificat els riscos principals al Lliurable 2, s'aplica un **15%**:
+
+Contingència \= 14.707 € × 15% \= **2.206 €**
+
+### 8.1.5 Imprevistos {#8.1.5-imprevistos}
+
+Els imprevistos corresponen als plans B identificats al Lliurable 2\. El cost de cada imprevisto s'imputa parcialment, multiplicant el cost del pla B pel **percentatge de probabilitat** que succeeixi el risc:
+
+| Risc | Pla B | Cost pla B | Probabilitat | Cost imputable |
+| :---: | :---: | :---: | :---: | :---: |
+| R1 – Inexperiència amb plataformes agèntiques | Reduir T0.2 i dedicar 4h extra al DS per recuperar retard | 104 € | 30% | 31,20 € |
+| R2 – Qualitat insuficient del LLM local | Augmentar mida del model o simplificar prompts | 0 € | 20% | 0,00 € |
+| R3 – Calendari apretat | Reducció d'abast controlada (eliminar YAML i auditoria) | 0 € | 25% | 0,00 € |
+| R4 – Pèrdua d'estructura en PDFs | Integrar Docling com a motor principal | 200 € | 15% | 30,00 € |
+| **TOTAL Imprevistos** |  |  |  | **61,20 €** |
+| *Taula 11: Costos dels imprevistos possibles del projecte. Font: Elaboració pròpia* |  |  |  |  |
+
+### 8.1.6 Resum del pressupost total {#8.1.6-resum-del-pressupost-total}
+
+| Partida | Import |
+| :---: | :---: |
+| Total CPA | 14.568 € |
+| Total CG | 139,27 € |
+| **Total Costos** | **14.707,27 €** |
+| Contingència (15%) | 2.206 € |
+| Imprevistos | 61 € |
+| **TOTAL PRESSUPOST** | **16.974,27**  |
+| *Taula 12: Resum del pressupost total del projecte. Font: Elaboració pròpia* |  |
+
+## **8.2 Control de gestió** {#8.2-control-de-gestió}
+
+L'objectiu del control de gestió és comparar periòdicament el cost real incorregut amb el cost pressupostat, per detectar desviacions a temps i prendre mesures correctores. Es defineixen tres tipus de desviació (seguint el Mòdul 2.4):
+
+**Desviació en tarifa** (el preu/hora real difereix de l'estimat):
+
+Δ\_tarifa \= (Preu estimat − Preu real) × Hores reals consumides
+
+**Desviació en eficiència** (les hores consumides difereixen de les estimades):
+
+Δ\_eficiència \= (Hores estimades − Hores reals) × Preu estimat
+
+**Desviació total per tasca:**
+
+Δ\_total \= Cost estimat tasca − Cost real tasca
+
+### 8.2.1 Mecanisme de control {#8.2.1-mecanisme-de-control}
+
+El control es realitzarà de manera **setmanal**, coincidint amb les reunions de seguiment (T0.1), seguint aquest procediment:
+
+**1\. Registre de temps real (diari):** Al final de cada jornada, es registrarà les hores dedicades a cada tasca en un full de càlcul (Google Sheets), indicant la tasca, el rol exercit i les hores invertides. Això permet alimentar el sistema de costos de manera contínua.
+
+**2\. Càlcul setmanal de desviacions:** Cada setmana es calcularan els indicadors següents per a cada tasca completada o en curs:
+
+| Indicador | Fórmula | Interpretació |
+| :---: | :---: | :---: |
+| **Desviació en tarifa (Δt)** | (Preu\_est − Preu\_real) × Hores\_reals | \>0 més barat del previst; \<0 més car |
+| **Desviació en eficiència (Δe)** | (Hores\_est − Hores\_reals) × Preu\_est | \>0 més ràpid del previst; \<0 més lent |
+| **Desviació total (Δ)** | Cost\_est − Cost\_real | \>0 estalvi; \<0 sobrecost |
+| **% Desviació** | (Δ / Cost\_est) × 100 | Magnitud relativa de la desviació |
+| *Taula 13: Indicadors de les desviacions de cada tasca. Font: Elaboració pròpia* |  |  |
+
+**3\. Llindar d'alerta:** Si la desviació total acumulada supera el **±10% del pressupost** en qualsevol moment del projecte, s'activarà una revisió del pla. Per sota d'aquest llindar, la contingència (2.206 €) absorbeix la desviació.
+
+**4\. Gestió de desviacions:** En cas de detectar-se una desviació significativa, es seguirà aquest arbre de decisió:
+
+* **Δ \< 10%** **:**  La contingència ho absorbeix. Cap acció immediata.  
+* **10% ≤ Δ \< 20%** **:** Revisió d'estimacions de les tasques pendents i re-planificació puntual.  
+* **Δ ≥ 20%** **:** Activació dels plans B corresponents (Secció 3 del Lliurable 2\) i notificació al director.
+
+
+# **9\. Informe de Sostenibilitat (Fita Inicial)** {#9.-informe-de-sostenibilitat-(fita-inicial)}
+
+## **9.1 Autoavaluació de la competència de sostenibilitat** {#9.1-autoavaluació-de-la-competència-de-sostenibilitat}
+
+Abans d'iniciar el projecte he realitzat l'enquesta d'autoavaluació de la competència en sostenibilitat proposada per la FIB. Les conclusions principals són les següents.  
+El meu punt fort és la dimensió econòmica: tinc una comprensió sòlida de com estimar costos de projectes informàtics i gestionar pressupostos, adquirida al llarg del grau. En canvi, els meus punts febles resideixen en les dimensions ambiental i social: tendeixo a valorar els projectes principalment per la seva viabilitat tècnica i econòmica, sense reflexionar prou sobre el seu consum energètic o les seves implicacions sobre col·lectius de persones. La realització d'aquest lliurable m'ha obligat a abordar explícitament aquestes dimensions, cosa que considero un aprenentatge valuós per al meu perfil professional futur.
+
+## **9.2 Dimensió Ambiental** {#9.2-dimensió-ambiental}
+
+**Respecte el Projecte posat en producció (PPP): ¿Has estimat el impacte ambiental que tindrà la realització del projecte?**  
+
+El recurs principal consumit durant el desenvolupament és l'energia elèctrica del portàtil de treball (HP 15s-eq2172ns, AMD Ryzen 5 5500U, \~30W de consum real en ús). Amb un total de 540 hores de projecte, el consum estimat és:
+
+0,030 kW × 540 h \= 16,2 kWh
+
+Utilitzant el factor d'emissió del mix elèctric espanyol de 2024 (0,18 kg CO₂/kWh, font: \[17\]), les emissions associades a la realització del projecte són:
+
+16,2 kWh × 0,18 kg CO₂/kWh \= \~2,92 kg CO₂
+
+Per posar aquesta xifra en context: és equivalent al consum d'una nevera eficient (classe A+) encesa durant 32 hores, o a una persona en rutina habitual durant 6,7 dies. Es tracta d'un impacte ambiental molt reduït.
+
+**Respecte el Projecte posat en producció (PPP):¿T’has plantejat minimitzar-ne el impacte, per exemple, reutilitzant recursos?**  
+
+Pel que fa a la minimització d'aquest impacte, el projecte s'executa íntegrament de manera local amb Ollama, sense necessitat de servidors cloud externs ni APIs de tercers. Tots els models d'IA (qwen3, qwen3-vl) funcionen a l'ordinador personal de l'autor, evitant la transmissió de dades per xarxa i el consum energètic associat a servidors remots.
+
+**Respecte la Vida Útil: Cóm es resol actualment el problema que vols abordar (estat de l’art)?, i. ¿En què millorarà ambientalment la teva solució respecte a les existents?**
+
+Actualment, l'avaluació d'entregables d'Enginyeria del Software dins de l'ecosistema LAMB es realitza a través del projecte SE-rubric-evaluAItor, un pipeline seqüencial d'investigació. Aquest pipeline presenta limitacions estructurals: flux d'execució rígid i predefinit, configuració de rúbriques hardcodejada al codi font, sense capacitat d'anàlisi de diagrames UML, i sense processament per lots.
+
+SE-Agentic-Evaluator resol totes aquestes limitacions transformant el pipeline en una Skill agèntica que selecciona dinàmicament les eines segons el contingut. Ambientalment, la solució és equivalent a l'actual en termes de consum energètic: tots els models s'executen localment via Ollama sense necessitat de servidors cloud externs ni APIs de tercers. L'execució local evita la transmissió de dades per xarxa i el consum energètic associat a servidors remots.
+
+## **9.3 Dimensió Econòmica** {#9.3-dimensió-econòmica}
+
+**Respecte el Projecte posat en producció (PPP): Has estimat el cost de la realització del projecte (recursos humans i materials)?**  
+
+El cost total estimat de la realització del projecte és de **16.974 €**, desglossats a l'apartat de Pressupost (secció 8). Aquest cost inclou els costos de personal per activitat (14.568 €), els costos genèrics de hardware i despeses generals (139 €), una contingència del 15% (2.206 €) i els imprevistos ponderats per probabilitat (61 €). Donat que el projecte és unipersonal i acadèmic, aquest import representa el cost que un client extern hauria de pagar si encarregués el mateix desenvolupament a una consultora.
+
+**Respecte la Vida Útil: Cóm es resolen actualment els aspectes de costos del problema que vols abordar (estat de l’art)?  En què millorarà econòmicament (costos...) la teva solució respecte a les existents?**
+
+Actualment, qualsevol adaptació de la rúbrica d'avaluació de SE-rubric-evaluAItor per a un altre tipus d'entregable té un cost de desenvolupament elevat perquè requereix modificar directament el codi font (pesos hardcodejats a grader.py). A més, la manca de visió multimodal impedeix avaluar diagrames UML, elements clau en entregables d'Enginyeria del Software. SE-Agentic-Evaluator resol ambdós problemes: la configuració externa de rúbriques permet adaptar l'avaluació a diferents tipus d'entregables sense modificar codi, i la integració de visió multimodal permet avaluar consistència arquitectònica. Econòmicament, el cost operatiu un cop desplegat serà mínim, ja que s'executa localment amb Ollama sense necessitat de servidors addicionals ni APIs de pagament.
+
+## **9.4 Dimensió Social** {#9.4-dimensió-social}
+
+**Respecte el Projecte posat en producció (PPP): Què creus que t’aportarà a nivell personal la realització d’aquest projecte?**  
+
+La realització d'aquest projecte m'aportarà valor a múltiples nivells. En primer lloc, adquiriré experiència en un entorn empresarial real treballant integrat a l'equip de l'ICE–UPC, amb les dinàmiques i responsabilitats que això implica. En segon lloc, dominaré tecnologies emergents àmpliament demandades al mercat laboral actual: agents d'IA, Skills per a plataformes agèntiques, models de llenguatge locals (Ollama), i visió multimodal. En tercer lloc, obtindré una visió completa del cicle de vida d'un sistema d'avaluació assistida per IA, des de l'extracció d'informació fins a la generació d'informes amb evidències. Finalment, el fet de gestionar un projecte de 540 hores de manera completament autònoma reforçarà la meva capacitat d'organització i presa de decisions tècniques independents.
+
+**Respecte la Vida Útil: Existeix una necessitat real del projecte? Cóm es resol actualment el problema que vols abordar (estat de l’art)? i. ¿En què millorarà socialment (qualitat de vida) la teva solució respecte les existents?**  
+
+Existeix una necessitat real i contrastada del projecte: LAMB és un ecosistema en ús actiu a l'ICE–UPC, amb professors i estudiants reals, i la manca d'un sistema d'avaluació assistida flexible i adaptatiu és una limitació operativa concreta identificada per l'equip.
+
+Els col·lectius que es beneficiaran directament de la solució són els professors de les institucions que usin LAMB (avaluacions més ràpides i estructurades amb evidències concretes) i els estudiants (feedback més detallat i accionable). De manera indirecta, qualsevol institució educativa que adopti LAMB en el futur podrà utilitzar SE-Agentic-Evaluator sense cost addicional.
+
+SE-Agentic-Evaluator no substitueix la figura del professor, sinó que l'assisteix: el sistema proporciona una avaluació preliminar amb evidències i recomanacions, però la decisió final i el feedback qualitatiu continuen recaient en el docent. Això minimitza el risc de perjudicar la qualitat educativa. A més, l'execució local amb Ollama garanteix la privacitat RGPD de les dades acadèmiques, un aspecte socialment rellevant en l'era de la IA generativa. 
+
+# **10\. Referències** {#10.-referències}
+
+**\[1\] ADR Formación. (2025, 9 de novembre).** *¿Qué es un LMS? Definición, características y beneficios*. Recuperat el 19 de febrer de 2026 de [https://www.adrformacion.com/blog/que\_es\_un\_lms\_definicion\_caracteristicas\_y\_beneficios.html](https://www.adrformacion.com/blog/que_es_un_lms_definicion_caracteristicas_y_beneficios.html)  
+**\[2\] Almonte, M. G. (2021, 24 d'agost).** *Plataformas LMS: qué son, características, tipos y diferencias con otros sistemas*. Aprendizaje en Red. [Recuperat](https://aprendizajeenred.es/plataformas-lms-definicion-caracteristicas-tipos-diferencias/) el 19 de febrer de 2026 [de https://aprendizajeenred.es/plataformas-lms-definicion-caracteristicas-tipos-diferencias/](https://aprendizajeenred.es/plataformas-lms-definicion-caracteristicas-tipos-diferencias/)  
+**\[3\] Ollama. (s.d.).** *Run large language models locally*. Recuperat el 22 de febrer de 2026, de [https://ollama.com/](https://ollama.com/)  
+**\[4\] LAMB Project. (s.d.).** *LAMB \- Learning Assistants Manager and Builder*. Recuperat el 22 de febrer de 2026, de [https://lamb-project.org/](https://lamb-project.org/)  
+**\[5\] SE-rubric-evaluAItor. (s.d.).** *Pipeline d'avaluació de documents d'Enginyeria del Software*. GitHub. Recuperat el 26 de febrer de 2026, de [https://github.com/Lamb-Project/SE-rubric-evaluAItor](https://github.com/Lamb-Project/SE-rubric-evaluAItor)  
+**\[6\] DiagramLens. (s.d.).** *Descripció tècnica de diagrames UML amb visió multimodal*. GitHub. Recuperat el 26 de febrer de 2026, de [https://github.com/Lamb-Project/DiagramLens](https://github.com/Lamb-Project/DiagramLens)  
+**\[7\] opencode.ai. (s.d.).** *Plataforma d'agents d'IA per a desenvolupadors*. Recuperat el 26 de febrer de 2026, de [https://opencode.ai](https://opencode.ai)  
+**\[8\] Cognodata. (s.d.).** *12 principios de la metodología agile en el desarrollo de proyectos*. Recuperat el 26 de febrer de 2026, de [https://www.cognodata.com/blog/principios-metodologia-agile-desarrollo-proyectos/](https://www.cognodata.com/blog/principios-metodologia-agile-desarrollo-proyectos/)  
+**\[9\] Facultat d'Informàtica de Barcelona (FIB) \- UPC. (2024).** *Mòdul 2.1.b \- Gestión ágil de proyectos* \[Document de l'assignatura Gestió de Projectes\]. Atenea UPC.  
+**\[10\] Facultat d'Informàtica de Barcelona (FIB) \- UPC. (2024).** *Mòdul 2.2 \- Gestión del alcance* \[Document de l'assignatura Gestió de Projectes\]. Atenea UPC.  
+**\[11\] Facultat d'Informàtica de Barcelona (FIB) \- UPC. (2024).** *Mòdul 1 \- Eines TIC* \[Document de l'assignatura Gestió de Projectes\]. Atenea UPC.  
+**\[12\] Facultat d'Informàtica de Barcelona (FIB) \- UPC. (2024).** *Mòdul 2.3 \- Gestión del tiempo* \[Document de l'assignatura Gestió de Projectes\]. Atenea UPC.  
+**\[13\] Facultat d'Informàtica de Barcelona (FIB) \- UPC. (2024).** *Mòdul 2.4 \- Gestión económica* \[Document de l'assignatura Gestió de Projectes\]. Atenea UPC.  
+**\[14\] Facultat d'Informàtica de Barcelona (FIB) \- UPC. (2024).** *Mòdul 2.4.1 \- Costos i sostenibilitat del projecte informàtic* \[Document de l'assignatura Gestió de Projectes\]. Atenea UPC.  
+**\[15\] Facultat d'Informàtica de Barcelona (FIB) \- UPC. (2018).** *Mòdul 2.6 \- El informe de sostenibilidad del TFG* \[Document de l'assignatura Gestió de Projectes\]. Atenea UPC.  
+**\[16\] InfoJobs. (2025).** *Informe de Salaris InfoJobs*. Recuperat el 9 de març de 2026, de [https://salarios.infojobs.net/](https://salarios.infojobs.net/)  
+**\[17\] Red Eléctrica de España (REE). (2025).** *Indicadores del sistema eléctrico español*. Recuperat el 10 de març de 2026, de [https://www.ree.es/es](https://www.ree.es/es)  
+**\[18\] ISO/IEC. (2011).** *ISO/IEC 25010:2011 - Systems and software engineering — Systems and software Quality Requirements and Evaluation (SQuaRE) — System and software quality models*. International Organization for Standardization.  
+**\[19\] European Union. (2016).** *Regulation (EU) 2016/679 (General Data Protection Regulation)*. Recuperat el 15 de març de 2026, de [https://gdpr.eu/](https://gdpr.eu/)
+
+# 
+
+[image1]: <data:image/png;base64,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>
+
+[image2]: <data:image/png;base64,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>
