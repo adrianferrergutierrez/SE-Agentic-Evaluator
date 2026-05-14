@@ -1,0 +1,126 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://se-agentic-evaluator/schemas/workflow/v1.0.json",
+  "title": "SE-Agentic-Evaluator Workflow",
+  "description": "Schema for dynamically generated evaluation workflows",
+  "type": "object",
+  "required": ["version", "name", "steps"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "enum": ["1.0"],
+      "description": "Workflow schema version"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100,
+      "description": "Unique identifier for the workflow"
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable description of the workflow"
+    },
+    "variables": {
+      "type": "object",
+      "description": "Initial variables available to all steps",
+      "additionalProperties": true,
+      "default": {}
+    },
+    "steps": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Ordered list of workflow steps to execute",
+      "items": {
+        "$ref": "#/definitions/step"
+      }
+    }
+  },
+  "definitions": {
+    "step": {
+      "type": "object",
+      "required": ["id", "tool"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^step_[a-zA-Z0-9_]+$",
+          "description": "Unique step identifier (used for variable references)"
+        },
+        "tool": {
+          "type": "string",
+          "description": "Tool name to execute (must be registered in Tool Registry)"
+        },
+        "description": {
+          "type": "string",
+          "description": "Human-readable description of this step"
+        },
+        "params": {
+          "type": "object",
+          "description": "Parameters to pass to the tool. Values can reference previous step outputs using ${step_id.output.key} or initial variables using ${variable_name}",
+          "additionalProperties": true,
+          "default": {}
+        },
+        "output": {
+          "type": "object",
+          "description": "Mapping of tool result fields to step output variables for use by subsequent steps",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "default": {}
+        },
+        "condition": {
+          "$ref": "#/definitions/condition",
+          "description": "Optional condition to determine if this step should execute"
+        },
+        "on_error": {
+          "type": "string",
+          "enum": ["abort", "skip", "retry"],
+          "default": "abort",
+          "description": "Error handling strategy for this step"
+        },
+        "max_retries": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 5,
+          "default": 0,
+          "description": "Maximum number of retries if on_error is 'retry'"
+        }
+      },
+      "additionalProperties": false
+    },
+    "condition": {
+      "type": "object",
+      "description": "Conditional execution logic for a step",
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["if"],
+          "properties": {
+            "if": {
+              "type": "string",
+              "description": "Expression to evaluate. If truthy, step executes."
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["if", "then"],
+          "properties": {
+            "if": {
+              "type": "string",
+              "description": "Expression to evaluate"
+            },
+            "then": {
+              "$ref": "#/definitions/step"
+            },
+            "else": {
+              "$ref": "#/definitions/step"
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    }
+  }
+}

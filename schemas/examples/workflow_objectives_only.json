@@ -1,0 +1,47 @@
+{
+  "version": "1.0",
+  "name": "workflow_objectives_only",
+  "description": "Workflow simplificat per avaluar només els objectius d'un document",
+  "variables": {
+    "input_docx": "tests/test2/A1.2 Memoria trabajo final.docx",
+    "output_dir": "tests/test2/output/objectives_only"
+  },
+  "steps": [
+    {
+      "id": "step_docx_extract",
+      "tool": "docx_extract",
+      "description": "Convertir document Word a Markdown",
+      "params": {
+        "input": "${input_docx}",
+        "output_dir": "${output_dir}/phase0"
+      },
+      "output": {
+        "document_md": "${step_docx_extract.result.contents_md}"
+      },
+      "on_error": "abort"
+    },
+    {
+      "id": "step_extract_objectives",
+      "tool": "extract_objectives",
+      "description": "Extreure objectius del document",
+      "params": {
+        "document": "${step_docx_extract.output.document_md}"
+      },
+      "output": {
+        "objectives_md": "${step_extract_objectives.result.markdown}"
+      },
+      "on_error": "skip"
+    },
+    {
+      "id": "step_evaluate_objectives",
+      "tool": "criterion_evaluator",
+      "description": "Avaluar criteri d'objectius",
+      "params": {
+        "document": "${step_docx_extract.output.document_md}",
+        "config": "configs/rubric_hito1.yaml",
+        "output_dir": "${output_dir}/evaluacion"
+      },
+      "on_error": "abort"
+    }
+  ]
+}
