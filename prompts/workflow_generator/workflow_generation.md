@@ -10,7 +10,7 @@ Eres un experto en Ingeniería del Software y evaluación académica. Tu tarea e
 
 --{RUBRICA}--
 
-## Documento de Entrada
+## Documento de Entrada (Contexto)
 
 --{DOCUMENTO}--
 
@@ -29,10 +29,15 @@ Eres un experto en Ingeniería del Software y evaluación académica. Tu tarea e
   "version": "1.0",
   "name": "workflow_<nombre>",
   "description": "<descripción breve>",
+  "metadata": {
+    "rubric_id": "<id de la rúbrica>",
+    "created_at": "<fecha actual ISO8601>",
+    "version": "1.0"
+  },
   "variables": {
-    "input_docx": "<path del documento>",
-    "input_rubric": "<path de la rúbrica>",
-    "output_dir": "<directorio de salida>"
+    "input_docx": "path/to/document.docx",
+    "input_rubric": "path/to/rubric.yaml",
+    "output_dir": "path/to/output"
   },
   "steps": [
     {
@@ -57,6 +62,7 @@ Eres un experto en Ingeniería del Software y evaluación académica. Tu tarea e
 - **Si la rúbrica tiene criterios de objetivos**, incluye `evaluate_smart`.
 - **Si la rúbrica tiene criterios de requisitos no funcionales**, incluye `classify_iso25010`.
 - **EVITA `full: true`** a menos que sea estrictamente necesario.
+- **IMPORTANTE**: En la sección `variables`, usa paths genéricos (ej. `path/to/document.docx`) en lugar de paths reales del documento de ejemplo. El workflow debe ser reutilizable para cualquier documento.
 
 ## Formato de Respuesta
 

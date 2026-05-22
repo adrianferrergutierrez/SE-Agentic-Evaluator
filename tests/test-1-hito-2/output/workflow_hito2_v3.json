@@ -1,0 +1,78 @@
+{
+  "version": "1.0",
+  "name": "workflow_hito2_eval",
+  "description": "Evaluaci\u00f3n directa de memoria t\u00e9cnica, diagrama de clases y glosario contra r\u00fabrica hito2",
+  "metadata": {
+    "rubric_id": "hito2",
+    "created_at": "2026-05-22T11:24:41.890512",
+    "version": "1.0"
+  },
+  "variables": {
+    "input_docx": "path/to/document.docx",
+    "input_rubric": "configs/rubric_hito2.yaml",
+    "output_dir": "path/to/output"
+  },
+  "steps": [
+    {
+      "id": "step_extract_docx",
+      "tool": "docx_extract",
+      "description": "Convertir documento DOCX de entrada a Markdown para procesamiento",
+      "params": {
+        "input": "${variables.input_docx}",
+        "output_dir": "${variables.output_dir}"
+      },
+      "output": {
+        "contents_md": "${step_extract_docx.result.contents_md}",
+        "images": "${step_extract_docx.result.images}"
+      },
+      "on_error": "abort"
+    },
+    {
+      "id": "step_evaluate",
+      "tool": "criterion_evaluator",
+      "description": "Evaluar criterios de la r\u00fabrica (memoria t\u00e9cnica, diagrama, glosario) directamente sobre el documento",
+      "params": {
+        "document": "${step_extract_docx.result.contents_md}",
+        "config": "${variables.input_rubric}",
+        "full": false,
+        "output_dir": "${variables.output_dir}"
+      },
+      "output": {
+        "scores": "${step_evaluate.result.scores}",
+        "output_dir": "${step_evaluate.result.output_dir}"
+      },
+      "on_error": "abort"
+    },
+    {
+      "id": "step_grade",
+      "tool": "grader",
+      "description": "Calcular la calificaci\u00f3n final ponderada basada en los pesos de la r\u00fabrica",
+      "params": {
+        "scores": "${step_evaluate.result.scores}",
+        "config": "${variables.input_rubric}"
+      },
+      "output": {
+        "weighted_final": "${step_grade.result.weighted_final}",
+        "mean_xbar": "${step_grade.result.mean_xbar}",
+        "performance_level": "${step_grade.result.performance_level}"
+      },
+      "on_error": "abort"
+    },
+    {
+      "id": "step_report",
+      "tool": "report_generator",
+      "description": "Generar informe final de evaluaci\u00f3n consolidado",
+      "params": {
+        "document": "${step_extract_docx.result.contents_md}",
+        "eval_dir": "${variables.output_dir}",
+        "config": "${variables.input_rubric}",
+        "scores": "${step_evaluate.result.scores}",
+        "output": "${variables.output_dir}/evaluation_report.md"
+      },
+      "output": {
+        "report_path": "${step_report.result.report_path}"
+      },
+      "on_error": "abort"
+    }
+  ]
+}

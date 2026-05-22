@@ -21,6 +21,8 @@ import argparse
 import json
 import logging
 import re
+import time
+from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
@@ -169,6 +171,15 @@ def generate_workflow(
         errors = _validate_workflow(workflow, schema)
         if not errors:
             logger.info("Workflow generated and validated successfully")
+            
+            # Inject metadata for traceability
+            rubric_id = Path(rubric_path).stem.replace("rubric_", "").replace("rubrica_", "")
+            workflow["metadata"] = {
+                "rubric_id": rubric_id,
+                "created_at": datetime.now().isoformat(),
+                "version": "1.0"
+            }
+            
             if output_path:
                 out = Path(output_path)
                 out.parent.mkdir(parents=True, exist_ok=True)

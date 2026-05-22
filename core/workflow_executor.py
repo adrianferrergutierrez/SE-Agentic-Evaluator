@@ -41,11 +41,39 @@ class WorkflowExecutor:
         self.execution_log: List[Dict[str, Any]] = []
         self.dry_run = dry_run
 
+    def validate_inputs(self) -> List[str]:
+        """Validate that all variables referenced in steps are available."""
+        missing = set()
+        for step in self.workflow.get("steps", []):
+            params = step.get("params", {})
+            # Check params for variable references
+            def find_vars(value):
+                if isinstance(value, str):
+                    for match in VAR_PATTERN.finditer(value):
+                        var_path = match.group(1)
+                        if var_path.startswith("variables."):
+                            var_path = var_path[len("variables."):]
+                        # Only check top-level variables (not step outputs)
+                        if "." not in var_path and var_path not in self.variables:
+                            missing.add(var_path)
+                elif isinstance(value, dict):
+                    for v in value.values():
+                        find_vars(v)
+                elif isinstance(value, list):
+                    for v in value:
+                        find_vars(v)
+            find_vars(params)
+        return list(missing)
+
     def _resolve_variables(self, value: Any) -> Any:
         """Resolve variable references in a value."""
         if isinstance(value, str):
             def replacer(match):
                 var_path = match.group(1)
+                # Handle ${variables.key} syntax by stripping prefix
+                if var_path.startswith("variables."):
+                    var_path = var_path[len("variables."):]
+                
                 parts = var_path.split(".")
                 if len(parts) >= 3 and parts[1] in ("output", "result"):
                     step_id = parts[0]
@@ -99,7 +127,19 @@ class WorkflowExecutor:
 
     def execute(self) -> Dict[str, Any]:
         """Execute the workflow and return the execution log."""
-        logger.info("Starting workflow: %s", self.workflow.get("name", "unknown"))
+        workflow_name = self.workflow.get("name", "unknown")
+        workflow_version = self.workflow.get("version", "unknown")
+        
+        logger.info("Starting workflow: %s (v%s)", workflow_name, workflow_version)
+        
+        # Validate inputs before execution
+        missing_vars = self.validate_inputs()
+        if missing_vars:
+            logger.error("Missing required variables: %s", ", ".join(missing_vars))
+            return {"status": "failed", "error": f"Missing variables: {missing_vars}", "log": []}
+        
+        logger.info("Runtime variables: %s", json.dumps({k: v for k, v in self.variables.items() if k in ["input_docx", "output_dir", "input_rubric"]}, indent=2))
+        
         start_time = time.time()
 
         for step in self.workflow.get("steps", []):
