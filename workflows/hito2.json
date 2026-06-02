@@ -1,0 +1,92 @@
+{
+  "version": "1.0",
+  "name": "workflow_hito2",
+  "description": "Workflow para evaluar hito 2: memoria técnica, diagrama de clases del modelo de dominio y glosario de clases.",
+  "metadata": {
+    "rubric_id": "hito2",
+    "created_at": "2026-06-02T12:06:13.581142",
+    "version": "1.0"
+  },
+  "variables": {
+    "input_docx": "path/to/document.docx",
+    "input_rubric": "path/to/rubric.yaml",
+    "output_dir": "path/to/output"
+  },
+  "steps": [
+    {
+      "id": "step_extract_docx",
+      "tool": "docx_extract",
+      "description": "Convertir documento DOCX a Markdown y extraer imágenes.",
+      "params": {
+        "input": "${input_docx}",
+        "output_dir": "${output_dir}/extracted"
+      },
+      "output": {
+        "contents_md": "contents_md",
+        "images": "images"
+      },
+      "on_error": "abort"
+    },
+    {
+      "id": "step_describe_diagrams",
+      "tool": "describe_diagrams",
+      "description": "Generar descripciones textuales de diagramas e imágenes para evaluación multimodal.",
+      "params": {
+        "document_path": "${step_extract_docx.result.contents_md}",
+        "model": "qwen-vl-max"
+      },
+      "output": {
+        "updated_md": "updated_md",
+        "descriptions_count": "descriptions_count"
+      },
+      "on_error": "skip"
+    },
+    {
+      "id": "step_evaluate",
+      "tool": "criterion_evaluator",
+      "description": "Evaluar criterios de la rúbrica contra el documento procesado.",
+      "params": {
+        "document": "${step_describe_diagrams.result.updated_md}",
+        "config": "${input_rubric}",
+        "full": false,
+        "output_dir": "${output_dir}/eval"
+      },
+      "output": {
+        "scores": "scores",
+        "output_dir": "output_dir"
+      },
+      "on_error": "abort"
+    },
+    {
+      "id": "step_grade",
+      "tool": "grader",
+      "description": "Calcular la calificación final ponderada según pesos de la rúbrica.",
+      "params": {
+        "scores": "${step_evaluate.result.scores}",
+        "config": "${input_rubric}"
+      },
+      "output": {
+        "weighted_final": "weighted_final",
+        "mean_xbar": "mean_xbar",
+        "performance_level": "performance_level"
+      },
+      "on_error": "abort"
+    },
+    {
+      "id": "step_report",
+      "tool": "report_generator",
+      "description": "Generar informe final de evaluación consolidado.",
+      "params": {
+        "document": "${step_describe_diagrams.result.updated_md}",
+        "eval_dir": "${step_evaluate.result.output_dir}",
+        "config": "${input_rubric}",
+        "scores": "${step_evaluate.result.scores}",
+        "output": "${output_dir}/report.md"
+      },
+      "output": {
+        "report_path": "report_path"
+      },
+      "on_error": "abort"
+    }
+  ]
+}

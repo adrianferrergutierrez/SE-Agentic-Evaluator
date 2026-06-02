@@ -102,7 +102,7 @@ def build_prompt(
 
 def generate_workflow(
     rubric_path: str,
-    document_path: str,
+    document_path: Optional[str] = None,
     output_path: Optional[str] = None,
     model: str = DEFAULT_MODEL,
     max_retries: int = MAX_RETRIES,
@@ -115,7 +115,8 @@ def generate_workflow(
     rubric_path:
         Path to the rubric YAML config file.
     document_path:
-        Path to the Markdown document to evaluate.
+        Optional path to the Markdown document to evaluate. If not provided,
+        generates a generic workflow without document-specific context.
     output_path:
         Optional path to write the generated workflow JSON.
     model:
@@ -141,7 +142,13 @@ def generate_workflow(
     schema = _load_json(SCHEMA_PATH)
     catalog_text = format_catalog_for_prompt()
     rubric_text = _load_text(Path(rubric_path))
-    document_text = _load_text(Path(document_path))
+    
+    # Load document if provided, otherwise use empty string
+    if document_path and document_path.strip():
+        document_text = _load_text(Path(document_path))
+    else:
+        document_text = ""
+        logger.info("No document provided, generating generic workflow")
 
     prompt = build_prompt(rubric_text, document_text, catalog_text)
 

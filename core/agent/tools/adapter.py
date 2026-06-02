@@ -47,16 +47,20 @@ class ToolAdapter:
                     if param_desc.upper().startswith("REQUIRED"):
                         required.append(param_name)
                 
+                # DashScope expects OpenAI-compatible format
                 schema = {
-                    "name": tool.name,
-                    "description": tool.description,
-                    "parameters": {
-                        "type": "object",
-                        "properties": properties,
-                    },
+                    "type": "function",
+                    "function": {
+                        "name": tool.name,
+                        "description": tool.description,
+                        "parameters": {
+                            "type": "object",
+                            "properties": properties,
+                        },
+                    }
                 }
                 if required:
-                    schema["parameters"]["required"] = required
+                    schema["function"]["parameters"]["required"] = required
                 schemas.append(schema)
         return schemas
 
