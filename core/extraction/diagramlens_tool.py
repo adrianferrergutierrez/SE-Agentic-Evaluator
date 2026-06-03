@@ -214,14 +214,23 @@ def describe_diagrams(
                 descriptions_count += 1
                 logger.debug(f"✓ Successfully described: {img_path.name}")
                 
-                # Small delay between successful requests to avoid rate limiting
-                time.sleep(REQUEST_DELAY)
-                
             except Exception as e:
-                logger.error(
-                    f"Failed to analyze {img_path.name}: {e}",
-                    exc_info=False
-                )
+                error_msg = str(e)
+                # Check if it's a quota/403 error
+                if "403" in error_msg or "free tier" in error_msg.lower() or "quota" in error_msg.lower():
+                    logger.warning(f"Vision API quota exhausted. Stopping diagram descriptions. Error: {e}")
+                    # Return original document immediately
+                    return {
+                        "updated_md": str(doc_path),
+                        "descriptions_count": 0,
+                        "total_images": len(matches),
+                        "failed_images": [m.group(2) for m in matches],
+                        "skipped": True,
+                        "reason": "Vision API quota exhausted (403)"
+                    }
+                
+                # For other errors, log and continue
+                logger.warning(f"Failed to analyze {img_path.name}: {e}")
                 failed_images.append(img_path.name)
         else:
             logger.warning(f"Image not found: {img_path}")
