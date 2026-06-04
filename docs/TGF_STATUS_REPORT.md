@@ -15,9 +15,9 @@ El projecte segueix la metodologia **"Agents All the Way Down"** desenvolupada p
 
 ### Estat Actual
 - ✅ **Fases P1-P4 completades** (Substrate, Building Blocks, Prototype, Ship as CLI)
-- ✅ **3 dels 6 escenaris validats** amb èxit
+- ✅ **3 dels 6 escenaris validats** amb èxit (Escenaris 2, 3 i 4)
 - ⏳ **Fase P5 pendent** (Agent-Tests-Agent)
-- ⏳ **3 escenaris pendents** de validació
+- ⏳ **3 escenaris pendents** de validació (Escenaris 1, 5 i 6)
 
 ---
 
@@ -237,17 +237,35 @@ Nota final: 3.65/10 (Insuficiente)
 - `results/hito2_scenario3_no_vision/eval/scores.json`
 - `results/hito2_scenario3_no_vision/evaluacion_final.md`
 
-#### Escenari 4: Continuació de Sessió ⏳
+#### Escenari 4: Continuació de Sessió ✅
 **Descripció:** Iniciar avaluació i continuar amb canvis
 
-**Estat:** ⏳ Pendent
+**Estat:** ✅ Completat
+
+**Resultat:**
+```
+Pas 1: Avaluació inicial
+- Memoria técnica: 7.0/10
+- Diagrama de clases: 7.0/10
+- Glosario de clases: 7.0/10
+- Nota final: 7.0/10 (Bueno)
+
+Pas 2: Continuació de sessió
+- Session ID: 843ec406-b1d1-4bf7-a248-83a6d60272f3
+- Canvi: Memoria técnica 7.0 → 9.0
+- Nova nota final: 7.5/10 (+0.5 punts)
+```
 
 **Validacions:**
-- ⏳ Primera crida retorna puntuacions vàlides
-- ⏳ Segona crida recorda el context (session_id vàlid)
-- ⏳ Aplica canvis manuals a criteris
-- ⏳ Recalcula nota final correctament
-- ⏳ Manté coherència (no regenera workflow)
+- ✅ Primera crida retorna puntuacions vàlides
+- ✅ Segona crida recorda el context (session_id vàlid)
+- ✅ Aplica canvis manuals a criteris
+- ✅ Recalcula nota final correctament
+- ✅ Manté coherència (no regenera workflow)
+
+**Fitxers generats:**
+- `test_scenario4.py` - Script de test
+- `results/hito2_scenario4/` - Resultats de l'avaluació
 
 #### Escenari 5: Input Adversarial ⏳
 **Descripció:** Validar seguretat amb inputs maliciosos
@@ -283,7 +301,7 @@ Nota final: 3.65/10 (Insuficiente)
 |---------|-------|--------------|
 | **Tools implementades** | 18 | Registry complet |
 | **Tests unitaris** | 5/5 ✅ | Sense LLM |
-| **Escenaris validats** | 2/6 | Escenaris 2 i 3 |
+| **Escenaris validats** | 3/6 | Escenaris 2, 3 i 4 |
 | **Temps d'execució** | ~5 min | Escenari 3 (sense visió) |
 | **Tokens consumits** | ~15K | Escenari 3 (sense visió) |
 
@@ -346,8 +364,8 @@ El projecte **SE-Agentic-Evaluator** ha assolit els objectius principals de les 
 
 **Validació:**
 - ✅ 5/5 tests unitaris passats (sense LLM)
-- ✅ 2/6 escenaris validats amb èxit
-- ⏳ 4/6 escenaris pendents (3 per falta de quota de visió, 1 per implementar)
+- ✅ 3/6 escenaris validats amb èxit (Escenaris 2, 3 i 4)
+- ⏳ 3/6 escenaris pendents (1 per falta d'execució, 1 per seguretat, 1 per falta de quota de visió)
 
 **Proper pas:** Implementar la fase P5 (Agent-Tests-Agent) per completar el cicle de desenvolupament i assegurar la qualitat del sistema mitjançant behavioral testing automatitzat.
 
