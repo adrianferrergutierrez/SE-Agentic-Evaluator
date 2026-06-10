@@ -607,7 +607,7 @@ class DescribeDiagramsTool(Tool):
     @property
     def params(self) -> Dict[str, str]: return {
         "document_path": "Path to Markdown file with images",
-        "model": "Vision model (default: qwen-vl-max)",
+        "model": "Vision model (default: qwen3-vl-32b)",
         "prompt": "Custom prompt for vision model"
     }
     @property
@@ -621,7 +621,7 @@ class DescribeDiagramsTool(Tool):
         
         # Build kwargs for describe_diagrams, only including prompt if provided
         call_kwargs = {
-            "model": kwargs.get("model", "qwen-vl-max"),
+            "model": kwargs.get("model", "qwen3-vl-32b"),
         }
         
         # Only pass prompt if it's explicitly provided (not None)

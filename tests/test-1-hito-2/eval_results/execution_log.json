@@ -1,0 +1,10 @@
+{
+  "status": "aborted",
+  "log": [
+    {
+      "step": "step_extract_docx",
+      "status": "aborted",
+      "reason": "Package not found at 'tests/test-1-hito-2/extracted/contents.md'"
+    }
+  ]
+}

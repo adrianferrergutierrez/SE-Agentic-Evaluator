@@ -1,10 +1,10 @@
 {
   "version": "1.0",
   "name": "workflow_hito2",
-  "description": "Workflow para evaluar hito 2: memoria técnica, diagrama de clases del modelo de dominio y glosario de clases.",
+  "description": "Evaluación de Hito 2: Memoria técnica, diagrama de clases del modelo de dominio y glosario de clases.",
   "metadata": {
     "rubric_id": "hito2",
-    "created_at": "2026-06-02T12:06:13.581142",
+    "created_at": "2026-06-10T17:41:30.985752",
     "version": "1.0"
   },
   "variables": {
@@ -16,10 +16,10 @@
     {
       "id": "step_extract_docx",
       "tool": "docx_extract",
-      "description": "Convertir documento DOCX a Markdown y extraer imágenes.",
+      "description": "Convertir documento DOCX a Markdown y extraer imágenes incrustadas.",
       "params": {
-        "input": "${input_docx}",
-        "output_dir": "${output_dir}/extracted"
+        "input": "${variables.input_docx}",
+        "output_dir": "${variables.output_dir}/extracted"
       },
       "output": {
         "contents_md": "contents_md",
@@ -30,10 +30,10 @@
     {
       "id": "step_describe_diagrams",
       "tool": "describe_diagrams",
-      "description": "Generar descripciones textuales de diagramas e imágenes para evaluación multimodal.",
+      "description": "Generar descripciones textuales de diagramas e imágenes para habilitar evaluación multimodal.",
       "params": {
         "document_path": "${step_extract_docx.result.contents_md}",
-        "model": "qwen-vl-max"
+        "model": "qwen3-vl-32b"
       },
       "output": {
         "updated_md": "updated_md",
@@ -44,12 +44,12 @@
     {
       "id": "step_evaluate",
       "tool": "criterion_evaluator",
-      "description": "Evaluar criterios de la rúbrica contra el documento procesado.",
+      "description": "Evaluar el documento procesado contra los criterios de la rúbrica sin análisis profundo de trazabilidad.",
       "params": {
         "document": "${step_describe_diagrams.result.updated_md}",
-        "config": "${input_rubric}",
+        "config": "${variables.input_rubric}",
         "full": false,
-        "output_dir": "${output_dir}/eval"
+        "output_dir": "${variables.output_dir}/evaluation"
       },
       "output": {
         "scores": "scores",
@@ -60,10 +60,10 @@
     {
       "id": "step_grade",
       "tool": "grader",
-      "description": "Calcular la calificación final ponderada según pesos de la rúbrica.",
+      "description": "Calcular la calificación final ponderada según los pesos de la rúbrica.",
       "params": {
         "scores": "${step_evaluate.result.scores}",
-        "config": "${input_rubric}"
+        "config": "${variables.input_rubric}"
       },
       "output": {
         "weighted_final": "weighted_final",
@@ -75,13 +75,13 @@
     {
       "id": "step_report",
       "tool": "report_generator",
-      "description": "Generar informe final de evaluación consolidado.",
+      "description": "Generar el informe final consolidado con puntuaciones y retroalimentación.",
       "params": {
         "document": "${step_describe_diagrams.result.updated_md}",
         "eval_dir": "${step_evaluate.result.output_dir}",
-        "config": "${input_rubric}",
+        "config": "${variables.input_rubric}",
         "scores": "${step_evaluate.result.scores}",
-        "output": "${output_dir}/report.md"
+        "output": "${variables.output_dir}/report.md"
       },
       "output": {
         "report_path": "report_path"

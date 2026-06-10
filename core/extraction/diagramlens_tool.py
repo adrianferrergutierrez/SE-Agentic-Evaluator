@@ -111,7 +111,7 @@ def compress_image_if_needed(image_path: Path) -> Path:
 
 def describe_diagrams(
     document_path: str,
-    model: str = "qwen-vl-plus",
+    model: str = "qwen3-vl-32b",
     prompt: str = (
         "Identify the specific type of this diagram (e.g., UML Class Diagram, Sequence Diagram, "
         "Use Case Diagram, Activity Diagram, ER Diagram, Flowchart, etc.). "
