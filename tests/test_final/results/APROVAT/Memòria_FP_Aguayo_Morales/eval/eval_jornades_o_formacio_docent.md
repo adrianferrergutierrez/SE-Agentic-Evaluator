@@ -1,0 +1,15 @@
+# Evaluación: Jornades o formació docent
+
+## Análisis
+El documento incluye un apartado específico titulado **“5. Assistència a activitats de formació externa”** (p. 22), donde el estudiante describe su participación en una jornada técnica organizada por una empresa proveedora de sistemas de diagnóstico vehicular, en colaboración con un centro de FP de la zona. La descripción va más allá del mero registro de asistencia: el autor detalla el contenido de la actividad (presentaciones tecnológicas, demostraciones prácticas y espacio de debate), analiza su impacto en tres dimensiones clave (actualización técnica en sistemas ADAS, creación de red profesional y reforzamiento de la identidad como docente reflexivo) y extrae conclusiones pedagógicas y profesionales sólidas. 
+
+Concretamente, vincula la formación externa con la mejora directa de su práctica en el aula (*“incorporar exemples reals i actualitzats a les explicacions”*), la capacidad de responder a las inquietudes del alumnado y el compromiso ético de la formación continua (*“La formació externa, per tant, no és un afegit al meu rol docent, sinó una peça clau del compromís ètic i professional”*). Este nivel de análisis estructurado y la capacidad de extraer conclusiones transferibles a la práctica docente cumplen plenamente el descriptor máximo proporcionado en la rúbrica (**4/10**: *“Participa en alguna de les activitats proposades al llarg del curs. L'activitat comporta una reflexió sobre l'experiència”*). La memoria demuestra una actitud proactiva, crítica y orientada a la mejora continua, alineada con los estándares esperados en un prácticum de máster.
+
+## Puntuación
+**Puntuación:** 4/10
+
+## Observaciones
+- **Vinculación curricular explícita:** Sería recomendable detallar cómo los conocimientos adquiridos en la jornada se integraron concretamente en una unidad didáctica, AEA o rúbrica de evaluación específica (ej. modificación de una práctica de taller o inclusión de un caso real de diagnóstico ADAS).
+- **Evidencia de impacto:** Incluir un breve seguimiento o indicador observable de cómo la actualización técnica influyó en el rendimiento, la participación o la motivación del alumnado reforzaría el análisis reflexivo.
+- **Contextualización de la actividad:** Aclarar si la jornada formaba parte de las actividades propuestas oficialmente por el máster/centro o fue de iniciativa propia ayudaría a verificar el cumplimiento de los requisitos formativos del curso.
+- **Profundización metodológica:** Explorar cómo la formación externa podría traducirse en nuevas estrategias didácticas (ej. aprendizaje basado en problemas con casos reales del sector, uso de simuladores o herramientas de diagnóstico en el taller) elevaría aún más el nivel de transferencia pedagógica y justificaría una puntuación superior en una rúbrica completa.

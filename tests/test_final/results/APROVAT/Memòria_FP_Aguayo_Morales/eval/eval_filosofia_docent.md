@@ -1,0 +1,17 @@
+# Evaluación: Filosofia docent
+
+## Análisis
+El documento presenta una reflexión madura, estructurada y explícita sobre la evolución de la filosofía docente del autor, cumpliendo con creces el descriptor más alto de la rúbrica proporcionada.
+
+- **Articulación clara de la evolución:** En el apartado *“Canvis en la filosofia docent”* (p. 23), el autor contrasta de manera directa y honesta su visión inicial (*“centrada en l’eficiència tècnica, en la transmissió clara i precisa del coneixement”*) con la visión transformada tras el prácticum (*“ensenyar va molt més enllà d’instruir: és una acció educativa que implica acollir, comprendre, observar, escoltar i, sobretot, acompanyar”*). Esta dualidad “antes/después” está bien delimitada y argumentada.
+- **Identificación de factores clave de cambio:** El texto atribuye la transformación a tres ejes concretos y verificables: (1) las situaciones reales vividas con el alumnado (ej. gestión de conflictos, desmotivación inicial en sesiones teóricas), (2) el análisis conjunto y la retroalimentación estructurada con el mentor (Fernando López), y (3) la vinculación con los contenidos teóricos del máster. Esta triangulación (práctica, mentoría, teoría) demuestra una capacidad reflexiva propia de un docente en formación avanzada.
+- **Implicaciones pedagógicas y coherencia transversal:** La evolución filosófica no se limita a la declaración de intenciones, sino que se traduce en cambios metodológicos y actitudinales concretos: incorporación de metodologías activas, evaluación formativa, sensibilidad ante la diversidad y un enfoque que prioriza la formación de *“persones autònomes, responsables i crítiques”* por encima de la mera capacitación técnica. Esta coherencia se verifica a lo largo de toda la memoria, especialmente en el diseño de la AEA (rotación por estaciones, adaptaciones para PI, rúbrica competencial), en la aplicación del ciclo reflexivo y en la definición de objetivos futuros.
+- **Cumplimiento de la rúbrica:** El documento supera ampliamente el nivel de *“describir cambios sin aprofundir”* y se sitúa firmemente en el descriptor máximo: articula de manera clara, argumentada y contextualizada la evolución de su filosofía, identificando los factores detonantes y sus implicaciones prácticas, éticas y profesionales.
+
+## Puntuación
+**Puntuación:** 9/10
+
+## Observaciones
+- **Fundamentación teórica explícita:** Aunque la reflexión es sólida y práctica, se beneficiaría de citar explícitamente marcos pedagógicos o autores de referencia (p. ej., Dewey, Schön, Freire, o el enfoque de competencias de la normativa vigente) que sustenten teóricamente el giro hacia una docencia más humanista, reflexiva y centrada en el alumnado.
+- **Vinculación con la normativa y el perfil de FP:** Sería recomendable conectar explícitamente la filosofía docente con los principios rectores de la FP actual en Cataluña (enfoque competencial, FP Dual, inclusión, sostenibilidad, digitalización), reforzando así el anclaje institucional y normativo de la propuesta.
+- **Proyección hacia la innovación tecnológica:** Dado el perfil de automoción y la rápida transformación del sector, se podría ampliar brevemente la reflexión sobre cómo la filosofía docente se adaptará a la integración de nuevas tecnologías (diagnosis avanzada, simuladores, IA, entornos virtuales), manteniendo el equilibrio entre excelencia técnica y acompañamiento humano que el autor ya valora.

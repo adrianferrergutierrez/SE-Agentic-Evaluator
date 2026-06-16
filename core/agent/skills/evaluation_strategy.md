@@ -20,6 +20,7 @@ When asked to evaluate a document:
 - Use `describe_diagrams` when the rubric mentions diagrams or visual artifacts.
 - Use `grader` for deterministic score calculation; NEVER calculate scores yourself.
 - Use `report_generator` to produce the final human-readable output.
+- When using `execute_workflow`, ALWAYS pass `rubric_path` if the user specified a rubric path in their request.
 
 ## Safety & Constraints
 - **NEVER** modify the original document.

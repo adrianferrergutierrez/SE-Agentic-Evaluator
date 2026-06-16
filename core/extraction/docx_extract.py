@@ -15,6 +15,9 @@ from typing import Dict, Any
 
 logger = logging.getLogger(__name__)
 
+MIN_API_IMAGE_DIMENSION = 11  # DashScope requires width/height > 10
+MIN_IMAGE_BLOB_SIZE_BYTES = 128  # Fast-path to skip likely spacer pixels/icons
+
 
 def extract_docx(input: str, output_dir: str) -> Dict[str, Any]:
     """Extract content from a DOCX file.
@@ -35,6 +38,14 @@ def extract_docx(input: str, output_dir: str) -> Dict[str, Any]:
         import docx
     except ImportError:
         raise ImportError("python-docx is required. Install with: pip install python-docx")
+
+    try:
+        from PIL import Image
+        import io
+        has_pil = True
+    except ImportError:
+        has_pil = False
+        logger.warning("PIL not available. Tiny-image filtering will use blob-size fallback only.")
 
     input_path = Path(input)
     output_path = Path(output_dir)
@@ -79,8 +90,29 @@ def extract_docx(input: str, output_dir: str) -> Dict[str, Any]:
             img_name = f"img_{i}.{ext}"
             img_path = output_path / "img" / img_name
             try:
+                blob = rel.target_part.blob
+
+                # Skip tiny decorative images (common 1x1 spacers) before writing markdown refs.
+                if len(blob) < MIN_IMAGE_BLOB_SIZE_BYTES:
+                    logger.info("Skipping tiny embedded image by size: %s (%d bytes)", img_name, len(blob))
+                    continue
+
+                if has_pil:
+                    try:
+                        with Image.open(io.BytesIO(blob)) as im:
+                            if im.width < MIN_API_IMAGE_DIMENSION or im.height < MIN_API_IMAGE_DIMENSION:
+                                logger.info(
+                                    "Skipping tiny embedded image by dimensions: %s (%dx%d)",
+                                    img_name,
+                                    im.width,
+                                    im.height,
+                                )
+                                continue
+                    except Exception as e:
+                        logger.warning("Could not inspect image %s dimensions: %s", img_name, e)
+
                 with open(img_path, "wb") as f:
-                    f.write(rel.target_part.blob)
+                    f.write(blob)
                 lines.append(f'\n![Imagen {i+1}](img/{img_name})\n')
                 img_count += 1
             except Exception:

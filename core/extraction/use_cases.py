@@ -9,6 +9,7 @@ Lamb-Project/SE-rubric-evaluAItor (GPL-3.0).
 
 from __future__ import annotations
 
+import os
 import re
 from pathlib import Path
 from typing import Dict, List, Optional
@@ -18,7 +19,7 @@ from core.clients.dashscope_client import DashScopeClient
 _REPO_ROOT = Path(__file__).parent.parent.parent
 _PROMPT_FILE = _REPO_ROOT / "prompts" / "1_3_extraccion_casos_de_uso.md"
 
-DEFAULT_MODEL = "qwen3.6-plus"
+DEFAULT_MODEL = os.environ.get("DASHSCOPE_MODEL", "qwen3.6-plus")
 
 
 def _load_prompt(prompt_path: Optional[Path] = None) -> str:

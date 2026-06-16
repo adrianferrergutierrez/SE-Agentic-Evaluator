@@ -32,9 +32,9 @@ DEFAULT_ENDPOINT = os.environ.get("DASHSCOPE_ENDPOINT", "singapore")
 
 # Retry configuration
 RETRY_CONFIG = {
-    "max_retries": 3,
+    "max_retries": 5,
     "base_delay": 1.0,
-    "max_delay": 60.0,
+    "max_delay": 120.0,
     "backoff_factor": 2.0,
 }
 MAX_VISION_PAYLOAD_SIZE = 10 * 1024 * 1024  # 10 MB
@@ -82,6 +82,7 @@ class DashScopeClient:
         self.region = (region or os.environ.get("DASHSCOPE_REGION", "singapore")).lower()
         self.base_url = (
             base_url
+            or os.environ.get("DASHSCOPE_BASE_URL", "")
             or DASHSCOPE_ENDPOINTS.get(self.region, DASHSCOPE_ENDPOINTS["singapore"])
         ).rstrip("/")
         self.session = requests.Session()
@@ -142,9 +143,21 @@ class DashScopeClient:
                     logger.error(f"Non-retryable error {error_code}. Not retrying.")
                     raise
                 
-                delay = min(max_delay, delay * backoff_factor)
-                wait_time = delay + (0.1 * (attempt + 1))
-                logger.info(f"Retrying in {wait_time:.2f}s")
+                # Parse suggested retry delay from 429 responses (e.g. Gemini "Please retry in 30.4s")
+                suggested_delay = None
+                if error_code == 429:
+                    import re as _re
+                    match = _re.search(r"retry in ([\d.]+)\s*s", error_text, _re.IGNORECASE)
+                    if match:
+                        suggested_delay = float(match.group(1))
+                
+                if suggested_delay:
+                    wait_time = suggested_delay + 2.0
+                    logger.info(f"Rate limited. Retrying in {wait_time:.1f}s (server suggested {suggested_delay:.1f}s)")
+                else:
+                    delay = min(max_delay, delay * backoff_factor)
+                    wait_time = delay + (0.1 * (attempt + 1))
+                    logger.info(f"Retrying in {wait_time:.2f}s")
                 time.sleep(wait_time)
                 
             except requests.exceptions.Timeout as e:
@@ -247,7 +260,7 @@ class DashScopeClient:
 
     def vision(
         self,
-        model: str = "qwen-vl-max",
+        model: str = os.environ.get("DASHSCOPE_VISION_MODEL", "qwen-vl-max"),
         prompt: str = "",
         image_path: Optional[str | Path] = None,
         system_prompt: Optional[str] = None,
@@ -312,7 +325,7 @@ class DashScopeClient:
         """Verify API key and connectivity."""
         try:
             self._check_api_key()
-            self.generate(model="qwen-turbo", prompt="OK", max_tokens=10)
+            self.generate(model=DEFAULT_MODEL, prompt="OK", max_tokens=10)
             return True
         except Exception as exc:
             logger.error("Connection check failed: %s", exc)

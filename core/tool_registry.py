@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 from abc import ABC, abstractmethod
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional
@@ -499,7 +500,7 @@ class WorkflowExecutorTool(Tool):
         "workflow_path": "Path to workflow JSON",
         "input_doc": "Path to document to evaluate",
         "output_dir": "Directory for results",
-        "rubric_path": "Path to rubric YAML file (optional if workflow has metadata.rubric_id)"
+        "rubric_path": "Path to rubric YAML file (optional, inferred from workflow metadata if omitted)"
     }
     @property
     def output(self) -> Dict[str, str]: return {"log_path": "Path to execution log"}
@@ -527,15 +528,36 @@ class WorkflowExecutorTool(Tool):
         if rubric_path:
             workflow["variables"]["input_rubric"] = str(rubric_path)
         elif "metadata" in workflow and "rubric_id" in workflow["metadata"]:
-            # Try to find rubric in configs directory
             rubric_id = workflow["metadata"]["rubric_id"]
-            inferred_path = Path(f"configs/rubric_{rubric_id}.yaml")
-            if inferred_path.exists():
-                workflow["variables"]["input_rubric"] = str(inferred_path)
+            candidates = [
+                Path(f"configs/rubric_{rubric_id}.yaml"),
+                Path(f"configs/rubrica_{rubric_id}.yaml"),
+                input_doc.parent / f"rubric_{rubric_id}.yaml",
+                input_doc.parent / f"rubrica_{rubric_id}.yaml",
+                input_doc.parent.parent / f"rubric_{rubric_id}.yaml",
+                input_doc.parent.parent / f"rubrica_{rubric_id}.yaml",
+                Path.cwd() / f"rubric_{rubric_id}.yaml",
+                Path.cwd() / f"rubrica_{rubric_id}.yaml",
+                REPO_ROOT / "configs" / f"rubric_{rubric_id}.yaml",
+                REPO_ROOT / "configs" / f"rubrica_{rubric_id}.yaml",
+            ]
+            for path in Path.cwd().rglob(f"rubrica_{rubric_id}.yaml"):
+                candidates.append(path)
+                break
+            for path in Path.cwd().rglob(f"rubric_{rubric_id}.yaml"):
+                candidates.append(path)
+                break
+            found = None
+            for c in candidates:
+                if c.exists():
+                    found = c
+                    break
+            if found:
+                workflow["variables"]["input_rubric"] = str(found)
             else:
                 raise ValueError(
                     f"Rubric path not provided and cannot infer from metadata. "
-                    f"Expected: {inferred_path}"
+                    f"Tried: {[str(c) for c in candidates]}"
                 )
         else:
             raise ValueError(
@@ -621,7 +643,7 @@ class DescribeDiagramsTool(Tool):
         
         # Build kwargs for describe_diagrams, only including prompt if provided
         call_kwargs = {
-            "model": kwargs.get("model", "qwen3-vl-32b"),
+            "model": os.environ.get("DASHSCOPE_VISION_MODEL", "qwen3-vl-32b"),
         }
         
         # Only pass prompt if it's explicitly provided (not None)

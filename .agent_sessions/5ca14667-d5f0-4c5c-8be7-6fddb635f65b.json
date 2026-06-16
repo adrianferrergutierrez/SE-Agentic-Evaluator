@@ -1,0 +1,29 @@
+[
+  {
+    "role": "user",
+    "content": "llista els fitxers del directori 'tests/test final/APROVAT/'"
+  },
+  {
+    "role": "assistant",
+    "content": "",
+    "tool_calls": [
+      {
+        "id": "call_03ad669220de45b3a7e3989e",
+        "type": "function",
+        "function": {
+          "name": "list_directory",
+          "arguments": "{\"dir_path\": \"tests/test final/APROVAT/\"}"
+        }
+      }
+    ]
+  },
+  {
+    "role": "tool",
+    "tool_call_id": "call_03ad669220de45b3a7e3989e",
+    "content": "{'result': {'files': ['Memòria_1_25 _FP1b_SEGUÉS_SABATÉ_Josep.docx', 'Memòria_1_25 _FP1b_SEGUÉS_SABATÉ_Josep.docx:Zone.Identifier', 'Memòria_FP_Aguayo_Morales.docx', 'Memòria_FP_Aguayo_Morales.docx:Zone.Identifier', 'memòria_2_24_TEC_Laura_Cermeno.docx', 'memòria_2_24_TEC_Laura_Cermeno.docx:Zone.Identifier', 'memòria_2_25_TEC_garcia_de_mercado.docx', 'memòria_2_25_TEC_garcia_de_mercado.docx:Zone.Identifier'], 'dirs': []}}"
+  },
+  {
+    "role": "assistant",
+    "content": "Aquí tens el llistat de fitxers del directori `tests/test final/APROVAT/`:\n\n**Fitxers:**\n1. `Memòria_1_25 _FP1b_SEGUÉS_SABATÉ_Josep.docx`\n2. `Memòria_FP_Aguayo_Morales.docx`\n3. `memòria_2_24_TEC_Laura_Cermeno.docx`\n4. `memòria_2_25_TEC_garcia_de_mercado.docx`\n\n*(Nota: També hi ha fitxers `:Zone.Identifier` associats, que són metadades del sistema operatiu Windows i no documents reals.)*"
+  }
+]

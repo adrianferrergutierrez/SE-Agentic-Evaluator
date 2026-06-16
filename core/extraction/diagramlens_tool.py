@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import io
 import logging
+import os
 import re
 import tempfile
 import time
@@ -44,6 +45,23 @@ MAX_IMAGE_SIZE = 512 * 1024  # 500 KB threshold
 MAX_IMAGE_WIDTH = 800  # Reduced width to minimize payload
 JPEG_QUALITY = 60  # Lower quality for smaller size
 REQUEST_DELAY = 2.0  # Seconds to wait between requests
+MIN_API_IMAGE_DIMENSION = 11  # DashScope requires width/height > 10
+
+
+def _is_valid_for_vision_api(image_path: Path) -> bool:
+    """Return True if image dimensions satisfy DashScope Vision constraints."""
+    if not image_path.exists():
+        return False
+    if not HAS_PIL:
+        # Without PIL we cannot validate dimensions safely; keep current behavior.
+        return True
+
+    try:
+        with Image.open(image_path) as img:
+            return img.width >= MIN_API_IMAGE_DIMENSION and img.height >= MIN_API_IMAGE_DIMENSION
+    except Exception as e:
+        logger.warning("Could not read image dimensions for %s: %s", image_path.name, e)
+        return False
 
 
 def compress_image_if_needed(image_path: Path) -> Path:
@@ -111,7 +129,7 @@ def compress_image_if_needed(image_path: Path) -> Path:
 
 def describe_diagrams(
     document_path: str,
-    model: str = "qwen3-vl-32b",
+    model: str = os.environ.get("DASHSCOPE_VISION_MODEL", "qwen3-vl-32b"),
     prompt: str = (
         "Identify the specific type of this diagram (e.g., UML Class Diagram, Sequence Diagram, "
         "Use Case Diagram, Activity Diagram, ER Diagram, Flowchart, etc.). "
@@ -200,6 +218,16 @@ def describe_diagrams(
             try:
                 # Compress if needed to avoid 400 errors
                 processed_path = compress_image_if_needed(img_path)
+
+                # Avoid deterministic 400 errors from tiny/invalid images (e.g., 1x1 px)
+                if not _is_valid_for_vision_api(processed_path):
+                    logger.warning(
+                        "Skipping image %s: dimensions below API minimum (%d px)",
+                        img_path.name,
+                        MIN_API_IMAGE_DIMENSION,
+                    )
+                    failed_images.append(img_path.name)
+                    continue
                 
                 description = client.vision(
                     model=model,

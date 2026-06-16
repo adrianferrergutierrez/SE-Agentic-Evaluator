@@ -13,17 +13,17 @@ a structured Markdown list of objectives (OBJ-X format).
 
 from __future__ import annotations
 
+import os
 import re
 from pathlib import Path
 from typing import Dict, List, Optional
 
 from core.clients.dashscope_client import DashScopeClient
 
-# Default path to the prompt template relative to this file's repo root
 _REPO_ROOT = Path(__file__).parent.parent.parent
 _PROMPT_FILE = _REPO_ROOT / "prompts" / "1_1_extraccion_objetivos.md"
 
-DEFAULT_MODEL = "qwen3.6-plus"
+DEFAULT_MODEL = os.environ.get("DASHSCOPE_MODEL", "qwen3.6-plus")
 
 
 def _load_prompt(prompt_path: Optional[Path] = None) -> str:

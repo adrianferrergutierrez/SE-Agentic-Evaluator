@@ -1,0 +1,93 @@
+{
+  "version": "1.0",
+  "name": "workflow_memories_evaluation",
+  "description": "Workflow para evaluar un documento académico contra la rúbrica 'memories', incluyendo extracción, descripción de diagramas y evaluación de criterios.",
+  "metadata": {
+    "rubric_id": "memories",
+    "created_at": "2026-06-16T12:24:01.785898",
+    "version": "1.0"
+  },
+  "variables": {
+    "input_docx": "path/to/document.docx",
+    "input_rubric": "path/to/rubric.yaml",
+    "output_dir": "path/to/output"
+  },
+  "steps": [
+    {
+      "id": "step_extract_document",
+      "tool": "docx_extract",
+      "description": "Convierte el documento DOCX de entrada a formato Markdown para su procesamiento.",
+      "params": {
+        "input": "${input_docx}",
+        "output_dir": "${output_dir}"
+      },
+      "output": {
+        "contents_md": "markdown_document.md",
+        "images": "image_count"
+      },
+      "on_error": "abort"
+    },
+    {
+      "id": "step_describe_diagrams",
+      "tool": "describe_diagrams",
+      "description": "Analiza las imágenes extraídas del documento y añade descripciones textuales al Markdown, habilitando la evaluación multimodal.",
+      "params": {
+        "document_path": "${step_extract_document.result.contents_md}",
+        "model": "qwen3-vl-32b",
+        "prompt": "Describe esta imagen en detalle, enfocándote en su contenido y relevancia para un documento académico."
+      },
+      "output": {
+        "updated_md": "document_with_diagram_descriptions.md",
+        "descriptions_count": "described_images_count"
+      },
+      "on_error": "skip"
+    },
+    {
+      "id": "step_evaluate_criteria",
+      "tool": "criterion_evaluator",
+      "description": "Evalúa el documento Markdown (con descripciones de diagramas) contra cada criterio de la rúbrica.",
+      "params": {
+        "document": "${step_describe_diagrams.result.updated_md}",
+        "config": "${input_rubric}",
+        "full": false,
+        "output_dir": "${output_dir}"
+      },
+      "output": {
+        "scores": "evaluation_scores",
+        "output_dir": "evaluation_output_dir"
+      },
+      "on_error": "abort"
+    },
+    {
+      "id": "step_calculate_grade",
+      "tool": "grader",
+      "description": "Calcula la calificación final ponderada basándose en las puntuaciones de los criterios y los pesos de la rúbrica.",
+      "params": {
+        "scores": "${step_evaluate_criteria.result.scores}",
+        "config": "${input_rubric}"
+      },
+      "output": {
+        "weighted_final": "final_grade",
+        "mean_xbar": "mean_score",
+        "performance_level": "performance_label"
+      },
+      "on_error": "abort"
+    },
+    {
+      "id": "step_generate_report",
+      "tool": "report_generator",
+      "description": "Genera un informe final de evaluación que resume los resultados y la calificación.",
+      "params": {
+        "document": "${step_describe_diagrams.result.updated_md}",
+        "eval_dir": "${step_evaluate_criteria.result.output_dir}",
+        "config": "${input_rubric}",
+        "scores": "${step_evaluate_criteria.result.scores}",
+        "output": "${output_dir}/evaluation_report.md"
+      },
+      "output": {
+        "report_path": "final_report_path"
+      },
+      "on_error": "abort"
+    }
+  ]
+}

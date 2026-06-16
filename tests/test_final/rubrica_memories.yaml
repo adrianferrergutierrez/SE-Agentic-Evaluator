@@ -1,0 +1,80 @@
+version: '1.0'
+id: memories
+description: Rúbrica importada desde Markdown (13 criterios)
+provider:
+  type: dashscope
+  region: singapore
+  text_model: qwen3.6-plus
+  vision_model: qwen-vl-max
+rubric:
+  criteria:
+  - id: comprensio_de_lentorn_educatiu
+    name: Comprensió de l'entorn educatiu
+    weight: 0.0769
+    prompt: memories_comprensio_de_lentorn_educatiu.md
+    description: Evaluación de Comprensió de l'entorn educatiu según rúbrica importada.
+  - id: incorporacio_de_millores_de_1a_part
+    name: Incorporació de millores de 1a part
+    weight: 0.0769
+    prompt: memories_incorporacio_de_millores_de_1a_part.md
+    description: Evaluación de Incorporació de millores de 1a part según rúbrica importada.
+  - id: capacitat_dobservacio_i_analisi
+    name: Capacitat d'observació i anàlisi
+    weight: 0.0769
+    prompt: memories_capacitat_dobservacio_i_analisi.md
+    description: Evaluación de Capacitat d'observació i anàlisi según rúbrica importada.
+  - id: disseny_i_implementacio_didactica
+    name: Disseny i implementació didàctica
+    weight: 0.0769
+    prompt: memories_disseny_i_implementacio_didactica.md
+    description: Evaluación de Disseny i implementació didàctica según rúbrica importada.
+  - id: reflexio_i_millora_continua
+    name: Reflexió i millora contínua
+    weight: 0.0769
+    prompt: memories_reflexio_i_millora_continua.md
+    description: Evaluación de Reflexió i millora contínua según rúbrica importada.
+  - id: integracio_teoria_practica
+    name: Integració teoria pràctica
+    weight: 0.0769
+    prompt: memories_integracio_teoria_practica.md
+    description: Evaluación de Integració teoria pràctica según rúbrica importada.
+  - id: creacio_de_recursos_didactics
+    name: Creació de recursos didàctics
+    weight: 0.0769
+    prompt: memories_creacio_de_recursos_didactics.md
+    description: Evaluación de Creació de recursos didàctics según rúbrica importada.
+  - id: perspectiva_de_genere_en_stem
+    name: Perspectiva de gènere en STEM
+    weight: 0.0769
+    prompt: memories_perspectiva_de_genere_en_stem.md
+    description: Evaluación de Perspectiva de gènere en STEM según rúbrica importada.
+  - id: aportacions_dexperiencies
+    name: Aportacions d'experiències
+    weight: 0.0769
+    prompt: memories_aportacions_dexperiencies.md
+    description: Evaluación de Aportacions d'experiències según rúbrica importada.
+  - id: jornades_o_formacio_docent
+    name: Jornades o formació docent
+    weight: 0.0769
+    prompt: memories_jornades_o_formacio_docent.md
+    description: Evaluación de Jornades o formació docent según rúbrica importada.
+  - id: filosofia_docent
+    name: Filosofia docent
+    weight: 0.0769
+    prompt: memories_filosofia_docent.md
+    description: Evaluación de Filosofia docent según rúbrica importada.
+  - id: comunicacio_eficac
+    name: Comunicació eficaç
+    weight: 0.0769
+    prompt: memories_comunicacio_eficac.md
+    description: Evaluación de Comunicació eficaç según rúbrica importada.
+  - id: compliment_responsabilitat_i_dietari
+    name: Compliment, responsabilitat i dietari
+    weight: 0.0769
+    prompt: memories_compliment_responsabilitat_i_dietari.md
+    description: Evaluación de Compliment, responsabilitat i dietari según rúbrica
+      importada.
+options:
+  multimodal: true
+  skip_existing: false
+  detailed_scoring: false

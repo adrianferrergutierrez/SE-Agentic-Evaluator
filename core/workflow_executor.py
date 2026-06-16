@@ -18,6 +18,7 @@ from __future__ import annotations
 import argparse
 import json
 import logging
+import os
 import re
 import time
 from pathlib import Path
@@ -65,9 +66,55 @@ class WorkflowExecutor:
             find_vars(params)
         return list(missing)
 
+    ENV_PATTERN = re.compile(r"\$\{env\.([^}]+)\}")
+
     def _resolve_variables(self, value: Any) -> Any:
-        """Resolve variable references in a value."""
+        """Resolve variable references in a value.
+        
+        If the value is a complete reference (e.g., ${step_id.result.key}),
+        return the object as-is (preserving dicts, lists, etc.).
+        If it's a partial reference (interpolated in a string), convert to string.
+        Also resolves ${env.VAR_NAME} from environment variables.
+        """
         if isinstance(value, str):
+            # First resolve environment variables: ${env.VAR_NAME}
+            value = self.ENV_PATTERN.sub(lambda m: os.environ.get(m.group(1), m.group(0)), value)
+
+            # Check if the entire value is a single variable reference
+            if VAR_PATTERN.fullmatch(value):
+                var_path = VAR_PATTERN.search(value).group(1)
+                # Handle ${variables.key} syntax by stripping prefix
+                if var_path.startswith("variables."):
+                    var_path = var_path[len("variables."):]
+                
+                parts = var_path.split(".")
+                if len(parts) >= 3 and parts[1] in ("output", "result"):
+                    step_id = parts[0]
+                    key = ".".join(parts[2:])
+                    if step_id in self.step_results:
+                        # First try result, then output (return as-is, preserving type)
+                        val = self.step_results[step_id].get("result", {})
+                        for k in key.split("."):
+                            if isinstance(val, dict):
+                                val = val.get(k)
+                            else:
+                                val = None
+                                break
+                        if val is not None:
+                            return val  # Return object as-is
+                        # Fallback to output mapping
+                        val = self.step_results[step_id].get("output", {})
+                        for k in key.split("."):
+                            if isinstance(val, dict):
+                                val = val.get(k)
+                            else:
+                                return None
+                        return val  # Return object as-is
+                elif var_path in self.variables:
+                    return self.variables[var_path]  # Return object as-is
+                return None
+            
+            # Partial reference (interpolated in a string): convert to string
             def replacer(match):
                 var_path = match.group(1)
                 # Handle ${variables.key} syntax by stripping prefix

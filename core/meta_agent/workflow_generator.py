@@ -20,6 +20,7 @@ from __future__ import annotations
 import argparse
 import json
 import logging
+import os
 import re
 import time
 from datetime import datetime
@@ -40,7 +41,7 @@ REPO_ROOT = Path(__file__).parent.parent.parent
 SCHEMA_PATH = REPO_ROOT / "schemas" / "workflow_schema.json"
 PROMPT_PATH = REPO_ROOT / "prompts" / "workflow_generator" / "workflow_generation.md"
 
-DEFAULT_MODEL = "qwen3.6-plus"
+DEFAULT_MODEL = os.environ.get("DASHSCOPE_MODEL", "qwen3.6-plus")
 MAX_RETRIES = 3
 
 

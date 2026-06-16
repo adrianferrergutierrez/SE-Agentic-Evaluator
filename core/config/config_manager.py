@@ -11,6 +11,7 @@ Supports default config and custom overrides.
 from __future__ import annotations
 
 import logging
+import os
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
@@ -42,8 +43,8 @@ class ProviderConfig(BaseModel):
     """Cloud provider configuration (DashScope, etc.)."""
     type: str = "dashscope"
     region: str = "singapore"
-    text_model: str = "qwen3.6-plus"
-    vision_model: str = "qwen-vl-max"
+    text_model: str = os.environ.get("DASHSCOPE_MODEL", "qwen3.6-plus")
+    vision_model: str = os.environ.get("DASHSCOPE_VISION_MODEL", "qwen-vl-max")
 
 
 class OptionsConfig(BaseModel):

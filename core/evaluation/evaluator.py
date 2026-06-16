@@ -32,6 +32,7 @@ from __future__ import annotations
 import argparse
 import json
 import logging
+import os
 import re
 import time
 from datetime import datetime
@@ -194,7 +195,7 @@ def run_report_generation(
         provider_cfg = cfg.provider
 
     client = DashScopeClient(region=provider_cfg.region if provider_cfg else "singapore")
-    model = provider_cfg.text_model if provider_cfg else "qwen3.6-plus"
+    model = os.environ.get("DASHSCOPE_MODEL") or (provider_cfg.text_model if provider_cfg else "qwen3.6-plus")
 
     output_path = Path(output_dir)
     output_path.mkdir(parents=True, exist_ok=True)

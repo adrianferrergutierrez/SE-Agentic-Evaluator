@@ -1,0 +1,88 @@
+{
+  "version": "1.0",
+  "name": "workflow_memories_evaluation",
+  "description": "Workflow for evaluating the Practicum Memory based on the memories rubric, including document extraction, image description, and criterion evaluation.",
+  "metadata": {
+    "rubric_id": "memories",
+    "created_at": "2026-06-16T12:53:11.748502",
+    "version": "1.0"
+  },
+  "variables": {
+    "input_docx": "path/to/document.docx",
+    "input_rubric": "path/to/rubric.yaml",
+    "output_dir": "path/to/output"
+  },
+  "steps": [
+    {
+      "id": "step_extract_docx",
+      "tool": "docx_extract",
+      "description": "Convert the Practicum Memory DOCX to Markdown and extract images",
+      "params": {
+        "input": "${input_docx}",
+        "output_dir": "${output_dir}"
+      },
+      "output": {
+        "markdown_path": "contents_md"
+      },
+      "on_error": "abort"
+    },
+    {
+      "id": "step_describe_images",
+      "tool": "describe_diagrams",
+      "description": "Analyze images and diagrams in the memory to provide textual descriptions for the evaluator",
+      "params": {
+        "document_path": "${step_extract_docx.result.contents_md}",
+        "model": "qwen3-vl-32b",
+        "prompt": "Describe the content of the image, focusing on educational resources, organizational charts, or evidence of teaching practice."
+      },
+      "output": {
+        "updated_md": "updated_md"
+      },
+      "on_error": "skip"
+    },
+    {
+      "id": "step_evaluate_criteria",
+      "tool": "criterion_evaluator",
+      "description": "Evaluate the 13 criteria of the memories rubric against the document",
+      "params": {
+        "document": "${step_describe_images.result.updated_md}",
+        "config": "${input_rubric}",
+        "full": false,
+        "output_dir": "${output_dir}"
+      },
+      "output": {
+        "scores": "scores"
+      },
+      "on_error": "abort"
+    },
+    {
+      "id": "step_calculate_grade",
+      "tool": "grader",
+      "description": "Calculate the final weighted grade based on the rubric weights",
+      "params": {
+        "scores": "${step_evaluate_criteria.result.scores}",
+        "config": "${input_rubric}"
+      },
+      "output": {
+        "final_grade": "weighted_final"
+      },
+      "on_error": "abort"
+    },
+    {
+      "id": "step_generate_report",
+      "tool": "report_generator",
+      "description": "Generate the final evaluation report with detailed feedback",
+      "params": {
+        "document": "${step_describe_images.result.updated_md}",
+        "eval_dir": "${output_dir}",
+        "config": "${input_rubric}",
+        "scores": "${step_evaluate_criteria.result.scores}",
+        "output": "${output_dir}/final_report.md"
+      },
+      "output": {
+        "report_path": "report_path"
+      },
+      "on_error": "abort"
+    }
+  ]
+}

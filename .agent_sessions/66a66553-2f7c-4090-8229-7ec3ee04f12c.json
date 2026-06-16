@@ -1,0 +1,29 @@
+[
+  {
+    "role": "user",
+    "content": "avalua la memòria tests/test final/APROVAT/memòria_2_25_TEC_garcia_de_mercado.docx amb la rúbrica tests/test final/rubrica_memories.yaml"
+  },
+  {
+    "role": "assistant",
+    "content": "",
+    "tool_calls": [
+      {
+        "id": "function-call-4750542065269927962",
+        "type": "function",
+        "function": {
+          "name": "generate_workflow",
+          "arguments": "{\"output_path\": \"workflows/rubrica_memories_workflow.json\", \"rubric_path\": \"tests/test final/rubrica_memories.yaml\"}"
+        }
+      }
+    ]
+  },
+  {
+    "role": "tool",
+    "tool_call_id": "function-call-4750542065269927962",
+    "content": "Error: 404 Client Error: Not Found for url: https://generativelanguage.googleapis.com/v1beta/openai/chat/completions"
+  },
+  {
+    "role": "assistant",
+    "content": "No he pogut generar el workflow per a la rúbrica `tests/test final/rubrica_memories.yaml` a causa d'un error intern. Si us plau, intenta-ho de nou més tard."
+  }
+]

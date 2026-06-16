@@ -31,6 +31,7 @@ from __future__ import annotations
 import argparse
 import json
 import logging
+import os
 import re
 import time
 from pathlib import Path
@@ -110,7 +111,10 @@ def find_images_in_document(document: str, doc_path: Path) -> List[Path]:
 # Criterion evaluation
 # ---------------------------------------------------------------------------
 
-def evaluate_criterion(
+BATCH_SIZE = int(os.environ.get("EVAL_BATCH_SIZE", "5"))
+
+
+def _evaluate_single(
     client: DashScopeClient,
     model: str,
     vision_model: str,
@@ -124,13 +128,11 @@ def evaluate_criterion(
     """Evaluate a single criterion using the LLM, with optional vision and context."""
     prompt = prompt_template.replace("--{DOCUMENTO}--", document)
 
-    # Inject analysis context
     if context_str:
         prompt = prompt.replace("--{CONTEXTO}--", context_str)
     else:
         prompt = prompt.replace("--{CONTEXTO}--", "No hay análisis previo disponible. Evalúa basándote únicamente en el documento.")
 
-    # Inject vision if required
     if options.multimodal and criterion.requires_vision:
         images = find_images_in_document(document, doc_path)
         if images:
@@ -164,10 +166,131 @@ def evaluate_criterion(
     return result
 
 
+def _build_batch_prompt(
+    criteria_batch: List[CriterionConfig],
+    document: str,
+    context_str: Optional[str] = None,
+) -> str:
+    """Build a single prompt that evaluates multiple criteria at once."""
+    context_section = context_str or "No hay análisis previo disponible. Evalúa basándote únicamente en el documento."
+
+    criteria_descriptions = []
+    for i, c in enumerate(criteria_batch, 1):
+        prompt_template = load_prompt(c.prompt)
+        levels_text = ""
+        for line in prompt_template.split("\n"):
+            if line.strip().startswith("- **"):
+                levels_text += line + "\n"
+        if not levels_text:
+            levels_text = "Evalúa de 0 a 10 según tu juicio experto.\n"
+        criteria_descriptions.append(
+            f"### Criterio {i}: {c.name} (ID: {c.id})\n\nNiveles:\n{levels_text}"
+        )
+
+    criteria_block = "\n".join(criteria_descriptions)
+
+    prompt = f"""Analiza el siguiente documento y evalúa CADA UNO de los criterios listados.
+
+Documento:
+{document}
+
+## Contexto de Análisis Previo
+
+{context_section}
+
+## Criterios a evaluar
+
+{criteria_block}
+
+## Instrucciones
+- Evalúa CADA criterio de forma independiente asignando una puntuación de 0 a 10.
+- Para cada criterio, proporciona un análisis detallado con evidencias del documento.
+- Utiliza el contexto de análisis previo como evidencia complementaria.
+
+## Formato de respuesta
+Para CADA criterio, usa EXACTAMENTE este formato:
+
+---CRITERIO_START---
+# Evaluación: [NOMBRE DEL CRITERIO]
+
+## Análisis
+[Comentarios detallados con evidencias del documento y contexto]
+
+## Puntuación
+**Puntuación:** X/10
+
+## Observaciones
+[Recomendaciones de mejora]
+---CRITERIO_END---
+"""
+    return prompt
+
+
+def _parse_batch_response(text: str, criteria_ids: List[str]) -> Dict[str, str]:
+    """Parse a batch response into individual criterion evaluations."""
+    results: Dict[str, str] = {}
+
+    blocks = re.split(r"---CRITERIO_START---", text)
+    for block in blocks[1:]:
+        block = block.strip()
+        end_idx = block.find("---CRITERIO_END---")
+        if end_idx != -1:
+            block = block[:end_idx].strip()
+
+        criterion_id = None
+        for cid in criteria_ids:
+            normalized_cid = cid.replace("_", " ").replace("  ", " ")
+            if normalized_cid in block.lower() or cid in block:
+                criterion_id = cid
+                break
+        if criterion_id is None and criteria_ids:
+            idx = len([k for k in results if k in criteria_ids])
+            if idx < len(criteria_ids):
+                criterion_id = criteria_ids[idx]
+
+        if criterion_id:
+            results[criterion_id] = block
+
+    for cid in criteria_ids:
+        if cid not in results:
+            results[cid] = f"# Evaluación: {cid}\n\n## Puntuación\n**Puntuación:** 0/10\n\n## Observaciones\nNo se pudo extraer la evaluación del lote."
+
+    return results
+
+
+def evaluate_criteria_batch(
+    client: DashScopeClient,
+    model: str,
+    vision_model: str,
+    criteria_batch: List[CriterionConfig],
+    document: str,
+    doc_path: Path,
+    options: Any,
+    context_str: Optional[str] = None,
+) -> Dict[str, str]:
+    """Evaluate a batch of criteria in a single LLM call."""
+    prompt = _build_batch_prompt(criteria_batch, document, context_str)
+
+    logger.info("Evaluating batch of %d criteria: %s",
+                len(criteria_batch), ", ".join(c.name for c in criteria_batch))
+    start = time.time()
+    result = client.generate(
+        model=model,
+        prompt=prompt,
+        temperature=0.1,
+        max_tokens=8192,
+    )
+    elapsed = time.time() - start
+    logger.info("Batch of %d criteria evaluated in %.1fs", len(criteria_batch), elapsed)
+
+    criteria_ids = [c.id for c in criteria_batch]
+    return _parse_batch_response(result, criteria_ids)
+
+
 def build_context(
     document: str,
     client: DashScopeClient,
-    model: str = "qwen3.6-plus",
+    model: str = os.environ.get("DASHSCOPE_MODEL", "qwen3.6-plus"),
 ) -> str:
     """Run full extraction + analysis pipeline and return context Markdown.
 
@@ -263,8 +386,10 @@ def run_criterion_evaluation(
     document = doc_path.read_text(encoding="utf-8")
 
     client = DashScopeClient(region=cfg.provider.region if cfg.provider else "singapore")
-    model = cfg.provider.text_model if cfg.provider else "qwen3.6-plus"
-    vision_model = cfg.provider.vision_model if cfg.provider else "qwen-vl-max"
+    env_text_model = os.environ.get("DASHSCOPE_MODEL")
+    env_vision_model = os.environ.get("DASHSCOPE_VISION_MODEL")
+    model = env_text_model or (cfg.provider.text_model if cfg.provider else "qwen3.6-plus")
+    vision_model = env_vision_model or (cfg.provider.vision_model if cfg.provider else "qwen-vl-max")
 
     output_path = Path(output_dir)
     output_path.mkdir(parents=True, exist_ok=True)
@@ -293,6 +418,7 @@ def run_criterion_evaluation(
     print(f"Rúbrica: {cfg.id} - {cfg.description}")
     print(f"Modelo: {model}")
     print(f"Criterios: {len(cfg.criteria)}")
+    print(f"Batch size: {BATCH_SIZE}")
     if full:
         print(f"Contexto: ✅ Generado automáticamente (--full)")
     elif context_str:
@@ -301,32 +427,46 @@ def run_criterion_evaluation(
         print(f"Contexto: ❌ Sin análisis previo")
     print(f"{'='*60}\n")
 
-    for criterion in cfg.criteria:
-        print(f"[{len(evaluations)+1}/{len(cfg.criteria)}] Evaluando: {criterion.name}...")
+    # Split criteria into batches
+    criteria_list = cfg.criteria
+    batches = [criteria_list[i:i + BATCH_SIZE] for i in range(0, len(criteria_list), BATCH_SIZE)]
 
-        prompt_template = load_prompt(criterion.prompt)
-        eval_text = evaluate_criterion(
-            client, model, vision_model, prompt_template, document, doc_path,
-            criterion, cfg.options, context_str
-        )
-        evaluations[criterion.id] = eval_text
+    for batch_idx, batch in enumerate(batches):
+        batch_names = ", ".join(c.name for c in batch)
+        print(f"[Lote {batch_idx + 1}/{len(batches)}] Evaluando: {batch_names}...")
 
-        score = extract_score(eval_text)
-        if score is not None:
-            scores[criterion.id] = score
-            print(f"  → Puntuación: {score}/10")
+        if len(batch) == 1:
+            criterion = batch[0]
+            prompt_template = load_prompt(criterion.prompt)
+            eval_text = _evaluate_single(
+                client, model, vision_model, prompt_template, document, doc_path,
+                criterion, cfg.options, context_str
+            )
+            evaluations[criterion.id] = eval_text
         else:
-            print(f"  → ⚠️ No se pudo extraer puntuación (se asigna 0)")
-            scores[criterion.id] = 0.0
+            batch_results = evaluate_criteria_batch(
+                client, model, vision_model, batch, document, doc_path,
+                cfg.options, context_str
+            )
+            evaluations.update(batch_results)
 
-        if cfg.options.detailed_scoring:
-            sub_scores = extract_detailed_scores(eval_text)
-            if sub_scores:
-                detailed_scores[criterion.id] = sub_scores
-                print(f"  → Sub-criterios: {', '.join(f'{k}={v}' for k, v in sub_scores.items())}")
+        for criterion in batch:
+            eval_text = evaluations.get(criterion.id, "")
+            score = extract_score(eval_text)
+            if score is not None:
+                scores[criterion.id] = score
+                print(f"  → {criterion.name}: {score}/10")
+            else:
+                print(f"  → {criterion.name}: ⚠️ No se pudo extraer puntuación (se asigna 0)")
+                scores[criterion.id] = 0.0
 
-        eval_file = output_path / f"eval_{criterion.id}.md"
-        eval_file.write_text(eval_text, encoding="utf-8")
+            if cfg.options.detailed_scoring:
+                sub_scores = extract_detailed_scores(eval_text)
+                if sub_scores:
+                    detailed_scores[criterion.id] = sub_scores
+
+            eval_file = output_path / f"eval_{criterion.id}.md"
+            eval_file.write_text(eval_text, encoding="utf-8")
 
     scores_data = {"scores": scores}
     if detailed_scores:

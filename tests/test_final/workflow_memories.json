@@ -1,0 +1,92 @@
+{
+  "version": "1.0",
+  "name": "workflow_memories",
+  "description": "Workflow para evaluar memorias docentes contra la rúbrica 'memories'. Incluye extracción de DOCX, descripción de imágenes (multimodal), evaluación directa de criterios, cálculo de nota y generación de informe.",
+  "metadata": {
+    "rubric_id": "memories",
+    "created_at": "2026-06-15T17:39:59.623488",
+    "version": "1.0"
+  },
+  "variables": {
+    "input_docx": "path/to/document.docx",
+    "input_rubric": "path/to/rubric.yaml",
+    "output_dir": "path/to/output"
+  },
+  "steps": [
+    {
+      "id": "step_extract_docx",
+      "tool": "docx_extract",
+      "description": "Convertir el documento DOCX a Markdown para su procesamiento.",
+      "params": {
+        "input": "${variables.input_docx}",
+        "output_dir": "${variables.output_dir}/extracted"
+      },
+      "output": {
+        "contents_md": "markdown_path",
+        "images": "image_count"
+      },
+      "on_error": "abort"
+    },
+    {
+      "id": "step_describe_diagrams",
+      "tool": "describe_diagrams",
+      "description": "Analizar y describir imágenes/diagramas presentes en el documento (soporte multimodal).",
+      "params": {
+        "document_path": "${step_extract_docx.result.contents_md}",
+        "model": "${env.DASHSCOPE_VISION_MODEL}"
+      },
+      "output": {
+        "updated_md": "markdown_path",
+        "descriptions_count": "number"
+      },
+      "on_error": "skip"
+    },
+    {
+      "id": "step_evaluate",
+      "tool": "criterion_evaluator",
+      "description": "Evaluar el documento contra los criterios de la rúbrica sin análisis profundo.",
+      "params": {
+        "document": "${step_describe_diagrams.result.updated_md}",
+        "config": "${variables.input_rubric}",
+        "full": false,
+        "output_dir": "${variables.output_dir}/eval"
+      },
+      "output": {
+        "scores": "scores_dict",
+        "output_dir": "eval_dir"
+      },
+      "on_error": "abort"
+    },
+    {
+      "id": "step_grade",
+      "tool": "grader",
+      "description": "Calcular la nota final ponderada y el nivel de desempeño.",
+      "params": {
+        "scores": "${step_evaluate.result.scores}",
+        "config": "${variables.input_rubric}"
+      },
+      "output": {
+        "weighted_final": "final_grade",
+        "mean_xbar": "mean_score",
+        "performance_level": "performance_label"
+      },
+      "on_error": "abort"
+    },
+    {
+      "id": "step_report",
+      "tool": "report_generator",
+      "description": "Generar el informe final de evaluación consolidado.",
+      "params": {
+        "document": "${step_describe_diagrams.result.updated_md}",
+        "eval_dir": "${step_evaluate.result.output_dir}",
+        "config": "${variables.input_rubric}",
+        "scores": "${variables.output_dir}/eval/scores.json",
+        "output": "${variables.output_dir}/report.md"
+      },
+      "output": {
+        "report_path": "report_path"
+      },
+      "on_error": "abort"
+    }
+  ]
+}

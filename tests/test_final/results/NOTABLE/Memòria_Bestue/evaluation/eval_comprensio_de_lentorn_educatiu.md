@@ -1,0 +1,21 @@
+# Evaluación: Comprensió de l'entorn educatiu
+
+## Análisis
+El documento presenta una **comprensió profunda y sistemática** del entorno educativo, cumpliendo con el nivel más alto de la rúbrica. El autor no se limita a describir los centros, sino que estructura un análisis comparativo y crítico que abarca todas las dimensiones relevantes:
+
+- **Contexto y organización institucional:** Detalla con precisión la ubicación, infraestructura, oferta formativa y órganos de gobierno de ambos centros. Analiza documentos estructurantes clave (NOFC, PEC, Pla de Qualitat i Millora Contínua) y explica su función reguladora en la convivencia, coordinación docente y gestión de la diversidad.
+- **Comunidad educativa y diversidad:** Identifica con claridad el perfil del alumnado (origen geográfico, nivel socioeconómico, presencia de NEE como TDAH, TEA o barreras lingüísticas) y describe los mecanismos de atención (USEE, aula d'acollida, codocència, mediació). También analiza las funciones no lectivas del profesorado (tutorías, comisiones, coordinación de departaments) y los canales de relación con las familias, señalando tanto fortalezas como limitaciones.
+- **Recursos y Estrategia Digital de Centre (EDC):** Evalúa el grado de madurez digital mediante la herramienta SELFIE, compara plataformas de gestión (iEduca vs. Clickedu/Classroom), y realiza un diagnóstico crítico de puntos fuertes y débiles (ej. falta de sistematización en evaluación digital, escasa autonomía técnica del alumnado y familias, alta movilidad docente). Incluye además la normativa de uso de dispositivos móviles y su aplicación real.
+- **Vinculación con el entorno y proyectos transversales:** Documenta la relación con recursos externos (ayuntamiento, UPC, empresas del sector aeronáutico y logístico, Erasmus+, eTwinning, GEP, FemCAT) y explica cómo estos proyectos se integran en la formación y responden a demandas del tejido productivo y social.
+- **Reflexión crítica y conexión teoría-práctica:** El autor contrasta explícitamente los modelos organizativos de ambos centros, reflexiona sobre diferencias madurativas entre ESO y FP, y vincula sus observaciones con contenidos del máster (tablas de conexión con asignaturas de organización escolar, aprendizaje y conducta, y sociedad y familia). Además, aplica un ciclo de práctica reflexiva estructurado en 5 fases, demostrando capacidad para ajustar la intervención docente a partir de la evidencia observada.
+
+El único aspecto que podría profundizarse es la explicitación de cómo las políticas de centro impactan directamente en indicadores de rendimiento o equidad, y un análisis más detallado de las tensiones entre la normativa institucional y la realidad áulica cotidiana. No obstante, el nivel de análisis, la estructura comparativa y la fundamentación pedagógica sitúan el trabajo claramente en el nivel de comprensión profunda y crítica.
+
+## Puntuación
+**Puntuación:** 9/10
+
+## Observaciones
+- **Fortalecer la conexión con indicadores de impacto:** Incorporar datos cuantitativos o cualitativos más concretos (ej. tasas de absentismo, resultados de evaluaciones internas, grado de satisfacción de familias o alumnado) para sustentar las valoraciones críticas sobre la organización y la inclusión.
+- **Profundizar en la equidad socioeducativa:** Analizar con mayor detalle cómo las condiciones socioeconómicas del entorno influyen en la participación familiar, el acceso a recursos digitales fuera del centro o la trayectoria académica del alumnado vulnerable.
+- **Explicitar la transferencia curricular:** Detallar cómo los proyectos transversales (Erasmus+, sostenibilidad, digitalización) se articulan con las programaciones de aula y los criterios de evaluación, más allá de la mención descriptiva.
+- **Mantener el enfoque reflexivo y comparativo:** Es uno de los puntos fuertes del documento. Se recomienda extender esta mirada crítica a la evaluación de la coherencia entre el PEC, la práctica docente observada y los resultados de aprendizaje, consolidando así un perfil docente analítico y transformador.
