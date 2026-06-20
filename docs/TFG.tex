@@ -794,9 +794,10 @@ El sistema implementa una arquitectura meta-ag\`entica amb els seg\"uents compon
     \node[component, fill=yellow!15, minimum width=8cm, minimum height=1.2cm] (registry) at (4.5, -2) {Tool Registry (18 tools): extracci\'o | an\`alisi | avaluaci\'o | visi\'o | config | workflow};
 
     % Bottom layer - providers
-    \node[external, fill=orange!20] (dashscope) at (0, -4) {DashScope\\(Qwen)};
-    \node[external, fill=orange!20] (openrouter) at (4.5, -4) {OpenRouter\\(Gemma, Llama)};
-    \node[external, fill=orange!20] (gemini) at (9, -4) {Google\\Gemini};
+    \node[external, fill=orange!20] (dashscope) at (-3, -4) {DashScope\\(Qwen)};
+    \node[external, fill=orange!20] (ollama) at (2, -4) {Ollama\\(local)};
+    \node[external, fill=orange!20] (openrouter) at (7, -4) {OpenRouter\\(Gemma, Llama)};
+    \node[external, fill=orange!20] (gemini) at (12, -4) {Google\\Gemini};
 
     % Grader
     \node[component, fill=cyan!15] (grader) at (4.5, -6) {Grader\\(determin\'istic)};
@@ -811,12 +812,12 @@ El sistema implementa una arquitectura meta-ag\`entica amb els seg\"uents compon
     \draw[arrow] (wfexec) -- (registry);
     \draw[arrow] (agent) -- (security);
     \draw[arrow] (registry) -- (dashscope);
+    \draw[arrow] (registry) -- (ollama);
     \draw[arrow] (registry) -- (openrouter);
     \draw[arrow] (registry) -- (gemini);
     \draw[arrow] (registry) -- (grader);
 
-    % Labels
-    \node[font=\scriptsize, text=gray] at (2.2, -3.2) {via \texttt{DASHSCOPE\_BASE\_URL}};
+
 \end{tikzpicture}
 \caption{Arquitectura de components de SE-Agentic-Evaluator. Font: Elaboraci\'o pr\`opia.}
 \label{fig:arquitectura}
@@ -832,6 +833,16 @@ El sistema implementa una arquitectura meta-ag\`entica amb els seg\"uents compon
     \item \textbf{Session Store (\texttt{core/agent/session\_store.py}):} Gesti\'o de sessions per a converses multi-turn. Permet guardar i carregar l'estat de la conversa.
     \item \textbf{Security Policy (\texttt{core/agent/security.py}):} Seguretat implementada al scaffolding amb allow-list, seguint les bones pr\`actiques de la metodologia.
 \end{enumerate}
+
+\subsection{Capa d'abstracci\'o de models (Clients LLM)}
+\label{subsec:clients-llm}
+Per garantir la m\`axima flexibilitat i complir de forma estricta amb el requisit de suport multi-prove\"idor (fonamental per assegurar la privacitat de les dades acad\`emiques via models locals), el sistema implementa una arquitectura basada en interf\'icies per a la connexi\'o amb els models d'IA:
+\begin{itemize}
+    \item \textbf{\texttt{BaseLLMClient} (\texttt{core/clients/base.py}):} Defineix la interf\'icie abstracta que tots els clients han d'implementar. Estandarditza m\`etodes clau com \texttt{chat()} per al suport de \textit{function calling} (tool calls), \texttt{generate()} per a text pla, i \texttt{vision()} per a l'an\`alisi d'imatges i diagrames. Tamb\'e centralitza les estructures de dades comunes \texttt{ToolCall} i \texttt{ChatResponse}.
+    \item \textbf{\texttt{DashScopeClient}:} Implementaci\'o concreta per connectar amb l'API d'Alibaba Cloud, donant acc\'es als models de la fam\'ilia Qwen.
+    \item \textbf{\texttt{OllamaClient}:} Implementaci\'o nativa per connectar amb daemons locals d'Ollama. Suporta tant models de llenguatge (ex. \texttt{qwen2.5-coder}, \texttt{llama3}) com models de visi\'o multimodal (ex. \texttt{llava}, \texttt{minicpm-v}), traduint de forma transparent les respostes locals a les estructures de dades esperades per l'agent.
+\end{itemize}
+El component \texttt{Agent} utilitza el patr\'o de disseny Factory durant la seva instanciació, llegint la variable d'entorn \texttt{LLM\_PROVIDER} per injectar el client corresponent. Aquest disseny permet commutar entre l'execuci\'o al n\'uvol o en local modificant nom\'es un fitxer \texttt{.env}, sense alterar absolutament res de la l\`ogica interna d'avaluaci\'o.
 
 \section{Tools implementades}
 \label{sec:tools}
@@ -899,7 +910,7 @@ El sistema disposa de 18 tools especialitzades organitzades per categoria:
 \textbf{Component} & \textbf{Tecnologia} & \textbf{Justificaci\'o} \\
 \midrule
 \textbf{Llenguatge} & Python 3.11+ & Est\`andard per a projectes d'IA i processament de documents \\
-\textbf{LLM Provider} & Multi-provider & DashScope (primari), OpenRouter, Google Gemini; configurable via env vars \\
+\textbf{LLM Provider} & Multi-provider & DashScope, OpenRouter, Google Gemini, Ollama (local); configurable via env vars \\
 \textbf{Models de text} & Configurable & Definit via \texttt{DASHSCOPE\_MODEL}; exemples: qwen3.6-plus, gemma-4-31b \\
 \textbf{Models de visi\'o} & Configurable & Definit via \texttt{DASHSCOPE\_VISION\_MODEL}; exemples: qwen-vl-max, gemini-2.5-flash \\
 \textbf{Framework} & Custom agent loop & Sense depend\`encia de frameworks externs \\
