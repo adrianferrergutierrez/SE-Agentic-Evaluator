@@ -78,7 +78,7 @@
 \centering
 \vspace*{1cm}
 
-{\Huge\bfseries SE-AGENTIC-EVALUATOR:\par}
+{\Huge\bfseries Evaluaitor-Lamb:\par}
 \vspace{0.3cm}
 {\Large\bfseries SISTEMA D'AVALUACI\'O ASSISTIDA PER IA AG\`ENTICA\par}
 {\Large\bfseries PER A ENGINYERIA DEL SOFTWARE\par}
@@ -119,11 +119,11 @@ Grau en Enginyeria Inform\`atica (Enginyeria del Software)\\[0.5cm]
 
 Els sistemes actuals d'avaluaci\'o autom\`atica de treballs acad\`emics solen funcionar com a pipelines r\'igids: sempre segueixen el mateix ordre de passos, no poden analitzar diagrames ni figures t\`ecniques, i obliguen a modificar el codi font cada vegada que canvia la r\'ubrica d'avaluaci\'o. \'Es el cas de SE-rubric-evaluAItor, una eina desenvolupada dins l'ecosistema educatiu LAMB que, tot i ser funcional, resulta poc flexible i dif\'icil d'adaptar a nous tipus d'entregables.
 
-Aquest Treball de Fi de Grau presenta \textbf{SE-Agentic-Evaluator}, un sistema que substitueix aquest pipeline r\'igid per un agent d'intel\textperiodcentered lig\`encia artificial capa\c{c} de decidir per si mateix quins passos seguir per avaluar cada document, adaptant-se al seu contingut concret. El sistema s'ha constru\"it des de zero, sense dependre de cap plataforma externa, seguint la metodologia ``Agents All the Way Down'' \cite{alier2025} del professor Marc Alier i altres.
+Aquest Treball de Fi de Grau presenta \textbf{Evaluaitor-Lamb}, un sistema que substitueix aquest pipeline r\'igid per un agent d'intel\textperiodcentered lig\`encia artificial capa\c{c} de decidir per si mateix quins passos seguir per avaluar cada document, adaptant-se al seu contingut concret. El sistema s'ha constru\"it des de zero, sense dependre de cap plataforma externa, seguint la metodologia ``Agents All the Way Down'' \cite{alier2025} del professor Marc Alier i altres.
 
 Per fer-ho possible, el sistema combina tres idees clau. Primer, disposa d'un conjunt de 18 eines especialitzades (extracci\'o de text, an\`alisi de diagrames, generaci\'o d'informes, etc.) que l'agent invoca segons les necessitats de cada cas. Segon, genera autom\`aticament un pla de treball personalitzat per a cada r\'ubrica i el reutilitza amb m\'ultiples documents, estalviant temps i costos. I tercer, delega sempre el c\`alcul de les notes a codi Python ---mai al model d'IA--- de manera que cada puntuaci\'o quedi vinculada a una evid\`encia concreta del document, evitant errors num\`erics. El sistema tamb\'e interpreta diagrames i imatges t\`ecniques, i pot funcionar amb diversos prove\"idors de models d'IA (locals o al n\'uvol) sense necessitat de tocar el codi.
 
-SE-Agentic-Evaluator s'ha validat mitjan\c{c}ant sis escenaris t\`ecnics, tots completats amb \`exit, i mitjan\c{c}ant una comparaci\'o amb una avaluadora humana experta sobre mem\`ories reals de m\`aster. La validaci\'o t\`ecnica del sistema \'es robusta; no obstant aix\`o, la comparaci\'o amb l'experta revela un biaix sistem\`atic cap a la infra-avaluaci\'o i una correlaci\'o encara feble, la qual cosa marca el cam\'i per a la futura calibraci\'o del sistema.
+Evaluaitor-Lamb s'ha validat mitjan\c{c}ant sis escenaris t\`ecnics, tots completats amb \`exit, i mitjan\c{c}ant una comparaci\'o amb una avaluadora humana experta sobre mem\`ories reals de m\`aster. La validaci\'o t\`ecnica del sistema \'es robusta; no obstant aix\`o, la comparaci\'o amb l'experta revela un biaix sistem\`atic cap a la infra-avaluaci\'o i una correlaci\'o encara feble, la qual cosa marca el cam\'i per a la futura calibraci\'o del sistema.
 
 \textbf{Paraules clau:} agent d'IA, avaluaci\'o assistida, workflow reutilitzable, visi\'o multimodal, c\`alcul determinista, multi-prove\"idor.
 
@@ -134,11 +134,11 @@ SE-Agentic-Evaluator s'ha validat mitjan\c{c}ant sis escenaris t\`ecnics, tots c
 
 Current automated systems for evaluating academic assignments tend to work as rigid pipelines: they always follow the same fixed sequence of steps, cannot analyze diagrams or technical figures, and require changing the source code every time the evaluation rubric changes. This is the case of SE-rubric-evaluAItor, a tool developed within the LAMB educational ecosystem that, while functional, is inflexible and hard to adapt to new types of deliverables.
 
-This Bachelor's Thesis presents \textbf{SE-Agentic-Evaluator}, a system that replaces this rigid pipeline with an AI agent capable of deciding for itself which steps to follow when evaluating each document, adapting to its specific content. The system was built from scratch, without depending on any external platform, following the ``Agents All the Way Down'' methodology \cite{alier2025} proposed by Professor Marc Alier and others.
+This Bachelor's Thesis presents \textbf{Evaluaitor-Lamb}, a system that replaces this rigid pipeline with an AI agent capable of deciding for itself which steps to follow when evaluating each document, adapting to its specific content. The system was built from scratch, without depending on any external platform, following the ``Agents All the Way Down'' methodology \cite{alier2025} proposed by Professor Marc Alier and others.
 
 To achieve this, the system combines three key ideas. First, it relies on a set of 18 specialized tools (text extraction, diagram analysis, report generation, etc.) that the agent invokes according to the needs of each case. Second, it automatically generates a customized workflow for each rubric and reuses it across multiple documents, saving time and cost. Third, grade calculation is always delegated to Python code ---never to the AI model--- so that every score is tied to concrete evidence from the document, avoiding numerical errors. The system can also interpret diagrams and technical images, and works with several AI model providers (local or cloud-based) without requiring any code changes.
 
-SE-Agentic-Evaluator has been validated through six technical scenarios, all successfully completed, and through a comparison against an expert human evaluator on real master's theses. The technical validation of the system is robust; however, the comparison with the human expert reveals a systematic bias towards under-evaluation and a still weak correlation, which paves the way for future system calibration.
+Evaluaitor-Lamb has been validated through six technical scenarios, all successfully completed, and through a comparison against an expert human evaluator on real master's theses. The technical validation of the system is robust; however, the comparison with the human expert reveals a systematic bias towards under-evaluation and a still weak correlation, which paves the way for future system calibration.
 
 \textbf{Keywords:} AI agent, assisted evaluation, reusable workflow, multimodal vision, deterministic grading, multi-provider.
 
@@ -162,13 +162,13 @@ SE-Agentic-Evaluator has been validated through six technical scenarios, all suc
 \chapter{Introducci\'o i context}
 \label{chap:introduccio}
 
-El projecte SE-Agentic-Evaluator correspon al treball de fi de grau en l'especialitat d'enginyeria del software dins el grau en Enginyeria Inform\`atica de la Facultat d'Inform\`atica de Barcelona (FIB), a la Universitat Polit\`ecnica de Catalunya (UPC).
+El projecte Evaluaitor-Lamb correspon al treball de fi de grau en l'especialitat d'enginyeria del software dins el grau en Enginyeria Inform\`atica de la Facultat d'Inform\`atica de Barcelona (FIB), a la Universitat Polit\`ecnica de Catalunya (UPC).
 
 Aquest treball de fi de grau es desenvolupa en el marc d'una beca d'aprenentatge a l'ICE. El projecte s'integra dins de l'ecosistema LAMB, una plataforma educativa que utilitza Intel·lig\`encia Artificial per assistir en processos d'aprenentatge.
 
 Actualment, l'ecosistema LAMB compta amb diversos projectes relacionats amb l'avaluaci\'o assistida per IA, incloent-hi \href{https://github.com/Lamb-Project/SE-rubric-evaluAItor}{SE-rubric-evaluAItor}, un pipeline d'investigaci\'o per a l'avaluaci\'o de documents de requisits d'Enginyeria del Software, i \href{https://github.com/Lamb-Project/DiagramLens}{DiagramLens}, un m\`odul de visi\'o multimodal per a la descripci\'o de diagrames t\`ecnics.
 
-L'objectiu principal d'aquest TFG \'es el disseny i implementaci\'o de SE-Agentic-Evaluator, un \textbf{sistema meta-ag\`entic complet} que transforma el pipeline r\'igid de SE-rubric-evaluAItor en un assistent din\`amic, contextual i adaptatiu per a l'avaluaci\'o d'entregables acad\`emics de qualsevol tipus. El sistema implementa un \textbf{agent loop propi} seguint la metodologia ``Agents All the Way Down'' del professor Marc Alier. S’ha dissenyat amb un enfocament local-first per funcionar amb models open-source locals, i durant la fase de validació s’han utilitzat models d'IA de m\'ultiples prove\"idors cloud (DashScope, OpenRouter, Google Gemini) per a tasques d'extracci\'o i avaluaci\'o, i delega el c\`alcul de notes en scripts Python determin\'istics per evitar al·lucinacions num\`eriques dels LLMs. L'\'us de models cloud (DashScope o OpenRouter) durant el projecte \'es una elecci\'o de conveni\`encia t\`ecnica durant la fase de validaci\'o (per no disposar d'una GPU dedicada de gamma alta a l'ordinador port\`atil de l'autor). El sistema est\`a a punt per passar a producci\'o amb models locals open-source nom\'es canviant dues variables d'entorn.
+L'objectiu principal d'aquest TFG \'es el disseny i implementaci\'o de Evaluaitor-Lamb, un \textbf{sistema meta-ag\`entic complet} que transforma el pipeline r\'igid de SE-rubric-evaluAItor en un assistent din\`amic, contextual i adaptatiu per a l'avaluaci\'o d'entregables acad\`emics de qualsevol tipus. El sistema implementa un \textbf{agent loop propi} seguint la metodologia ``Agents All the Way Down'' del professor Marc Alier. S’ha dissenyat amb un enfocament local-first per funcionar amb models open-source locals, i durant la fase de validació s’han utilitzat models d'IA de m\'ultiples prove\"idors cloud (DashScope, OpenRouter, Google Gemini) per a tasques d'extracci\'o i avaluaci\'o, i delega el c\`alcul de notes en scripts Python determin\'istics per evitar al·lucinacions num\`eriques dels LLMs. L'\'us de models cloud (DashScope o OpenRouter) durant el projecte \'es una elecci\'o de conveni\`encia t\`ecnica durant la fase de validaci\'o (per no disposar d'una GPU dedicada de gamma alta a l'ordinador port\`atil de l'autor). El sistema est\`a a punt per passar a producci\'o amb models locals open-source nom\'es canviant dues variables d'entorn.
 
 El sistema disposa de \textbf{18 tools especialitzades} (extracci\'o, an\`alisi, visi\'o multimodal, grading, configuraci\'o, workflow) i implementa un \textbf{workflow generator} que genera workflows JSON personalitzats per a cada r\'ubrica, permetent la seva reutilitzaci\'o amb m\'ultiples documents. Aquesta arquitectura permet separar la generaci\'o de workflows de la seva execuci\'o, optimitzant costos i temps de processament.
 
@@ -180,7 +180,7 @@ Per a la correcta comprensi\'o de l'abast d'aquest projecte, es defineixen els s
 \subsection{Agent d'IA}
 \label{subsec:agent-ia}
 
-Un agent d'IA \'es un sistema de programari capa\c{c} de percebre el seu entorn, prendre decisions aut\`onomes i executar accions per assolir un objectiu definit. A difer\`encia d'un pipeline seq\"uencial predefinit, un agent pot seleccionar din\`amicament quines eines invocar i en quin ordre, adaptant-se al contingut espec\'ific de cada document. En aquest projecte, l'agent opera dins del sistema propi SE-Agentic-Evaluator i disposa d'un conjunt de tools (extracci\'o, an\`alisi, visi\'o, grading) que invoca segons les necessitats detectades.
+Un agent d'IA \'es un sistema de programari capa\c{c} de percebre el seu entorn, prendre decisions aut\`onomes i executar accions per assolir un objectiu definit. A difer\`encia d'un pipeline seq\"uencial predefinit, un agent pot seleccionar din\`amicament quines eines invocar i en quin ordre, adaptant-se al contingut espec\'ific de cada document. En aquest projecte, l'agent opera dins del sistema propi Evaluaitor-Lamb i disposa d'un conjunt de tools (extracci\'o, an\`alisi, visi\'o, grading) que invoca segons les necessitats detectades.
 
 \subsection{LMS (Learning Management System)}
 \label{subsec:lms}
@@ -255,7 +255,7 @@ Addicionalment, les plataformes ag\`entiques existents (com opencode.ai) present
     \item \textbf{Limitacions de Models Locals:} Els models locals (Ollama) presenten limitacions en qualitat d'extracci\'o estructurada i raonament avaluatiu per a tasques complexes.
 \end{enumerate}
 
-La soluci\'o proposada, SE-Agentic-Evaluator, resol totes aquestes limitacions implementant un \textbf{sistema meta-ag\`entic complet} amb agent loop propi, workflow generator/executor, 18 tools especialitzades, visi\'o multimodal multi-provider, i seguretat al scaffolding.
+La soluci\'o proposada, Evaluaitor-Lamb, resol totes aquestes limitacions implementant un \textbf{sistema meta-ag\`entic complet} amb agent loop propi, workflow generator/executor, 18 tools especialitzades, visi\'o multimodal multi-provider, i seguretat al scaffolding.
 
 \section{Stakeholders}
 \label{sec:stakeholders}
@@ -265,7 +265,7 @@ S'identifiquen els seg\"uents actors que interactuaran amb el sistema o se'n ben
 \subsection{Professors i Docents}
 \label{subsec:professors}
 
-S\'on els usuaris principals de l'eina. Utilitzen SE-Agentic-Evaluator per avaluar de manera assistida els entregables dels estudiants, obtenint informes estructurats amb r\'ubriques, evid\`encies i recomanacions accionables.
+S\'on els usuaris principals de l'eina. Utilitzen Evaluaitor-Lamb per avaluar de manera assistida els entregables dels estudiants, obtenint informes estructurats amb r\'ubriques, evid\`encies i recomanacions accionables.
 
 \subsection{Equip LAMB (ICE-UPC)}
 \label{subsec:equip-lamb}
@@ -285,12 +285,12 @@ Tot i que no interactuen directament amb el sistema, es beneficien de:
 \subsection{Futurs Desenvolupadors de Skills}
 \label{subsec:futurs-devs}
 
-Desenvolupadors que podran utilitzar l'arquitectura de SE-Agentic-Evaluator com a refer\`encia per crear noves Skills d'avaluaci\'o per a altres assignatures o dominis, aprofitant la configuraci\'o externa de r\'ubriques i el sistema de tools modular.
+Desenvolupadors que podran utilitzar l'arquitectura de Evaluaitor-Lamb com a refer\`encia per crear noves Skills d'avaluaci\'o per a altres assignatures o dominis, aprofitant la configuraci\'o externa de r\'ubriques i el sistema de tools modular.
 
 \section{Evoluci\'o del projecte}
 \label{sec:evolucio}
 
-El projecte actual, SE-Agentic-Evaluator, representa una evoluci\'o significativa respecte a la planificaci\'o inicial documentada al Lliurable 1 d'aquest TFG. Aquesta secci\'o explica els motius i l'abast dels canvis.
+El projecte actual, Evaluaitor-Lamb, representa una evoluci\'o significativa respecte a la planificaci\'o inicial documentada al Lliurable 1 d'aquest TFG. Aquesta secci\'o explica els motius i l'abast dels canvis.
 
 \subsection{Context inicial}
 
@@ -375,7 +375,7 @@ Aquesta evoluci\'o es documenta detalladament a les seccions d'\textbf{Implement
 \chapter{Estat de l'art i treballs relacionats}
 \label{chap:estat-art}
 
-Aquest cap\'itol revisa l'estat de l'art en les tres \`aries tem\`atiques fonamentals del projecte: l'avaluaci\'o autom\`atica amb IA, els frameworks i metodologies ag\`entiques, i la visi\'o multimodal per a documents t\`ecnics. L'objectiu \'es contextualitzar SE-Agentic-Evaluator dins del paisatge cient\'ific i tecnol\`ogic actual, identificant les mancances que el projecte aborda.
+Aquest cap\'itol revisa l'estat de l'art en les tres \`aries tem\`atiques fonamentals del projecte: l'avaluaci\'o autom\`atica amb IA, els frameworks i metodologies ag\`entiques, i la visi\'o multimodal per a documents t\`ecnics. L'objectiu \'es contextualitzar Evaluaitor-Lamb dins del paisatge cient\'ific i tecnol\`ogic actual, identificant les mancances que el projecte aborda.
 
 \section{Avaluaci\'o autom\`atica assistida per IA}
 \label{sec:aval-auto-ia}
@@ -396,7 +396,7 @@ La tercera i actual generaci\'o aprofita els \textbf{Large Language Models (LLMs
     \item \textbf{Sensibilitat al prompt:} Petites variacions en la instrucci\'o d'avaluaci\'o produeixen canvis significatius en les puntuacions \cite{guo2024}.
 \end{enumerate}
 
-SE-Agentic-Evaluator aborda directament els problemes 1 i 2 mitjan\c{c}ant dos mecanismes: (a) el c\`alcul determin\'istic de notes amb scripts Python, eliminant les al·lucinacions num\`eriques, i (b) la tra\c{c}abilitat obligat\`oria d'evid\`encia, que exigeix que cada puntuaci\'o estigui vinculada a una cita textual o descripci\'o de diagrama del document.
+Evaluaitor-Lamb aborda directament els problemes 1 i 2 mitjan\c{c}ant dos mecanismes: (a) el c\`alcul determin\'istic de notes amb scripts Python, eliminant les al·lucinacions num\`eriques, i (b) la tra\c{c}abilitat obligat\`oria d'evid\`encia, que exigeix que cada puntuaci\'o estigui vinculada a una cita textual o descripci\'o de diagrama del document.
 
 \subsection{LLM-as-a-Judge}
 \label{subsec:llm-judge}
@@ -409,7 +409,7 @@ El paradigma \textit{LLM-as-a-Judge} \cite{zheng2023} utilitza un model de lleng
     \item \textbf{Manca de replicabilitat:} Sense un workflow determin\'istic, dos usuaris poden obtenir resultats diferents amb el mateix model i document.
 \end{itemize}
 
-SE-Agentic-Evaluator mitiga aquests problemes mitjan\c{c}ant la separaci\'o entre la generaci\'o de judicis qualitatius (que delega al LLM) i l'agregaci\'o num\`erica (que realitza un script determin\'istic), garantint que la nota final sigui 100\% replicable donades les mateixes puntuacions parcials.
+Evaluaitor-Lamb mitiga aquests problemes mitjan\c{c}ant la separaci\'o entre la generaci\'o de judicis qualitatius (que delega al LLM) i l'agregaci\'o num\`erica (que realitza un script determin\'istic), garantint que la nota final sigui 100\% replicable donades les mateixes puntuacions parcials.
 
 \subsection{Avaluaci\'o de documents d'Enginyeria del Software}
 \label{subsec:aval-es}
@@ -422,7 +422,7 @@ L'avaluaci\'o d'entregables d'Enginyeria del Software difereix significativament
     \item \textbf{Component visual:} Els diagrames UML i les figures t\`ecniques s\'on part integral del document i la seva avaluaci\'o requereix comprensi\'o visual, no nom\'es textual.
 \end{enumerate}
 
-El projecte \textbf{SE-rubric-evaluAItor} \cite{se-rubric} va ser un primer intent d'abordar aquestes especificitats amb un pipeline seq\"uencial, per\`o les seves limitacions (flux r\'igid, r\'ubriques hardcodejades, sense visi\'o) van motivar el desenvolupament de SE-Agentic-Evaluator.
+El projecte \textbf{SE-rubric-evaluAItor} \cite{se-rubric} va ser un primer intent d'abordar aquestes especificitats amb un pipeline seq\"uencial, per\`o les seves limitacions (flux r\'igid, r\'ubriques hardcodejades, sense visi\'o) van motivar el desenvolupament de Evaluaitor-Lamb.
 
 \section{Frameworks i metodologies ag\`entiques}
 \label{sec:frameworks-agentics}
@@ -440,7 +440,7 @@ L'ecosistema de frameworks per a sistemes ag\`entics ha experimentat un creixeme
 
 \textbf{Claude Code / opencode.ai} \cite{opencode}: Plataformes que implementen agents de codi amb acc\'es a terminal, fitxers i eines. Proporcionen un agent loop gestit per la plataforma amb un sistema de Skills (instruccions en Markdown). Limitaci\'o: l'agent loop \'es propietat de la plataforma, impedint la implementaci\'o de l\`ogica personalitzada de workflows i sessions, i creant depend\`encia de plataforma.
 
-Cap d'aquests frameworks proporciona nativament els mecanismes que SE-Agentic-Evaluator requereix: r\'ubriques configurables externament, tra\c{c}abilitat d'evid\`encia obligat\`oria, c\`alcul determin\'istic de notes, visi\'o multimodal per a diagrames UML, i workflows reutilitzables. Aquesta mancan\`encia fonamental justifica la decisi\'o d'implementar un agent loop propi.
+Cap d'aquests frameworks proporciona nativament els mecanismes que Evaluaitor-Lamb requereix: r\'ubriques configurables externament, tra\c{c}abilitat d'evid\`encia obligat\`oria, c\`alcul determin\'istic de notes, visi\'o multimodal per a diagrames UML, i workflows reutilitzables. Aquesta mancan\`encia fonamental justifica la decisi\'o d'implementar un agent loop propi.
 
 \subsection{La metodologia ``Agents All the Way Down''}
 \label{subsec:aawd}
@@ -455,7 +455,7 @@ La metodologia \textbf{``Agents All the Way Down''} \cite{alier2025}, desenvolup
     \item \textbf{P5 (Agent-Tests-Agent):} Implementar behavioral testing amb un agent avaluador que condueixi l'agent principal amb escenaris de prova automatitzats.
 \end{enumerate}
 
-Aquesta metodologia \'es particularment rellevant per a SE-Agentic-Evaluator perqu\`e estableix principis de disseny que resolen problemes pr\`actics dels frameworks existents: la seguretat al scaffolding (P2) evita atacs de prompt injection, la disciplina KV-cache (P1) optimitza el consum de tokens, i l'empaquetat com a CLI (P4) garanteix la portabilitat i composabilitat del sistema.
+Aquesta metodologia \'es particularment rellevant per a Evaluaitor-Lamb perqu\`e estableix principis de disseny que resolen problemes pr\`actics dels frameworks existents: la seguretat al scaffolding (P2) evita atacs de prompt injection, la disciplina KV-cache (P1) optimitza el consum de tokens, i l'empaquetat com a CLI (P4) garanteix la portabilitat i composabilitat del sistema.
 
 \section{Models de llenguatge per a avaluaci\'o}
 \label{sec:models-ll}
@@ -472,7 +472,7 @@ Els models de la fam\'ilia \textbf{Qwen} \cite{qwen2024}, desenvolupats per Alib
 
 L'elecci\'o de DashScope sobre altres prove\"idors (OpenAI, Anthropic) es basa en tres factors: (1) compliment RGPD mitjan\c{c}ant centres de dades a Europa, (2) qualitat competitiva en llenguatges no anglesos, i (3) model de preus per \'us que permet controlar costos.
 
-No obstant aix\`o, durant el desenvolupament del projecte es va identificar la conveni\`encia de dissenyar una arquitectura m\'ulti-prove\"idor, no nom\'es per mitigar les limitacions de quota d'un \'unic servei cloud, sin\'o tamb\'e per oferir una flexibilitat total entre l'entorn local i el nuvol. SE-Agentic-Evaluator ara suporta la configuraci\'o indistinta de prove\"idors alternatius (OpenRouter, Google Gemini o models locals via Ollama) mitjan\c{c}ant variables d'entorn, garantint el desacoblement entre la l\`ogica d'avaluaci\'o i el prove\"idor de models i permetent l'execuci\'o en local de manera immediata.
+No obstant aix\`o, durant el desenvolupament del projecte es va identificar la conveni\`encia de dissenyar una arquitectura m\'ulti-prove\"idor, no nom\'es per mitigar les limitacions de quota d'un \'unic servei cloud, sin\'o tamb\'e per oferir una flexibilitat total entre l'entorn local i el nuvol. Evaluaitor-Lamb ara suporta la configuraci\'o indistinta de prove\"idors alternatius (OpenRouter, Google Gemini o models locals via Ollama) mitjan\c{c}ant variables d'entorn, garantint el desacoblement entre la l\`ogica d'avaluaci\'o i el prove\"idor de models i permetent l'execuci\'o en local de manera immediata.
 
 \subsection{Models de visi\'o multimodal}
 \label{subsec:models-visio}
@@ -485,7 +485,7 @@ La capacitat de processar imatges juntament amb text \'es fonamental per a l'ava
     \item \textbf{Gemini Pro Vision} \cite{gemini2024}: Model de Google amb bones capacitats visuals, per\`o amb limitacions de quota en el tier gratu\"it.
 \end{itemize}
 
-El projecte \textbf{DiagramLens} \cite{diagramlens} va ser pioner en l'aplicaci\'o de visi\'o multimodal a la descripci\'o de diagrames UML, generant descripcions t\`ecniques que poden ser utilitzades com a evid\`encia en l'avaluaci\'o. SE-Agentic-Evaluator integra i amplia aquesta l\`ogica dins del seu sistema de tools.
+El projecte \textbf{DiagramLens} \cite{diagramlens} va ser pioner en l'aplicaci\'o de visi\'o multimodal a la descripci\'o de diagrames UML, generant descripcions t\`ecniques que poden ser utilitzades com a evid\`encia en l'avaluaci\'o. Evaluaitor-Lamb integra i amplia aquesta l\`ogica dins del seu sistema de tools.
 
 \section{Sistemes d'avaluaci\'o educativa existents}
 \label{sec:sistemes-existents}
@@ -505,10 +505,10 @@ El projecte \textbf{DiagramLens} \cite{diagramlens} va ser pioner en l'aplicaci\
 
 \textbf{Copyleaks} \cite{copyleaks} \'es una plataforma que combina detecci\'o de plagi amb an\`alisi d'IA generativa. Pot detectar si un text ha estat generat per un LLM, per\`o no avalua la qualitat del contingut respecte a criteris espec\'ifics.
 
-\subsection{Posicionament de SE-Agentic-Evaluator}
+\subsection{Posicionament de Evaluaitor-Lamb}
 \label{subsec:posicionament}
 
-La Taula~\ref{tab:comparacio-sistemes} resumeix la comparaci\'o entre els sistemes existents i SE-Agentic-Evaluator:
+La Taula~\ref{tab:comparacio-sistemes} resumeix la comparaci\'o entre els sistemes existents i Evaluaitor-Lamb:
 
 \begin{table}[H]
 \centering
@@ -531,7 +531,7 @@ Multi-provider & No & No & No & No & S\'i \\
 \end{tabularx}
 \end{table}
 
-SE-Agentic-Evaluator es posiciona com l'\'unic sistema que combina avaluaci\'o per criteris amb r\'ubriques configurables, visi\'o multimodal, tra\c{c}abilitat d'evid\`encia obligat\`oria, c\`alcul determin\'istic de notes, flux adaptatiu basat en agent loop, i suport multi-provider. Aquesta combinaci\'o de caracter\'istiques no existeix en cap sistema previ, la qual cosa constitueix la principal contribuci\'o d'innovaci\'o del projecte.
+Evaluaitor-Lamb es posiciona com l'\'unic sistema que combina avaluaci\'o per criteris amb r\'ubriques configurables, visi\'o multimodal, tra\c{c}abilitat d'evid\`encia obligat\`oria, c\`alcul determin\'istic de notes, flux adaptatiu basat en agent loop, i suport multi-provider. Aquesta combinaci\'o de caracter\'istiques no existeix en cap sistema previ, la qual cosa constitueix la principal contribuci\'o d'innovaci\'o del projecte.
 
 % ============================================
 % CAPITOL 3: JUSTIFICACIO
@@ -598,7 +598,7 @@ Avaluades totes les alternatives, es justifica l'adopci\'o de l'Alternativa D (s
 \chapter{Abast}
 \label{chap:abast}
 
-Aquest apartat defineix els l\'imits del projecte, establint de manera clara qu\`e s'inclou i qu\`e queda fora de l'MVP (\textit{Minimum Viable Product}) de SE-Agentic-Evaluator.
+Aquest apartat defineix els l\'imits del projecte, establint de manera clara qu\`e s'inclou i qu\`e queda fora de l'MVP (\textit{Minimum Viable Product}) de Evaluaitor-Lamb.
 
 \section{Objectius gen\`erics i sub-objectius del projecte}
 \label{sec:objectius}
@@ -759,7 +759,7 @@ Finalment, tota decisi\'o t\`ecnica presa durant el desenvolupament (avaluaci\'o
 \chapter{Implementaci\'o}
 \label{chap:implementacio}
 
-Aquesta secci\'o descriu l'arquitectura i els components implementats del sistema SE-Agentic-Evaluator, seguint la metodologia ``Agents All the Way Down'' \cite{alier2025} del professor Marc Alier i altres.
+Aquesta secci\'o descriu l'arquitectura i els components implementats del sistema Evaluaitor-Lamb, seguint la metodologia ``Agents All the Way Down'' \cite{alier2025} del professor Marc Alier i altres.
 
 \section{Arquitectura del sistema}
 \label{sec:arquitectura}
@@ -818,7 +818,7 @@ El sistema implementa una arquitectura meta-ag\`entica amb els seg\"uents compon
 
 
 \end{tikzpicture}
-\caption{Arquitectura de components de SE-Agentic-Evaluator. Font: Elaboraci\'o pr\`opia.}
+\caption{Arquitectura de components de Evaluaitor-Lamb. Font: Elaboraci\'o pr\`opia.}
 \label{fig:arquitectura}
 \end{figure}
 
@@ -988,7 +988,7 @@ El flux d'execuci\'o t\'ipic del sistema es mostra al diagrama de seq\"u\`encia 
     \node[fill=yellow!8, rounded corners, inner sep=2pt] at (3,-12.0) {\scriptsize\textbf{Fase 4: Informe}};
     \draw[ret] (6,-12.4) -- node[above, font=\scriptsize]{Informe Markdown amb evid\`encies} (0,-12.4);
 \end{tikzpicture}
-\caption{Diagrama de seq\"u\`encia del flux d'execuci\'o de SE-Agentic-Evaluator. Font: Elaboraci\'o pr\`opia.}
+\caption{Diagrama de seq\"u\`encia del flux d'execuci\'o de Evaluaitor-Lamb. Font: Elaboraci\'o pr\`opia.}
 \label{fig:seq-diagram}
 \end{figure}
 
@@ -1628,7 +1628,7 @@ Glossari de classes & 10\% & 0.0/10 & 0.00 \\
 \section{Validaci\'o comparativa amb avaluador hum\`a}
 \label{sec:validacio-humana}
 
-Per complementar els escenaris de validaci\'o anteriors, s'ha dissenyat un experiment comparatiu que enfronta les avaluacions generades per SE-Agentic-Evaluator amb les d'una avaluadora humana experta que ha avaluat les mateixes mem\`ories de manera independent. Aquesta validaci\'o externa permet quantificar la fiabilitat del sistema i detectar possibles biaixos avaluatius.
+Per complementar els escenaris de validaci\'o anteriors, s'ha dissenyat un experiment comparatiu que enfronta les avaluacions generades per Evaluaitor-Lamb amb les d'una avaluadora humana experta que ha avaluat les mateixes mem\`ories de manera independent. Aquesta validaci\'o externa permet quantificar la fiabilitat del sistema i detectar possibles biaixos avaluatius.
 
 \subsection{Motivaci\'o i objectius}
 
@@ -1837,7 +1837,7 @@ El proc\'es de validaci\'o ha seguit els seg\"uents passos:
 
 \begin{enumerate}
     \item \textbf{Preparaci\'o de la r\'ubrica:} S'ha utilitzat la mateixa r\'ubrica que l'avaluadora humana va aplicar en la seva avaluaci\'o original, convertida a format YAML per al sistema.
-    \item \textbf{Execuci\'o de l'agent:} Cada mem\`oria ha estat avaluada per SE-Agentic-Evaluator utilitzant el flux complet (generaci\'o de workflow + execuci\'o) amb el model \\\texttt{openai/gpt-oss-120b:free}.
+    \item \textbf{Execuci\'o de l'agent:} Cada mem\`oria ha estat avaluada per Evaluaitor-Lamb utilitzant el flux complet (generaci\'o de workflow + execuci\'o) amb el model \\\texttt{openai/gpt-oss-120b:free}.
     \item \textbf{Recollida de notes de l'avaluadora humana:} L'avaluadora humana experta va proporcionar les notes finals de cada mem\`oria. No es van disposar de les puntuacions per criteri de l'avaluadora, per la qual cosa la comparaci\'o s'ha realitzat \'unicament a nivell de nota final.
     \item \textbf{An\`alisi estad\'istic:} S'han calculat m\`etriques de desviaci\'o, correlaci\'o i biaix sobre les notes finals per avaluar la similitud entre ambd\'os avaluadors.
 \end{enumerate}
@@ -1941,7 +1941,7 @@ Les m\`etriques de comparaci\'o amb l'avaluadora humana ($\bar{\Delta} = -2,06$,
 \section{Conclusions de la validaci\'o}
 \label{sec:conclusions-validacio}
 
-La validaci\'o del sistema SE-Agentic-Evaluator ha demostrat que:
+La validaci\'o del sistema Evaluaitor-Lamb ha demostrat que:
 
 \begin{enumerate}
     \item \textbf{El workflow generator funciona correctament:} Genera workflows JSON v\`alids i reutilitzables per a cada r\'ubrica.
@@ -1953,7 +1953,7 @@ La validaci\'o del sistema SE-Agentic-Evaluator ha demostrat que:
     \item \textbf{Validaci\'o comparativa amb avaluador hum\`a:} La comparaci\'o amb una avaluadora humana experta sobre 6 mem\`ories reals de m\`aster ha revelat un biaix sistem\`atic cap a la infra-avaluaci\'o i una correlaci\'o encara feble (Secci\'o~\ref{sec:validacio-humana}). L'agent genera un rang de notes entre 4,77 i 7,54, mentre que l'avaluadora humana assigna entre 6,00 i 10,00. L'agent tendeix a infra-avaluar ($\bar{\Delta} = -2,06$), amb un MAE de 2,27 punts i una correlaci\'o de Pearson de $r = 0,226$.
 \end{enumerate}
 
-En resum, la validaci\'o t\`ecnica del sistema SE-Agentic-Evaluator \'es robusta en els 6 escenaris provats; no obstant aix\`o, la comparaci\'o amb l'experta revela un biaix sistem\`atic cap a la infra-avaluaci\'o i una correlaci\'o encara feble, la qual cosa marca el cam\'i per a la calibraci\'o futura de l'eina abans del seu desplegament en producci\'o.
+En resum, la validaci\'o t\`ecnica del sistema Evaluaitor-Lamb \'es robusta en els 6 escenaris provats; no obstant aix\`o, la comparaci\'o amb l'experta revela un biaix sistem\`atic cap a la infra-avaluaci\'o i una correlaci\'o encara feble, la qual cosa marca el cam\'i per a la calibraci\'o futura de l'eina abans del seu desplegament en producci\'o.
 
 % ============================================
 % CAPITOL 7: CONCLUSIONS I TREBALL FUTUR
@@ -1964,7 +1964,7 @@ En resum, la validaci\'o t\`ecnica del sistema SE-Agentic-Evaluator \'es robusta
 \section{Resum de les contribucions}
 \label{sec:contribucions}
 
-Aquest Treball de Fi de Grau ha presentat el disseny, implementaci\'o i validaci\'o de SE-Agentic-Evaluator, un sistema meta-ag\`entic per a l'avaluaci\'o assistida d'entregables acad\`emics. El sistema est\`a dissenyat per a l'avaluaci\'o multi-document. Tot i que els escenaris de validaci\'o de la present mem\`oria se centren en les mem\`ories finals de pr\`actiques de m\`aster (per ser un lliurable ric que combina text, dades d'Excel i diagrames), les eines i els workflows s'han dissenyat de manera modular i desacoblada, permetent avaluar qualsevol altre document acad\`emic adaptant exclusivament el fitxer de r\'ubrica YAML.
+Aquest Treball de Fi de Grau ha presentat el disseny, implementaci\'o i validaci\'o de Evaluaitor-Lamb, un sistema meta-ag\`entic per a l'avaluaci\'o assistida d'entregables acad\`emics. El sistema est\`a dissenyat per a l'avaluaci\'o multi-document. Tot i que els escenaris de validaci\'o de la present mem\`oria se centren en les mem\`ories finals de pr\`actiques de m\`aster (per ser un lliurable ric que combina text, dades d'Excel i diagrames), les eines i els workflows s'han dissenyat de manera modular i desacoblada, permetent avaluar qualsevol altre document acad\`emic adaptant exclusivament el fitxer de r\'ubrica YAML.
 
 Les contribucions principals del projecte s\'on les seg\"uents:
 
@@ -2165,7 +2165,7 @@ A continuaci\'o s'esmenten els recursos necessaris per tal que el desenvolupamen
 \section{Descripci\'o de les tasques}
 \label{sec:tasques}
 
-El projecte s'organitza en dues parts principals: la Gesti\'o de Projectes (GEP, 90h) i el desenvolupament de SE-Agentic-Evaluator estructurat en quatre sprints \`agils (450h). A m\'es, un grup de tasques transversals de gesti\'o s'executa de manera concurrent al llarg de tot el cicle de vida.
+El projecte s'organitza en dues parts principals: la Gesti\'o de Projectes (GEP, 90h) i el desenvolupament de Evaluaitor-Lamb estructurat en quatre sprints \`agils (450h). A m\'es, un grup de tasques transversals de gesti\'o s'executa de manera concurrent al llarg de tot el cicle de vida.
 
 \subsection{Gesti\'o de Projectes (GEP) (18/02 -- 18/03/2026)}
 \label{subsec:gep}
@@ -2217,7 +2217,7 @@ Definici\'o del context del projecte, identificaci\'o del problema, stakeholders
 \subsection{Tasques de Desenvolupament}
 \label{subsec:tasques-dev}
 
-Corresponen a la implementaci\'o t\`ecnica de \textbf{SE-Agentic-Evaluator}, dividides en les 4 fases iteratives definides a la metodologia.
+Corresponen a la implementaci\'o t\`ecnica de \textbf{Evaluaitor-Lamb}, dividides en les 4 fases iteratives definides a la metodologia.
 
 \paragraph{Sprint 1: Fonaments (Setmanes 2-5, $\sim$26/02 - 19/03/2026)}
 
@@ -2759,7 +2759,7 @@ Pel que fa a la minimitzaci\'o d'aquest impacte, el projecte utilitza prove\"ido
 
 Actualment, l'avaluaci\'o d'entregables d'Enginyeria del Software dins de l'ecosistema LAMB es realitza a trav\'es del projecte SE-rubric-evaluAItor, un pipeline seq\"uencial d'investigaci\'o. Aquest pipeline presenta limitacions estructurals: flux d'execuci\'o r\'igid i predefinit, configuraci\'o de r\'ubriques hardcodejada al codi font, sense capacitat d'an\`alisi de diagrames UML, i sense processament per lots.
 
-SE-Agentic-Evaluator resol totes aquestes limitacions transformant el pipeline en un sistema meta-ag\`entic que selecciona din\`amicament les eines segons el contingut. Ambientalment, la soluci\'o utilitza prove\"idors cloud d'IA per a l'execuci\'o dels models, la qual cosa implica un consum energ\`etic als servidors cloud del prove\"idor, per\`o aquest impacte \'es compartit entre tots els usuaris de la plataforma i s'executa en infraestructures optimitzades per a l'efici\`encia energ\`etica. L'avaluaci\'o batch de criteris redueix addicionalment el nombre de crides a l'API, minimitzant l'impacte ambiental per avaluaci\'o.
+Evaluaitor-Lamb resol totes aquestes limitacions transformant el pipeline en un sistema meta-ag\`entic que selecciona din\`amicament les eines segons el contingut. Ambientalment, la soluci\'o utilitza prove\"idors cloud d'IA per a l'execuci\'o dels models, la qual cosa implica un consum energ\`etic als servidors cloud del prove\"idor, per\`o aquest impacte \'es compartit entre tots els usuaris de la plataforma i s'executa en infraestructures optimitzades per a l'efici\`encia energ\`etica. L'avaluaci\'o batch de criteris redueix addicionalment el nombre de crides a l'API, minimitzant l'impacte ambiental per avaluaci\'o.
 
 \section{Dimensi\'o Econ\`omica}
 \label{sec:dimensio-economica}
@@ -2770,7 +2770,7 @@ El cost total estimat de la realitzaci\'o del projecte \'es de \textbf{17.819 \e
 
 \textbf{Respecte la Vida \'Util: Com es resolen actualment els aspectes de costos del problema que vols abordar? En qu\`e millorar\`a econ\`omicament la teva soluci\'o respecte a les existents?}
 
-Actualment, qualsevol adaptaci\'o de la r\'ubrica d'avaluaci\'o de SE-rubric-evaluAItor per a un altre tipus d'entregable t\'e un cost de desenvolupament elevat perqu\`e requereix modificar directament el codi font (pesos hardcodejats a grader.py). A m\'es, la manca de visi\'o multimodal impedeix avaluar diagrames UML, elements clau en entregables d'Enginyeria del Software. SE-Agentic-Evaluator resol ambd\'os problemes: la configuraci\'o externa de r\'ubriques permet adaptar l'avaluaci\'o a diferents tipus d'entregables sense modificar codi, i la integraci\'o de visi\'o multimodal permet avaluar consist\`encia arquitect\`onica. Econ\`omicament, el cost operatiu un cop desplegat \'es baix, ja que el suport multi-provider permet optimitzar les despeses seleccionant el prove\"idor m\'es econ\`omic per a cada cas, i l'avaluaci\'o batch redueix el nombre de crides a l'API en un 77\%.
+Actualment, qualsevol adaptaci\'o de la r\'ubrica d'avaluaci\'o de SE-rubric-evaluAItor per a un altre tipus d'entregable t\'e un cost de desenvolupament elevat perqu\`e requereix modificar directament el codi font (pesos hardcodejats a grader.py). A m\'es, la manca de visi\'o multimodal impedeix avaluar diagrames UML, elements clau en entregables d'Enginyeria del Software. Evaluaitor-Lamb resol ambd\'os problemes: la configuraci\'o externa de r\'ubriques permet adaptar l'avaluaci\'o a diferents tipus d'entregables sense modificar codi, i la integraci\'o de visi\'o multimodal permet avaluar consist\`encia arquitect\`onica. Econ\`omicament, el cost operatiu un cop desplegat \'es baix, ja que el suport multi-provider permet optimitzar les despeses seleccionant el prove\"idor m\'es econ\`omic per a cada cas, i l'avaluaci\'o batch redueix el nombre de crides a l'API en un 77\%.
 
 \section{Dimensi\'o Social}
 \label{sec:dimensio-social}
@@ -2783,9 +2783,9 @@ La realitzaci\'o d'aquest projecte m'aportar\`a valor a m\'ultiples nivells. En 
 
 Existeix una necessitat real i contrastada del projecte: LAMB \'es un ecosistema en \'us actiu a l'ICE--UPC, amb professors i estudiants reals, i la manca d'un sistema d'avaluaci\'o assistida flexible i adaptatiu \'es una limitaci\'o operativa concreta identificada per l'equip.
 
-Els col·lectius que es beneficiaran directament de la soluci\'o s\'on els professors de les institucions que usin LAMB (avaluacions m\'es r\`apides i estructurades amb evid\`encies concretes) i els estudiants (feedback m\'es detallat i accionable). De manera indirecta, qualsevol instituci\'o educativa que adopti LAMB en el futur podr\`a utilitzar SE-Agentic-Evaluator sense cost addicional.
+Els col·lectius que es beneficiaran directament de la soluci\'o s\'on els professors de les institucions que usin LAMB (avaluacions m\'es r\`apides i estructurades amb evid\`encies concretes) i els estudiants (feedback m\'es detallat i accionable). De manera indirecta, qualsevol instituci\'o educativa que adopti LAMB en el futur podr\`a utilitzar Evaluaitor-Lamb sense cost addicional.
 
-SE-Agentic-Evaluator no substitueix la figura del professor, sin\'o que l'assisteix: el sistema proporciona una avaluaci\'o preliminar amb evid\`encies i recomanacions, per\`o la decisi\'o final i el feedback qualitatiu continuen recaient en el docent. Aix\`o minimitza el risc de perjudicar la qualitat educativa. A m\'es, la privacitat de les dades acad\`emiques es planteja de manera \`etica i responsable: el disseny prioritza l'execuci\'o local-first amb models Open Source per garantir que la propietat intel·lectual dels estudiants i les seves dades personals mai es cedeixin a prove\"idors cloud externs. Aquest enfocament socialment comprom\`es protegeix la sobirania de les dades de la universitat p\'ublica enfront de les grans corporacions tecnol\`ogiques estrangeres.
+Evaluaitor-Lamb no substitueix la figura del professor, sin\'o que l'assisteix: el sistema proporciona una avaluaci\'o preliminar amb evid\`encies i recomanacions, per\`o la decisi\'o final i el feedback qualitatiu continuen recaient en el docent. Aix\`o minimitza el risc de perjudicar la qualitat educativa. A m\'es, la privacitat de les dades acad\`emiques es planteja de manera \`etica i responsable: el disseny prioritza l'execuci\'o local-first amb models Open Source per garantir que la propietat intel·lectual dels estudiants i les seves dades personals mai es cedeixin a prove\"idors cloud externs. Aquest enfocament socialment comprom\`es protegeix la sobirania de les dades de la universitat p\'ublica enfront de les grans corporacions tecnol\`ogiques estrangeres.
 \addcontentsline{toc}{chapter}{Bibliografia}
 \begin{thebibliography}{32}
 
@@ -3055,7 +3055,7 @@ options:
 
 \chapter{Exemple d'Informe Final d'Avaluaci\'o}
 \label{annex:informe-final}
-L'objectiu final del sistema \textit{SE-Agentic-Evaluator} \'es generar un informe detallat en format Markdown. A continuaci\'o es mostra un exemple real generat pel sistema (fragment inicial), on s'aprecia el desglossament de les puntuacions i la justificaci\'o qualitativa.
+L'objectiu final del sistema \textit{Evaluaitor-Lamb} \'es generar un informe detallat en format Markdown. A continuaci\'o es mostra un exemple real generat pel sistema (fragment inicial), on s'aprecia el desglossament de les puntuacions i la justificaci\'o qualitativa.
 
 \begin{lstlisting}[language=markdown]
 # Informe de Síntesis – Memòria de Pràctiques 
