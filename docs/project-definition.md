@@ -1,5 +1,5 @@
 # Document de Definició del Projecte
-## SE-Agentic-Evaluator: Sistema Meta-Agèntic per a l'Avaluació Dinàmica d'Entregables d'Enginyeria del Software
+## Evaluaitor-Lamb: Sistema Meta-Agèntic per a l'Avaluació Dinàmica d'Entregables d'Enginyeria del Software
 
 ---
 
@@ -7,7 +7,7 @@
 
 | Camp | Valor |
 |------|-------|
-| **Títol** | SE-Agentic-Evaluator: Sistema Meta-Agèntic per a la Generació Dinàmica de Workflows d'Avaluació |
+| **Títol** | Evaluaitor-Lamb: Sistema Meta-Agèntic per a la Generació Dinàmica de Workflows d'Avaluació |
 | **Tipus** | Treball de Fi de Grau (TFG) |
 | **Àrea** | Enginyeria del Software, Intel·ligència Artificial Agèntica |
 | **Versió del Document** | 1.0 |
@@ -17,7 +17,7 @@
 
 ## 2. Resum Executiu
 
-El projecte SE-Agentic-Evaluator és un sistema d'avaluació automàtica d'entregables acadèmics d'Enginyeria del Software assistit per IA agèntica. El projecte s'ha desenvolupat de forma iterativa, evolucionant a mesura que s'han identificat millores i nous requisits.
+El projecte Evaluaitor-Lamb és un sistema d'avaluació automàtica d'entregables acadèmics d'Enginyeria del Software assistit per IA agèntica. El projecte s'ha desenvolupat de forma iterativa, evolucionant a mesura que s'han identificat millores i nous requisits.
 
 Actualment, el sistema disposa d'un conjunt complet d'eines d'extracció, anàlisi i avaluació, així com un pipeline d'execució fix. La següent evolució del projecte consisteix a transformar-lo en un sistema **meta-agèntic**, capaç d'analitzar una rúbrica d'avaluació arbitrària i generar dinàmicament un workflow personalitzat. Això representa un salt qualitatiu: de ser un "executor de pipelines" a ser un "dissenyador d'avaluacions".
 
@@ -72,7 +72,7 @@ El pipeline actual és **fix i predeterminat**. No s'adapta a rúbriques diferen
 
 ### 4.1 Objectiu General
 
-Evolucionar el sistema SE-Agentic-Evaluator cap a una arquitectura meta-agèntica capaç de generar dinàmicament workflows d'avaluació personalitzats a partir de rúbriques arbitràries, utilitzant el catàleg d'eines ja implementades.
+Evolucionar el sistema Evaluaitor-Lamb cap a una arquitectura meta-agèntica capaç de generar dinàmicament workflows d'avaluació personalitzats a partir de rúbriques arbitràries, utilitzant el catàleg d'eines ja implementades.
 
 ### 4.2 Objectius Específics
 

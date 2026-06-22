@@ -201,7 +201,7 @@ def run_report_generation(
     output_path.mkdir(parents=True, exist_ok=True)
 
     print(f"\n{'='*60}")
-    print(f"SE-Agentic-Evaluator v2.0 — Report Generation")
+    print(f"Evaluaitor-Lamb v2.0 — Report Generation")
     print(f"Documento: {doc_path.name}")
     print(f"Evaluaciones cargadas: {len(evaluations)}")
     print(f"Nota ponderada: {grading_result.weighted_final}/10")

@@ -5,7 +5,7 @@ echo "=========================================="
 echo "🧹 Limpiando caché de Python..."
 echo "=========================================="
 
-cd /home/adrif/SE-Agentic-Evaluator
+cd /home/adrif/Evaluaitor-Lamb
 
 # Clean all Python cache
 find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null
@@ -19,7 +19,7 @@ echo "🚀 Ejecutando workflow con logging..."
 echo "=========================================="
 echo ""
 
-export PYTHONPATH=/home/adrif/SE-Agentic-Evaluator
+export PYTHONPATH=/home/adrif/Evaluaitor-Lamb
 
 # Run with detailed logging output
 python3 run_evaluation.py evaluate \

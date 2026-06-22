@@ -2,7 +2,7 @@
 
 ## Qué es
 
-`se-agent` es la interfaz de línea de comandos principal para interactuar con el agente de SE-Agentic-Evaluator. Sigue el patrón Turtle y permite:
+`se-agent` es la interfaz de línea de comandos principal para interactuar con el agente de Evaluaitor-Lamb. Sigue el patrón Turtle y permite:
 
 - iniciar una nueva sesión con una tarea
 - continuar una sesión existente

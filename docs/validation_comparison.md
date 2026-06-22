@@ -2,14 +2,14 @@
 
 ## Context Experimental
 
-Per validar la fiabilitat del sistema SE-Agentic-Evaluator, s'ha realitzat un experiment comparatiu utilitzant **12 memòries finals de pràctiques** d'un màster universitari, prèviament avaluades per una professora experta.
+Per validar la fiabilitat del sistema Evaluaitor-Lamb, s'ha realitzat un experiment comparatiu utilitzant **12 memòries finals de pràctiques** d'un màster universitari, prèviament avaluades per una professora experta.
 
 ### Disseny Experimental
 
 - **Conjunt de dades**: 12 memòries de pràctiques (4 Aprovat, 4 Notable, 4 Excel·lent)
 - **Rúbrica**: 13 criteris d'avaluació amb 3 nivells (Insuficient 0-4, Correcte 5-7, Excel·lent 8-10)
 - **Avaluador humà**: Professora experta (categoria qualitativa: Aprovat/Notable/Excel·lent)
-- **Avaluador automàtic**: SE-Agentic-Evaluator (nota quantitativa 0-10)
+- **Avaluador automàtic**: Evaluaitor-Lamb (nota quantitativa 0-10)
 
 ### Metodologia
 

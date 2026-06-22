@@ -2,7 +2,7 @@
 """
 run_evaluation.py
 ==================
-Orchestrator for SE-Agentic-Evaluator.
+Orchestrator for Evaluaitor-Lamb.
 
 Supports two distinct modes:
   1. generate: Creates a workflow JSON from a rubric and optional sample document.
@@ -151,7 +151,7 @@ def cmd_evaluate(args: argparse.Namespace) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="SE-Agentic-Evaluator Orchestrator"
+        description="Evaluaitor-Lamb Orchestrator"
     )
     subparsers = parser.add_subparsers(dest="command", required=True, help="Command to execute")
 

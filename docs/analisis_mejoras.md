@@ -1,4 +1,4 @@
-# Análisis de Problemas y Mejoras Propuestas — SE-Agentic-Evaluator
+# Análisis de Problemas y Mejoras Propuestas — Evaluaitor-Lamb
 
 > **Fecha:** 2026-05-02
 > **Contexto:** Trabajo de Fin de Grado (TFG)
@@ -317,7 +317,7 @@ Mostrar progreso en tiempo real de cada fase y prompt usando `rich`:
 
 ```
 ┌─────────────────────────────────────────────┐
-│ SE-Agentic-Evaluator v1.0                   │
+│ Evaluaitor-Lamb v1.0                   │
 ├─────────────────────────────────────────────┤
 │ Phase 1: Extracción                         │
 │   ✅ Objetivos (3 encontrados)              │
@@ -406,4 +406,4 @@ Implementar un **modo pipeline scriptado** que ejecute las fases en orden fijo y
 ---
 
 *Documento generado para el Trabajo de Fin de Grado (TFG)*
-*Proyecto: SE-Agentic-Evaluator*
+*Proyecto: Evaluaitor-Lamb*

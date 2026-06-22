@@ -8,7 +8,7 @@ Adapted from Lamb-Project/DiagramLens ``annotate_images_enhanced.py`` (GPL-3.0).
 Original repository: https://github.com/Lamb-Project/DiagramLens
 Copyright (C) Lamb-Project contributors.
 
-Modifications for SE-Agentic-Evaluator:
+Modifications for Evaluaitor-Lamb:
   - Converted from a CLI script to an importable module.
   - Exposed pure functions: ``find_image_refs_with_context``,
     ``call_ollama``, ``pre_categorize_with_context``,

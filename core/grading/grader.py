@@ -443,7 +443,7 @@ class RubricGrader:
 def main() -> None:
     """Command-line interface for the deterministic grader."""
     parser = argparse.ArgumentParser(
-        description="Deterministic grader for SE-Agentic-Evaluator."
+        description="Deterministic grader for Evaluaitor-Lamb."
     )
     parser.add_argument(
         "--scores", nargs="*", type=float,

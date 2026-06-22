@@ -2,7 +2,7 @@
 
 **Entregable:** `tests/test2.md`  
 **Fecha:** 2026-04-27  
-**Evaluador:** SE-Agentic-Evaluator v1.0
+**Evaluador:** Evaluaitor-Lamb v1.0
 
 ---
 

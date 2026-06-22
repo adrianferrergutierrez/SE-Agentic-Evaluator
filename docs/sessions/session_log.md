@@ -1,4 +1,4 @@
-# Registro de Sesión - SE-Agentic-Evaluator
+# Registro de Sesión - Evaluaitor-Lamb
 
 ## Sesión 1: 2026-04-27
 

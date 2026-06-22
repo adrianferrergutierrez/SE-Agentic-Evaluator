@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://se-agentic-evaluator/schemas/workflow/v1.0.json",
-  "title": "SE-Agentic-Evaluator Workflow",
+  "title": "Evaluaitor-Lamb Workflow",
   "description": "Schema for dynamically generated evaluation workflows",
   "type": "object",
   "required": ["version", "name", "steps"],

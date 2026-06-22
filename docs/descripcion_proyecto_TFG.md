@@ -1,8 +1,8 @@
-# SE-Agentic-Evaluator: Sistema de Evaluación Asistida por IA Agéntica para Ingeniería de Software
+# Evaluaitor-Lamb: Sistema de Evaluación Asistida por IA Agéntica para Ingeniería de Software
 
 ## Descripción del Proyecto
 
-**SE-Agentic-Evaluator** es un asistente agéntico diseñado para la evaluación asistida por inteligencia artificial generativa de entregables académicos de Ingeniería de Software. El sistema ha sido concebido como una **herramienta de apoyo al juicio docente**, nunca como un sustituto, manteniendo la responsabilidad final de la calificación exclusivamente en el profesorado.
+**Evaluaitor-Lamb** es un asistente agéntico diseñado para la evaluación asistida por inteligencia artificial generativa de entregables académicos de Ingeniería de Software. El sistema ha sido concebido como una **herramienta de apoyo al juicio docente**, nunca como un sustituto, manteniendo la responsabilidad final de la calificación exclusivamente en el profesorado.
 
 El proyecto representa la evolución del pipeline de investigación [SE-rubric-evaluAItor](https://github.com/Lamb-Project/SE-rubric-evaluAItor), transformando su arquitectura rígida en una **Skill agéntica** para la plataforma **opencode.ai**, lo que permite una ejecución dinámica, contextual y adaptativa del proceso de evaluación.
 
@@ -112,7 +112,7 @@ El sistema opera mediante una **Skill agéntica** (`evaluator_skill`) que define
 ## Estructura del Repositorio
 
 ```
-SE-Agentic-Evaluator/
+Evaluaitor-Lamb/
 ├── .opencode/
 │   └── skills/
 │       ├── evaluator_skill.md          # Definición de la Skill para opencode.ai
@@ -269,9 +269,9 @@ Este proyecto integra código de:
 
 - **[DiagramLens](https://github.com/Lamb-Project/DiagramLens)** (Lamb-Project) – lógica de descripción de diagramas vía modelos de visión. Licencia: GNU GPL v3.0.
 
-El código de SE-Agentic-Evaluator que integra estos recursos también se distribuye bajo **GNU GPL v3.0**.
+El código de Evaluaitor-Lamb que integra estos recursos también se distribuye bajo **GNU GPL v3.0**.
 
 ---
 
 *Documento generado para el Trabajo de Fin de Grado (TFG)*
-*Proyecto: SE-Agentic-Evaluator*
+*Proyecto: Evaluaitor-Lamb*

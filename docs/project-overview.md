@@ -1,11 +1,11 @@
-# SE-Agentic-Evaluator: Document de Presentació del Projecte
+# Evaluaitor-Lamb: Document de Presentació del Projecte
 ## Guia Completa
 
 ---
 
 ## 1. Resum del Projecte
 
-**SE-Agentic-Evaluator** és un sistema d'avaluació automàtica d'entregables acadèmics d'Enginyeria del Software assistit per IA agèntica. El sistema és capaç d'analitzar una rúbrica arbitrària i generar dinàmicament un workflow personalitzat per avaluar un document, utilitzant un catàleg d'eines disponibles.
+**Evaluaitor-Lamb** és un sistema d'avaluació automàtica d'entregables acadèmics d'Enginyeria del Software assistit per IA agèntica. El sistema és capaç d'analitzar una rúbrica arbitrària i generar dinàmicament un workflow personalitzat per avaluar un document, utilitzant un catàleg d'eines disponibles.
 
 ### Evolució del Projecte
 
@@ -21,7 +21,7 @@ El projecte s'ha desenvolupat de forma iterativa en dues grans etapes:
 ## 2. Estructura del Projecte
 
 ```
-SE-Agentic-Evaluator/
+Evaluaitor-Lamb/
 ├── core/                          # Lògica principal del sistema
 │   ├── clients/                   # Clients per a APIs externes
 │   │   └── dashscope_client.py    # Client per a DashScope (Qwen)

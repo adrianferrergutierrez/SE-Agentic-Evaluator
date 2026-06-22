@@ -1,4 +1,4 @@
-# SE-Agentic-Evaluator: Estat del Projecte TFG
+# Evaluaitor-Lamb: Estat del Projecte TFG
 
 **Data:** 2 de juny de 2026  
 **Autor:** [Nom de l'estudiant]  
@@ -9,7 +9,7 @@
 
 ## 1. Resum Executiu
 
-**SE-Agentic-Evaluator** és un sistema d'avaluació automàtica de projectes acadèmics basat en agents d'IA. El sistema permet generar workflows personalitzats per a cada rúbrica i executar-los de manera reutilitzable, separant la generació del workflow de la seva execució.
+**Evaluaitor-Lamb** és un sistema d'avaluació automàtica de projectes acadèmics basat en agents d'IA. El sistema permet generar workflows personalitzats per a cada rúbrica i executar-los de manera reutilitzable, separant la generació del workflow de la seva execució.
 
 El projecte segueix la metodologia **"Agents All the Way Down"** desenvolupada pel professor Marc Alier, implementant les fases P1-P4 (Substrate, Building Blocks, Prototype, Ship as CLI).
 
@@ -46,7 +46,7 @@ Desenvolupar un sistema d'avaluació automàtica que permeti:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    SE-Agentic-Evaluator                      │
+│                    Evaluaitor-Lamb                      │
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
 │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐     │
@@ -375,7 +375,7 @@ proteccions modernes de Linux i pràctiques segures de gestió de fitxers.
 
 ## 8. Conclusió
 
-El projecte **SE-Agentic-Evaluator** ha assolit els objectius principals de les fases P1-P4 de la metodologia "Agents All the Way Down":
+El projecte **Evaluaitor-Lamb** ha assolit els objectius principals de les fases P1-P4 de la metodologia "Agents All the Way Down":
 
 ✅ **P1 (Substrate):** Client LLM robust amb retry logic  
 ✅ **P2 (Building Blocks):** 18 tools especialitzades amb security al scaffolding  
@@ -396,7 +396,7 @@ El projecte **SE-Agentic-Evaluator** ha assolit els objectius principals de les 
 ### A. Estructura de Fitxers
 
 ```
-SE-Agentic-Evaluator/
+Evaluaitor-Lamb/
 ├── core/
 │   ├── agent/
 │   │   ├── agent.py              # Agent loop

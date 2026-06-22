@@ -413,7 +413,7 @@ def run_criterion_evaluation(
     detailed_scores: Dict[str, Dict[str, float]] = {}
 
     print(f"\n{'='*60}")
-    print(f"SE-Agentic-Evaluator v2.0 — Criterion Evaluation")
+    print(f"Evaluaitor-Lamb v2.0 — Criterion Evaluation")
     print(f"Documento: {doc_path.name}")
     print(f"Rúbrica: {cfg.id} - {cfg.description}")
     print(f"Modelo: {model}")

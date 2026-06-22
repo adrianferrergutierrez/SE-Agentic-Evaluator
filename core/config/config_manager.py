@@ -2,7 +2,7 @@
 """
 core/config/config_manager.py
 ===============================
-Configuration management for SE-Agentic-Evaluator.
+Configuration management for Evaluaitor-Lamb.
 
 Loads and validates rubric configuration from YAML files.
 Supports default config and custom overrides.

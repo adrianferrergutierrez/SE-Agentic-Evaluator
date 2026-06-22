@@ -2,7 +2,7 @@
 
 ## 1. Visión General del Sistema
 
-El sistema SE-Agentic-Evaluator ha evolucionado de un pipeline fijo a un sistema **meta-agéntico** capaz de generar y ejecutar workflows dinámicos personalizados para cualquier rúbrica.
+El sistema Evaluaitor-Lamb ha evolucionado de un pipeline fijo a un sistema **meta-agéntico** capaz de generar y ejecutar workflows dinámicos personalizados para cualquier rúbrica.
 
 ### Arquitectura del Proceso
 
@@ -438,4 +438,4 @@ def run_report_generation(document_path, eval_dir, config_path, scores_path, out
 
 ---
 
-*Documento generado como parte del proceso de evaluación del Hito 2 - SE-Agentic-Evaluator*
+*Documento generado como parte del proceso de evaluación del Hito 2 - Evaluaitor-Lamb*

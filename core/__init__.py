@@ -1,1 +1,1 @@
-# SE-Agentic-Evaluator core package
+# Evaluaitor-Lamb core package

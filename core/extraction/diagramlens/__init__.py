@@ -3,8 +3,8 @@
 # Original: https://github.com/Lamb-Project/DiagramLens
 #
 # Copyright (C) Lamb-Project contributors.
-# Modifications for SE-Agentic-Evaluator: integrated as importable module.
-# This file is part of SE-Agentic-Evaluator and is distributed under GPL-3.0.
+# Modifications for Evaluaitor-Lamb: integrated as importable module.
+# This file is part of Evaluaitor-Lamb and is distributed under GPL-3.0.
 
 from .annotate import (
     find_image_refs_with_context,

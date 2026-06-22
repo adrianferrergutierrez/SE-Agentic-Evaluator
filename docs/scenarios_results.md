@@ -1,6 +1,6 @@
 # Resultats dels Escenaris de Prova
 
-Aquest document resumeix els resultats de tots els escenaris de prova executats per validar el sistema SE-Agentic-Evaluator.
+Aquest document resumeix els resultats de tots els escenaris de prova executats per validar el sistema Evaluaitor-Lamb.
 
 ## Resum General
 
@@ -170,4 +170,4 @@ Aquest document resumeix els resultats de tots els escenaris de prova executats 
 
 ---
 
-*Document generat automàticament per SE-Agentic-Evaluator*
+*Document generat automàticament per Evaluaitor-Lamb*

@@ -1,8 +1,8 @@
-# Guía de Usuario: SE-Agentic-Evaluator
+# Guía de Usuario: Evaluaitor-Lamb
 
 ## 1. Introducción
 
-**SE-Agentic-Evaluator** es un sistema de evaluación automática de entregables académicos basado en IA agéntica. El sistema utiliza un enfoque **meta-agéntico** para generar dinámicamente workflows de evaluación personalizados a partir de rúbricas arbitrarias.
+**Evaluaitor-Lamb** es un sistema de evaluación automática de entregables académicos basado en IA agéntica. El sistema utiliza un enfoque **meta-agéntico** para generar dinámicamente workflows de evaluación personalizados a partir de rúbricas arbitrarias.
 
 Este documento explica cómo utilizar el sistema para generar workflows y ejecutar evaluaciones.
 

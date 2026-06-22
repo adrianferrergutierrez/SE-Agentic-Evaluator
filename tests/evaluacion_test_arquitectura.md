@@ -3,7 +3,7 @@
 **Entregable:** `tests/test_arquitectura.md`  
 **Fecha:** 2026-05-06  
 **Rúbrica:** `rubric_architecture.yaml`  
-**Evaluador:** SE-Agentic-Evaluator v1.0
+**Evaluador:** Evaluaitor-Lamb v1.0
 
 ---
 

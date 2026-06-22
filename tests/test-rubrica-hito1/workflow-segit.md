@@ -108,7 +108,7 @@ python core/config/rubric_importer.py \
 
 **Comanda executada:**
 ```bash
-PYTHONPATH=/home/adrif/SE-Agentic-Evaluator python3 core/evaluation/criterion_evaluator.py \
+PYTHONPATH=/home/adrif/Evaluaitor-Lamb python3 core/evaluation/criterion_evaluator.py \
   --document tests/test-rubrica-hito1/output/phase0_extract/contents.md \
   --config configs/rubric_hito1.yaml \
   --output tests/test-rubrica-hito1/output/evaluacion/
@@ -135,7 +135,7 @@ PYTHONPATH=/home/adrif/SE-Agentic-Evaluator python3 core/evaluation/criterion_ev
 
 **Comanda executada:**
 ```bash
-PYTHONPATH=/home/adrif/SE-Agentic-Evaluator python3 core/grading/grader.py \
+PYTHONPATH=/home/adrif/Evaluaitor-Lamb python3 core/grading/grader.py \
   --criteria-json tests/test-rubrica-hito1/output/evaluacion/criteria.json
 ```
 
@@ -166,7 +166,7 @@ PYTHONPATH=/home/adrif/SE-Agentic-Evaluator python3 core/grading/grader.py \
 
 **Comanda executada:**
 ```bash
-PYTHONPATH=/home/adrif/SE-Agentic-Evaluator python3 core/evaluation/evaluator.py \
+PYTHONPATH=/home/adrif/Evaluaitor-Lamb python3 core/evaluation/evaluator.py \
   --document tests/test-rubrica-hito1/output/phase0_extract/contents.md \
   --eval-dir tests/test-rubrica-hito1/output/evaluacion/ \
   --config configs/rubric_hito1.yaml \

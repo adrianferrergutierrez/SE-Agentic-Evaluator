@@ -2,14 +2,14 @@
 
 ## Entrada 1: 2026-04-27
 
-**Proyecto:** SE-Agentic-Evaluator  
+**Proyecto:** Evaluaitor-Lamb  
 **Fase:** Configuración inicial y pruebas
 
 ---
 
 ### Resumen
 
-Hoy he configurado el proyecto SE-Agentic-Evaluator y he probado la skill `evaluator_skill` con un documento de prueba de un sistema de gestión de biblioteca.
+Hoy he configurado el proyecto Evaluaitor-Lamb y he probado la skill `evaluator_skill` con un documento de prueba de un sistema de gestión de biblioteca.
 
 ---
 

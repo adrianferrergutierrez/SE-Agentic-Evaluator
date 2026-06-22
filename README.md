@@ -1,4 +1,4 @@
-# SE-Agentic-Evaluator
+# Evaluaitor-Lamb
 
 Assistent meta-agèntic interactiu per a l'avaluació de lliurables acadèmics, dissenyat per **complementar** el judici docent, **no substituir-lo**. 
 
@@ -24,7 +24,7 @@ Aquest projecte implementa un cicle de vida complet d'agent d'IA seguint la meto
 ## 📂 Estructura del Repositori
 
 ```text
-SE-Agentic-Evaluator/
+Evaluaitor-Lamb/
 ├── configs/               # Rúbriques en format YAML (pesos, descriptors)
 ├── core/
 │   ├── agent/             # Lògica core: agent.py, security.py, tools.py

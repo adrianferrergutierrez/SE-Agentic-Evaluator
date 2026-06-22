@@ -2,7 +2,7 @@
 
 ## Resum Executiu
 
-Aquest informe presenta l'avaluació del document "A1.1 Memoria trabajo final (2).docx" segons la rúbrica del Hito 2, utilitzant el sistema SE-Agentic-Evaluator amb anàlisi de diagrames mitjançant visió per computador.
+Aquest informe presenta l'avaluació del document "A1.1 Memoria trabajo final (2).docx" segons la rúbrica del Hito 2, utilitzant el sistema Evaluaitor-Lamb amb anàlisi de diagrames mitjançant visió per computador.
 
 **Nota Final Ponderada: 6.30/10**
 
@@ -103,4 +103,4 @@ El document presenta una bona base tècnica amb una nota final de **6.30/10**, p
 
 ---
 
-*Informe generat automàticament per SE-Agentic-Evaluator*
+*Informe generat automàticament per Evaluaitor-Lamb*
