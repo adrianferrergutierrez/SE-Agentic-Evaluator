@@ -524,8 +524,8 @@ class WorkflowExecutorTool(Tool):
         workflow["variables"]["input_docx"] = str(input_doc)
         workflow["variables"]["output_dir"] = str(output_dir)
         
-        # Inject rubric path if provided, otherwise try to infer from metadata
-        if rubric_path:
+        # Inject rubric path if provided and exists, otherwise try to infer from metadata
+        if rubric_path and Path(rubric_path).exists():
             workflow["variables"]["input_rubric"] = str(rubric_path)
         elif "metadata" in workflow and "rubric_id" in workflow["metadata"]:
             rubric_id = workflow["metadata"]["rubric_id"]
