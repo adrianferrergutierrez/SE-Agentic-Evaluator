@@ -86,8 +86,9 @@ def extract_objectives(
     """
     if client is None:
         client = get_client()
-        if os.environ.get("LLM_PROVIDER", "dashscope").lower() == "ollama" and model == DEFAULT_MODEL:
-            model = os.environ.get("OLLAMA_MODEL", "llama3.1")
+        
+    if os.environ.get("LLM_PROVIDER", "dashscope").lower() == "ollama" and model == DEFAULT_MODEL:
+        model = os.environ.get("OLLAMA_MODEL", "llama3.1")
 
     prompt = build_prompt(document, prompt_path)
 
