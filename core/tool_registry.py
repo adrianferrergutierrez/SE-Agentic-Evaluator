@@ -538,8 +538,8 @@ class WorkflowExecutorTool(Tool):
                 input_doc.parent.parent / f"rubrica_{rubric_id}.yaml",
                 Path.cwd() / f"rubric_{rubric_id}.yaml",
                 Path.cwd() / f"rubrica_{rubric_id}.yaml",
-                REPO_ROOT / "configs" / f"rubric_{rubric_id}.yaml",
-                REPO_ROOT / "configs" / f"rubrica_{rubric_id}.yaml",
+                Path(__file__).parent.parent / "configs" / f"rubric_{rubric_id}.yaml",
+                Path(__file__).parent.parent / "configs" / f"rubrica_{rubric_id}.yaml",
             ]
             for path in Path.cwd().rglob(f"rubrica_{rubric_id}.yaml"):
                 candidates.append(path)
