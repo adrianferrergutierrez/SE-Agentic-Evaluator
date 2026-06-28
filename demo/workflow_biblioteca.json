@@ -22,19 +22,7 @@
         "output_dir": "${output_dir}"
       },
       "output": {
-        "contents_md": "${output_dir}/document.md"
-      }
-    },
-    {
-      "id": "step_extract_rubric",
-      "tool": "xlsx_to_markdown",
-      "description": "Extraer la rúbrica en Markdown",
-      "params": {
-        "input": "${input_rubric}",
-        "output": "${output_dir}/rubric.md"
-      },
-      "output": {
-        "markdown_path": "${output_dir}/rubric.md"
+        "contents_md": "${output_dir}/contents.md"
       }
     },
     {
@@ -42,20 +30,53 @@
       "tool": "describe_diagrams",
       "description": "Describir los diagramas en el documento",
       "params": {
-        "document_path": "${output_dir}/document.md",
+        "document_path": "${output_dir}/contents.md",
         "model": "llava"
       },
       "output": {
-        "updated_md": "${output_dir}/document_with_diagrams.md"
+        "updated_md": "${output_dir}/contents.md"
+      }
+    },
+    {
+      "id": "step_extract_objectives",
+      "tool": "extract_objectives",
+      "description": "Extraer objetivos del documento",
+      "params": {
+        "document": "${output_dir}/contents.md"
+      },
+      "output": {
+        "markdown": "${output_dir}/objectives.md"
+      }
+    },
+    {
+      "id": "step_extract_requirements",
+      "tool": "extract_requirements",
+      "description": "Extraer requisitos del documento",
+      "params": {
+        "document": "${output_dir}/contents.md"
+      },
+      "output": {
+        "markdown": "${output_dir}/requirements.md"
+      }
+    },
+    {
+      "id": "step_extract_use_cases",
+      "tool": "extract_use_cases",
+      "description": "Extraer casos de uso del documento",
+      "params": {
+        "document": "${output_dir}/contents.md"
+      },
+      "output": {
+        "markdown": "${output_dir}/use_cases.md"
       }
     },
     {
       "id": "step_detect_orphans",
       "tool": "detect_orphans",
-      "description": "Detectar requisitos o objetivos huérfanos",
+      "description": "Detectar huérfanos entre objetivos y requisitos",
       "params": {
-        "objectives_md": "${output_dir}/rubric.md",
-        "requirements_md": "${output_dir}/document_with_diagrams.md"
+        "objectives_md": "${output_dir}/objectives.md",
+        "requirements_md": "${output_dir}/requirements.md"
       },
       "output": {
         "markdown": "${output_dir}/orphans_report.md"
@@ -66,21 +87,38 @@
       "tool": "evaluate_smart",
       "description": "Evaluar objetivos según SMART",
       "params": {
-        "objectives_md": "${output_dir}/rubric.md"
+        "objectives_md": "${output_dir}/objectives.md"
       },
       "output": {
         "markdown": "${output_dir}/smart_report.md"
       }
     },
     {
-      "id": "step_classify_iso25010",
+      "id": "step_classify_iso",
       "tool": "classify_iso25010",
-      "description": "Clasificar requisitos no funcionales según ISO 25010",
+      "description": "Clasificar requisitos no funcionales",
       "params": {
-        "requirements_md": "${output_dir}/document_with_diagrams.md"
+        "requirements_md": "${output_dir}/requirements.md"
       },
       "output": {
         "markdown": "${output_dir}/iso_report.md"
+      }
+    },
+    {
+      "id": "step_build_context",
+      "tool": "build_context",
+      "description": "Construir contexto de análisis",
+      "params": {
+        "objectives_md": "${output_dir}/objectives.md",
+        "requirements_md": "${output_dir}/requirements.md",
+        "use_cases_md": "${output_dir}/use_cases.md",
+        "orphans_report": "${output_dir}/orphans_report.md",
+        "smart_report": "${output_dir}/smart_report.md",
+        "iso_report": "${output_dir}/iso_report.md",
+        "output_path": "${output_dir}/analysis_context.md"
+      },
+      "output": {
+        "markdown": "${output_dir}/analysis_context.md"
       }
     },
     {
@@ -88,9 +126,11 @@
       "tool": "criterion_evaluator",
       "description": "Evaluar criterios según rúbrica",
       "params": {
-        "document": "${output_dir}/document_with_diagrams.md",
+        "document": "${output_dir}/contents.md",
         "config": "${input_rubric}",
-        "full": false
+        "full": false,
+        "context": "${output_dir}/analysis_context.md",
+        "output_dir": "${output_dir}"
       },
       "output": {
         "scores": "${output_dir}/scores.json"
@@ -105,7 +145,9 @@
         "config": "${input_rubric}"
       },
       "output": {
-        "weighted_final": "${output_dir}/final_grade.json"
+        "weighted_final": "${output_dir}/final_grade.json",
+        "mean_xbar": "${output_dir}/mean.json",
+        "performance_level": "${output_dir}/level.json"
       }
     },
     {
@@ -113,13 +155,14 @@
       "tool": "report_generator",
       "description": "Generar informe de evaluación final",
       "params": {
-        "document": "${input_docx}",
+        "document": "${output_dir}/contents.md",
         "eval_dir": "${output_dir}",
         "config": "${input_rubric}",
-        "scores": "${output_dir}/scores.json"
+        "scores": "${output_dir}/scores.json",
+        "output": "${output_dir}/evaluacion_final.md"
       },
       "output": {
-        "report_path": "${output_dir}/final_report.pdf"
+        "report_path": "${output_dir}/evaluacion_final.md"
       }
     }
   ]

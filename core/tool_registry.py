@@ -352,19 +352,27 @@ class BuildContextTool(Tool):
         "use_cases_md": "Use cases MD",
         "orphans_report": "Orphans report",
         "smart_report": "SMART report",
-        "iso_report": "ISO report"
+        "iso_report": "ISO report",
+        "output_path": "Optional path to save the context MD"
     }
     @property
     def output(self) -> Dict[str, str]: return {"markdown": "Context MD"}
 
     def execute(self, **kwargs: Any) -> Dict[str, Any]:
         parts = []
+        output_path = kwargs.pop("output_path", None)
         for key, val in kwargs.items():
             if val and Path(val).exists():
                 parts.append(f"### {key}\n\n{Path(val).read_text(encoding='utf-8')}")
             elif val:
                 parts.append(f"### {key}\n\n{val}")
-        return {"result": {"markdown": "\n\n".join(parts)}}
+                
+        content = "\n\n".join(parts)
+        if output_path:
+            Path(output_path).parent.mkdir(parents=True, exist_ok=True)
+            Path(output_path).write_text(content, encoding="utf-8")
+            
+        return {"result": {"markdown": content}}
 
 
 class CriterionEvaluatorTool(Tool):
