@@ -15,7 +15,8 @@ import re
 from pathlib import Path
 from typing import Dict, List, Optional
 
-from core.clients.dashscope_client import DashScopeClient
+from core.clients.base import BaseLLMClient
+from core.clients import get_client
 
 _REPO_ROOT = Path(__file__).parent.parent.parent
 _PROMPT_FILE = _REPO_ROOT / "prompts" / "1_2_extraccion_requisitos.md"
@@ -38,7 +39,7 @@ def build_prompt(document: str, prompt_path: Optional[Path] = None) -> str:
 
 def extract_requirements(
     document: str,
-    client: Optional[DashScopeClient] = None,
+    client: Optional[BaseLLMClient] = None,
     model: str = DEFAULT_MODEL,
     prompt_path: Optional[Path] = None,
 ) -> str:
@@ -49,7 +50,7 @@ def extract_requirements(
     document:
         Full text of the requirements document.
     client:
-        Optional DashScopeClient instance. Created automatically if None.
+        Optional BaseLLMClient instance. Created automatically if None.
     model:
         DashScope model name (default: qwen3.6-plus).
     prompt_path:
@@ -66,7 +67,7 @@ def extract_requirements(
         If the DashScope call fails or returns empty content.
     """
     if client is None:
-        client = DashScopeClient()
+        client = get_client()
 
     prompt = build_prompt(document, prompt_path)
     content = client.generate(

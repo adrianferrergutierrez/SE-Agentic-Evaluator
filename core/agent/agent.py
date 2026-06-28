@@ -15,8 +15,7 @@ from typing import Any, Dict, List, Optional, Tuple
 
 import os
 from core.clients.base import BaseLLMClient
-from core.clients.dashscope_client import DashScopeClient
-from core.clients.ollama_client import OllamaClient
+from core.clients import get_client
 from core.agent.security import SecurityPolicy
 from core.agent.tools.adapter import ToolAdapter
 from core.agent.session_store import SessionStore
@@ -30,7 +29,7 @@ class Agent:
     
     Attributes
     ----------
-    llm : DashScopeClient
+    llm : BaseLLMClient
         The LLM backend.
     tools : ToolAdapter
         Adapter exposing tools with schemas and security checks.
@@ -50,11 +49,7 @@ class Agent:
     ):
         # 1. LLM Client
         if llm is None:
-            provider = os.environ.get("LLM_PROVIDER", "dashscope").lower()
-            if provider == "ollama":
-                self.llm = OllamaClient()
-            else:
-                self.llm = DashScopeClient()
+            self.llm = get_client()
         else:
             self.llm = llm
 

@@ -175,19 +175,24 @@ def describe_diagrams(
     
     # Try to initialize client, but don't fail if API key is missing
     try:
-        client = DashScopeClient()
-        if not client.api_key:
-            logger.warning("DashScope API key not set. Skipping diagram descriptions.")
-            return {
-                "updated_md": str(doc_path),
-                "descriptions_count": 0,
-                "total_images": 0,
-                "failed_images": [],
-                "skipped": True,
-                "reason": "API key not set"
-            }
+        provider = os.environ.get("LLM_PROVIDER", "dashscope").lower()
+        if provider == "ollama":
+            from core.clients.ollama_client import OllamaClient
+            client = OllamaClient()
+        else:
+            client = DashScopeClient()
+            if not client.api_key:
+                logger.warning("DashScope API key not set. Skipping diagram descriptions.")
+                return {
+                    "updated_md": str(doc_path),
+                    "descriptions_count": 0,
+                    "total_images": 0,
+                    "failed_images": [],
+                    "skipped": True,
+                    "reason": "API key not set"
+                }
     except Exception as e:
-        logger.warning(f"Failed to initialize DashScope client: {e}. Skipping diagram descriptions.")
+        logger.warning(f"Failed to initialize client: {e}. Skipping diagram descriptions.")
         return {
             "updated_md": str(doc_path),
             "descriptions_count": 0,

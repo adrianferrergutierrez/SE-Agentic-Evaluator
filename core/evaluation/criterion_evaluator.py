@@ -41,7 +41,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-from core.clients.dashscope_client import DashScopeClient
+from core.clients.base import BaseLLMClient
+from core.clients import get_client
 from core.config.config_manager import ConfigManager, CriterionConfig
 from core.extraction.objectives import extract_objectives, parse_objective_ids
 from core.extraction.requirements import extract_requirements, parse_requirement_ids
@@ -115,7 +116,7 @@ BATCH_SIZE = int(os.environ.get("EVAL_BATCH_SIZE", "5"))
 
 
 def _evaluate_single(
-    client: DashScopeClient,
+    client: BaseLLMClient,
     model: str,
     vision_model: str,
     prompt_template: str,
@@ -259,7 +260,7 @@ def _parse_batch_response(text: str, criteria_ids: List[str]) -> Dict[str, str]:
 
 
 def evaluate_criteria_batch(
-    client: DashScopeClient,
+    client: BaseLLMClient,
     model: str,
     vision_model: str,
     criteria_batch: List[CriterionConfig],
@@ -289,7 +290,7 @@ def evaluate_criteria_batch(
 
 def build_context(
     document: str,
-    client: DashScopeClient,
+    client: BaseLLMClient,
     model: str = os.environ.get("DASHSCOPE_MODEL", "qwen3.6-plus"),
 ) -> str:
     """Run full extraction + analysis pipeline and return context Markdown.
@@ -303,7 +304,7 @@ def build_context(
     document:
         Full Markdown document content.
     client:
-        DashScopeClient instance for LLM calls.
+        BaseLLMClient instance for LLM calls.
     model:
         Model name to use for extractions.
 
@@ -385,11 +386,16 @@ def run_criterion_evaluation(
         raise FileNotFoundError(f"Document not found: {doc_path}")
     document = doc_path.read_text(encoding="utf-8")
 
-    client = DashScopeClient(region=cfg.provider.region if cfg.provider else "singapore")
+    client = get_client()
     env_text_model = os.environ.get("DASHSCOPE_MODEL")
     env_vision_model = os.environ.get("DASHSCOPE_VISION_MODEL")
-    model = env_text_model or (cfg.provider.text_model if cfg.provider else "qwen3.6-plus")
-    vision_model = env_vision_model or (cfg.provider.vision_model if cfg.provider else "qwen-vl-max")
+    
+    if os.environ.get("LLM_PROVIDER", "dashscope").lower() == "ollama":
+        model = os.environ.get("OLLAMA_MODEL", "llama3.1")
+        vision_model = os.environ.get("OLLAMA_VISION_MODEL", "llava")
+    else:
+        model = env_text_model or (cfg.provider.text_model if cfg.provider else "qwen3.6-plus")
+        vision_model = env_vision_model or (cfg.provider.vision_model if cfg.provider else "qwen-vl-max")
 
     output_path = Path(output_dir)
     output_path.mkdir(parents=True, exist_ok=True)

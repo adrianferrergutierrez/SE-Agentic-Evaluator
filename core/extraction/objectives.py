@@ -18,12 +18,13 @@ import re
 from pathlib import Path
 from typing import Dict, List, Optional
 
-from core.clients.dashscope_client import DashScopeClient
+from core.clients.base import BaseLLMClient
+from core.clients import get_client
 
 _REPO_ROOT = Path(__file__).parent.parent.parent
 _PROMPT_FILE = _REPO_ROOT / "prompts" / "1_1_extraccion_objetivos.md"
 
-DEFAULT_MODEL = os.environ.get("DASHSCOPE_MODEL", "qwen3.6-plus")
+DEFAULT_MODEL = os.environ.get("OLLAMA_MODEL", "LLAMA3.1")
 
 
 def _load_prompt(prompt_path: Optional[Path] = None) -> str:
@@ -55,7 +56,7 @@ def build_prompt(document: str, prompt_path: Optional[Path] = None) -> str:
 
 def extract_objectives(
     document: str,
-    client: Optional[DashScopeClient] = None,
+    client: Optional[BaseLLMClient] = None,
     model: str = DEFAULT_MODEL,
     prompt_path: Optional[Path] = None,
 ) -> str:
@@ -66,7 +67,7 @@ def extract_objectives(
     document:
         Full text of the requirements document (Markdown or plain text).
     client:
-        Optional DashScopeClient instance. Created automatically if None.
+        Optional BaseLLMClient instance. Created automatically if None.
     model:
         DashScope model name (default: qwen3.6-plus).
     prompt_path:
@@ -84,7 +85,7 @@ def extract_objectives(
         If the DashScope call fails or returns empty content.
     """
     if client is None:
-        client = DashScopeClient()
+        client = get_client()
 
     prompt = build_prompt(document, prompt_path)
 

@@ -73,7 +73,7 @@ def parse_markdown_rubric(md_content: str) -> List[Dict]:
     # Find the table header
     header_idx = -1
     for i, line in enumerate(lines):
-        if line.startswith("|") and "criterio" in line.lower():
+        if line.startswith("|") and any(w in line.lower() for w in ["criterio", "criteri", "criterion"]):
             header_idx = i
             break
 
@@ -90,7 +90,7 @@ def parse_markdown_rubric(md_content: str) -> List[Dict]:
     # Find Peso column index
     peso_idx = None
     for idx, part in enumerate(header_parts):
-        if "peso" in part.lower():
+        if any(w in part.lower() for w in ["peso", "pes", "weight"]):
             peso_idx = idx
             break
     
@@ -219,10 +219,9 @@ def generate_yaml(criteria: List[Dict], prompts_dir: str, rubric_id: str = "impo
         "id": rubric_id,
         "description": f"Rúbrica importada desde Markdown ({len(criteria)} criterios)",
         "provider": {
-            "type": "dashscope",
-            "region": "singapore",
-            "text_model": "qwen3.6-plus",
-            "vision_model": "qwen-vl-max",
+            "type": "ollama",
+            "text_model": "qwen2.5-coder",
+            "vision_model": "llava",
         },
         "rubric": {
             "criteria": rubric_criteria,

@@ -1,0 +1,126 @@
+{
+  "version": "1.0",
+  "name": "workflow_biblioteca",
+  "description": "Evaluación de la rúbrica biblioteca",
+  "metadata": {
+    "rubric_id": "biblioteca",
+    "created_at": "2026-06-27T20:22:55.869225",
+    "version": "1.0"
+  },
+  "variables": {
+    "input_docx": "${doc_path}",
+    "input_rubric": "${rubric_path}",
+    "output_dir": "${output_dir}"
+  },
+  "steps": [
+    {
+      "id": "step_extract_document",
+      "tool": "docx_extract",
+      "description": "Extraer el contenido del documento en Markdown",
+      "params": {
+        "input": "${input_docx}",
+        "output_dir": "${output_dir}"
+      },
+      "output": {
+        "contents_md": "${output_dir}/document.md"
+      }
+    },
+    {
+      "id": "step_extract_rubric",
+      "tool": "xlsx_to_markdown",
+      "description": "Extraer la rúbrica en Markdown",
+      "params": {
+        "input": "${input_rubric}",
+        "output": "${output_dir}/rubric.md"
+      },
+      "output": {
+        "markdown_path": "${output_dir}/rubric.md"
+      }
+    },
+    {
+      "id": "step_describe_diagrams",
+      "tool": "describe_diagrams",
+      "description": "Describir los diagramas en el documento",
+      "params": {
+        "document_path": "${output_dir}/document.md",
+        "model": "llava"
+      },
+      "output": {
+        "updated_md": "${output_dir}/document_with_diagrams.md"
+      }
+    },
+    {
+      "id": "step_detect_orphans",
+      "tool": "detect_orphans",
+      "description": "Detectar requisitos o objetivos huérfanos",
+      "params": {
+        "objectives_md": "${output_dir}/rubric.md",
+        "requirements_md": "${output_dir}/document_with_diagrams.md"
+      },
+      "output": {
+        "markdown": "${output_dir}/orphans_report.md"
+      }
+    },
+    {
+      "id": "step_evaluate_smart",
+      "tool": "evaluate_smart",
+      "description": "Evaluar objetivos según SMART",
+      "params": {
+        "objectives_md": "${output_dir}/rubric.md"
+      },
+      "output": {
+        "markdown": "${output_dir}/smart_report.md"
+      }
+    },
+    {
+      "id": "step_classify_iso25010",
+      "tool": "classify_iso25010",
+      "description": "Clasificar requisitos no funcionales según ISO 25010",
+      "params": {
+        "requirements_md": "${output_dir}/document_with_diagrams.md"
+      },
+      "output": {
+        "markdown": "${output_dir}/iso_report.md"
+      }
+    },
+    {
+      "id": "step_criterion_evaluator",
+      "tool": "criterion_evaluator",
+      "description": "Evaluar criterios según rúbrica",
+      "params": {
+        "document": "${output_dir}/document_with_diagrams.md",
+        "config": "${input_rubric}",
+        "full": false
+      },
+      "output": {
+        "scores": "${output_dir}/scores.json"
+      }
+    },
+    {
+      "id": "step_grader",
+      "tool": "grader",
+      "description": "Calcular nota final ponderada",
+      "params": {
+        "scores": "${output_dir}/scores.json",
+        "config": "${input_rubric}"
+      },
+      "output": {
+        "weighted_final": "${output_dir}/final_grade.json"
+      }
+    },
+    {
+      "id": "step_report_generator",
+      "tool": "report_generator",
+      "description": "Generar informe de evaluación final",
+      "params": {
+        "document": "${input_docx}",
+        "eval_dir": "${output_dir}",
+        "config": "${input_rubric}",
+        "scores": "${output_dir}/scores.json"
+      },
+      "output": {
+        "report_path": "${output_dir}/final_report.pdf"
+      }
+    }
+  ]
+}

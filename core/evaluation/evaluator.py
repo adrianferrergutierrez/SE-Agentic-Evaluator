@@ -43,7 +43,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-from core.clients.dashscope_client import DashScopeClient
+from core.clients.base import BaseLLMClient
+from core.clients import get_client
 from core.config.config_manager import ConfigManager
 from core.grading.grader import GradingResult, RubricGrader
 
@@ -103,7 +104,7 @@ def find_images_in_document(document: str, doc_path: Path) -> List[Path]:
 
 
 def generate_final_report(
-    client: DashScopeClient,
+    client: BaseLLMClient,
     model: str,
     document: str,
     evaluations: Dict[str, str],
@@ -194,8 +195,12 @@ def run_report_generation(
         cfg = manager.load()
         provider_cfg = cfg.provider
 
-    client = DashScopeClient(region=provider_cfg.region if provider_cfg else "singapore")
-    model = os.environ.get("DASHSCOPE_MODEL") or (provider_cfg.text_model if provider_cfg else "qwen3.6-plus")
+    client = get_client()
+    
+    if os.environ.get("LLM_PROVIDER", "dashscope").lower() == "ollama":
+        model = os.environ.get("OLLAMA_MODEL", "llama3.1")
+    else:
+        model = os.environ.get("DASHSCOPE_MODEL") or (provider_cfg.text_model if provider_cfg else "qwen3.6-plus")
 
     output_path = Path(output_dir)
     output_path.mkdir(parents=True, exist_ok=True)

@@ -30,7 +30,20 @@ class OllamaClient(BaseLLMClient):
         final_messages = []
         if system:
             final_messages.append({"role": "system", "content": system})
-        final_messages.extend(messages)
+        import copy
+        for msg in messages:
+            msg_copy = copy.deepcopy(msg)
+            # Ollama requires tool call arguments to be dicts, not strings like OpenAI
+            if msg_copy.get("role") == "assistant" and "tool_calls" in msg_copy:
+                for tc in msg_copy["tool_calls"]:
+                    func = tc.get("function", {})
+                    args = func.get("arguments", {})
+                    if isinstance(args, str):
+                        try:
+                            func["arguments"] = json.loads(args)
+                        except json.JSONDecodeError:
+                            pass
+            final_messages.append(msg_copy)
 
         payload: Dict[str, Any] = {
             "model": model,
@@ -47,7 +60,7 @@ class OllamaClient(BaseLLMClient):
             payload["tools"] = tools
 
         url = f"{self.base_url}/api/chat"
-        response = requests.post(url, json=payload, timeout=120)
+        response = requests.post(url, json=payload, timeout=1800)
         response.raise_for_status()
         data = response.json()
 
@@ -75,6 +88,27 @@ class OllamaClient(BaseLLMClient):
                     name=func.get("name", ""),
                     arguments=args
                 ))
+
+        # --- FALLBACK FOR LOCAL MODELS ---
+        # If no native tool_calls were returned, check if the model hallucinated a JSON block in the text
+        if not tool_calls and "```json" in content:
+            import re
+            match = re.search(r"```json\s*(\{.*?\})\s*```", content, re.DOTALL)
+            if match:
+                try:
+                    parsed = json.loads(match.group(1))
+                    if "name" in parsed and "arguments" in parsed:
+                        logger.warning("Applying fallback JSON parser for hallucinated tool call.")
+                        tool_calls.append(ToolCall(
+                            id=str(uuid.uuid4()),
+                            name=parsed["name"],
+                            arguments=parsed["arguments"]
+                        ))
+                        # Optional: Remove the JSON block from content so the user doesn't see raw JSON
+                        content = content.replace(match.group(0), "").strip()
+                except json.JSONDecodeError:
+                    pass
+        # ---------------------------------
 
         logger.info(
             "Ollama '%s': %d eval tokens, %d tool_calls",
@@ -143,7 +177,7 @@ class OllamaClient(BaseLLMClient):
             payload["options"] = kwargs
             
         url = f"{self.base_url}/api/chat"
-        response = requests.post(url, json=payload, timeout=120)
+        response = requests.post(url, json=payload, timeout=1800)
         response.raise_for_status()
         data = response.json()
         

@@ -1,0 +1,28 @@
+description: Rúbrica importada desde Markdown (3 criterios)
+id: biblioteca
+options:
+  detailed_scoring: false
+  multimodal: true
+  skip_existing: false
+provider:
+  text_model: qwen2.5-coder
+  type: ollama
+  vision_model: llava
+rubric:
+  criteria:
+  - description: Evaluación de Objectius SMART según rúbrica importada.
+    id: objectius_smart
+    name: Objectius SMART
+    prompt: biblioteca/biblioteca_objectius_smart.md
+    weight: 0.3
+  - description: Evaluación de Requisits Informació según rúbrica importada.
+    id: requisits_informacio
+    name: Requisits Informació
+    prompt: biblioteca/biblioteca_requisits_informacio.md
+    weight: 0.3
+  - description: Evaluación de Casos d'Ús según rúbrica importada.
+    id: casos_dus
+    name: Casos d'Ús
+    prompt: biblioteca/biblioteca_casos_dus.md
+    weight: 0.4
+version: '1.0'

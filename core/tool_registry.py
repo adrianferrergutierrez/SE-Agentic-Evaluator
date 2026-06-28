@@ -238,9 +238,9 @@ class ExtractObjectivesTool(Tool):
 
     def execute(self, **kwargs: Any) -> Dict[str, Any]:
         from core.extraction.objectives import extract_objectives
-        from core.clients.dashscope_client import DashScopeClient
+        from core.clients import get_client
         doc = Path(kwargs["document"]).read_text(encoding="utf-8")
-        result = extract_objectives(doc, client=DashScopeClient())
+        result = extract_objectives(doc, client=get_client())
         return {"result": {"markdown": result}}
 
 
@@ -258,9 +258,9 @@ class ExtractRequirementsTool(Tool):
 
     def execute(self, **kwargs: Any) -> Dict[str, Any]:
         from core.extraction.requirements import extract_requirements
-        from core.clients.dashscope_client import DashScopeClient
+        from core.clients import get_client
         doc = Path(kwargs["document"]).read_text(encoding="utf-8")
-        result = extract_requirements(doc, client=DashScopeClient())
+        result = extract_requirements(doc, client=get_client())
         return {"result": {"markdown": result}}
 
 
@@ -278,9 +278,9 @@ class ExtractUseCasesTool(Tool):
 
     def execute(self, **kwargs: Any) -> Dict[str, Any]:
         from core.extraction.use_cases import extract_use_cases
-        from core.clients.dashscope_client import DashScopeClient
+        from core.clients import get_client
         doc = Path(kwargs["document"]).read_text(encoding="utf-8")
-        result = extract_use_cases(doc, client=DashScopeClient())
+        result = extract_use_cases(doc, client=get_client())
         return {"result": {"markdown": result}}
 
 

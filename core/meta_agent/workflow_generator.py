@@ -41,7 +41,7 @@ REPO_ROOT = Path(__file__).parent.parent.parent
 SCHEMA_PATH = REPO_ROOT / "schemas" / "workflow_schema.json"
 PROMPT_PATH = REPO_ROOT / "prompts" / "workflow_generator" / "workflow_generation.md"
 
-DEFAULT_MODEL = os.environ.get("DASHSCOPE_MODEL", "qwen3.6-plus")
+DEFAULT_MODEL = os.environ.get("OLLAMA_MODEL", "llama3.1")
 MAX_RETRIES = 3
 
 
@@ -138,7 +138,14 @@ def generate_workflow(
         If workflow generation fails after all retries.
     """
     if client is None:
-        client = DashScopeClient()
+        provider = os.environ.get("LLM_PROVIDER", "dashscope").lower()
+        if provider == "ollama":
+            from core.clients.ollama_client import OllamaClient
+            client = OllamaClient()
+            if model == DEFAULT_MODEL:
+                model = os.environ.get("OLLAMA_MODEL", "llama3.1")
+        else:
+            client = DashScopeClient()
 
     schema = _load_json(SCHEMA_PATH)
     catalog_text = format_catalog_for_prompt()
