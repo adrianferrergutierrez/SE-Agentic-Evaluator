@@ -112,7 +112,14 @@ def find_images_in_document(document: str, doc_path: Path) -> List[Path]:
 # Criterion evaluation
 # ---------------------------------------------------------------------------
 
-BATCH_SIZE = int(os.environ.get("EVAL_BATCH_SIZE", "5"))
+def get_batch_size() -> int:
+    env_val = os.environ.get("EVAL_BATCH_SIZE")
+    if env_val:
+        return int(env_val)
+    provider = os.environ.get("LLM_PROVIDER", "dashscope").lower()
+    return 1 if provider == "ollama" else 5
+
+BATCH_SIZE = get_batch_size()
 
 
 def _evaluate_single(
