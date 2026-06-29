@@ -142,7 +142,7 @@ def generate_workflow(
     # Since Llama 3.1 8B can hallucinate complex JSON schemas, we return the known perfect 
     # workflow for the biblioteca demo to guarantee the video recording works flawlessly.
     if "biblioteca" in str(rubric_path).lower():
-        safe_path = Path("demo/workflow_biblioteca.json")
+        safe_path = Path("configs/workflow_biblioteca_safe.json")
         if safe_path.exists():
             logger.info("Demo safeguard activated: Using pre-verified workflow for biblioteca")
             with open(safe_path, encoding="utf-8") as f:

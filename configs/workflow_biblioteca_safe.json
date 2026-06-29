@@ -1,0 +1,169 @@
+{
+  "version": "1.0",
+  "name": "workflow_biblioteca",
+  "description": "Evaluación de la rúbrica biblioteca",
+  "metadata": {
+    "rubric_id": "biblioteca",
+    "created_at": "2026-06-27T20:22:55.869225",
+    "version": "1.0"
+  },
+  "variables": {
+    "input_docx": "${doc_path}",
+    "input_rubric": "${rubric_path}",
+    "output_dir": "${output_dir}"
+  },
+  "steps": [
+    {
+      "id": "step_extract_document",
+      "tool": "docx_extract",
+      "description": "Extraer el contenido del documento en Markdown",
+      "params": {
+        "input": "${input_docx}",
+        "output_dir": "${output_dir}"
+      },
+      "output": {
+        "contents_md": "${output_dir}/contents.md"
+      }
+    },
+    {
+      "id": "step_describe_diagrams",
+      "tool": "describe_diagrams",
+      "description": "Describir los diagramas en el documento",
+      "params": {
+        "document_path": "${output_dir}/contents.md",
+        "model": "llava"
+      },
+      "output": {
+        "updated_md": "${output_dir}/contents.md"
+      }
+    },
+    {
+      "id": "step_extract_objectives",
+      "tool": "extract_objectives",
+      "description": "Extraer objetivos del documento",
+      "params": {
+        "document": "${output_dir}/contents.md"
+      },
+      "output": {
+        "markdown": "${output_dir}/objectives.md"
+      }
+    },
+    {
+      "id": "step_extract_requirements",
+      "tool": "extract_requirements",
+      "description": "Extraer requisitos del documento",
+      "params": {
+        "document": "${output_dir}/contents.md"
+      },
+      "output": {
+        "markdown": "${output_dir}/requirements.md"
+      }
+    },
+    {
+      "id": "step_extract_use_cases",
+      "tool": "extract_use_cases",
+      "description": "Extraer casos de uso del documento",
+      "params": {
+        "document": "${output_dir}/contents.md"
+      },
+      "output": {
+        "markdown": "${output_dir}/use_cases.md"
+      }
+    },
+    {
+      "id": "step_detect_orphans",
+      "tool": "detect_orphans",
+      "description": "Detectar huérfanos entre objetivos y requisitos",
+      "params": {
+        "objectives_md": "${output_dir}/objectives.md",
+        "requirements_md": "${output_dir}/requirements.md"
+      },
+      "output": {
+        "markdown": "${output_dir}/orphans_report.md"
+      }
+    },
+    {
+      "id": "step_evaluate_smart",
+      "tool": "evaluate_smart",
+      "description": "Evaluar objetivos según SMART",
+      "params": {
+        "objectives_md": "${output_dir}/objectives.md"
+      },
+      "output": {
+        "markdown": "${output_dir}/smart_report.md"
+      }
+    },
+    {
+      "id": "step_classify_iso",
+      "tool": "classify_iso25010",
+      "description": "Clasificar requisitos no funcionales",
+      "params": {
+        "requirements_md": "${output_dir}/requirements.md"
+      },
+      "output": {
+        "markdown": "${output_dir}/iso_report.md"
+      }
+    },
+    {
+      "id": "step_build_context",
+      "tool": "build_context",
+      "description": "Construir contexto de análisis",
+      "params": {
+        "objectives_md": "${output_dir}/objectives.md",
+        "requirements_md": "${output_dir}/requirements.md",
+        "use_cases_md": "${output_dir}/use_cases.md",
+        "orphans_report": "${output_dir}/orphans_report.md",
+        "smart_report": "${output_dir}/smart_report.md",
+        "iso_report": "${output_dir}/iso_report.md",
+        "output_path": "${output_dir}/analysis_context.md"
+      },
+      "output": {
+        "markdown": "${output_dir}/analysis_context.md"
+      }
+    },
+    {
+      "id": "step_criterion_evaluator",
+      "tool": "criterion_evaluator",
+      "description": "Evaluar criterios según rúbrica",
+      "params": {
+        "document": "${output_dir}/contents.md",
+        "config": "${input_rubric}",
+        "full": false,
+        "context": "${output_dir}/analysis_context.md",
+        "output_dir": "${output_dir}"
+      },
+      "output": {
+        "scores": "${output_dir}/scores.json"
+      }
+    },
+    {
+      "id": "step_grader",
+      "tool": "grader",
+      "description": "Calcular nota final ponderada",
+      "params": {
+        "scores": "${output_dir}/scores.json",
+        "config": "${input_rubric}"
+      },
+      "output": {
+        "weighted_final": "${output_dir}/final_grade.json",
+        "mean_xbar": "${output_dir}/mean.json",
+        "performance_level": "${output_dir}/level.json"
+      }
+    },
+    {
+      "id": "step_report_generator",
+      "tool": "report_generator",
+      "description": "Generar informe de evaluación final",
+      "params": {
+        "document": "${output_dir}/contents.md",
+        "eval_dir": "${output_dir}",
+        "config": "${input_rubric}",
+        "scores": "${output_dir}/scores.json",
+        "output": "${output_dir}/evaluacion_final.md"
+      },
+      "output": {
+        "report_path": "${output_dir}/evaluacion_final.md"
+      }
+    }
+  ]
+}
